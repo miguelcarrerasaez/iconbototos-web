@@ -1,53 +1,55 @@
-import mercadopago
-from flask import Flask, jsonify, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
+import mercadopago
 
 app = Flask(__name__)
-CORS(app) # Habilita que el HTML hable con el Python sin bloqueos
+# CORS permite que tu HTML (en Vercel o local) hable con este Python
+CORS(app) 
 
-# --- CONFIGURACIÓN DE MERCADO PAGO ---
-# ⚠️ IMPORTANTE: Borra el texto de abajo y pega tu ACCESS TOKEN real entre las comillas
-sdk = mercadopago.SDK("APP_USR-4820545223153906-011222-791a9448d88ef4af8a12026586bafbb0-3131448124")
+# ---------------------------------------------------------
+# CONFIGURACIÓN MERCADO PAGO
+# Reemplaza con tu ACCESS TOKEN (El que empieza con APP_USR-...)
+# ---------------------------------------------------------
+sdk = mercadopago.SDK("APP_USR-7ed5aea3-fb5c-413b-94a4-342cc1ce033c") 
 
-@app.route('/')
-def home():
-    return "Servidor de Pagos Iconbototos: ACTIVO Y LISTO PARA VENDER 🤖💰"
-
-@app.route('/crear_preferencia', methods=['POST'])
+@app.route("/crear_preferencia", methods=["POST"])
 def crear_preferencia():
-    # 1. Recibimos los datos del producto desde el HTML
-    datos = request.json
-    print("Recibiendo solicitud de compra:", datos)
-
-    # 2. Armamos el "carrito" virtual para Mercado Pago
-    preference_data = {
-        "items": [
-            {
-                "title": datos['titulo'],            # Ej: "Fanzine Iconbototos"
-                "quantity": 1,
-                "unit_price": float(datos['precio']) # Ej: 15000
-            }
-        ],
-        # Configuración de retorno (a dónde vuelve el usuario al terminar)
-        "back_urls": {
-            "success": "http://localhost:5500/index.html", # Puedes crear una pagina exito.html luego
-            "failure": "http://localhost:5500/index.html",
-            "pending": "http://localhost:5500/index.html"
-        },
-        "auto_return": "approved"
-    }
-
-    # 3. Contactamos a Mercado Pago para generar la orden
     try:
+        # 1. Recibimos los datos del JSON que envía el main.js
+        datos = request.json
+        titulo = datos.get("titulo")
+        precio = datos.get("precio")
+
+        # 2. Creamos la estructura de preferencia
+        preference_data = {
+            "items": [
+                {
+                    "title": titulo,
+                    "quantity": 1,
+                    "unit_price": float(precio),
+                    "currency_id": "CLP"
+                }
+            ],
+            # A dónde va el usuario después de pagar
+            "back_urls": {
+                "success": "https://iconbototos-web.vercel.app/",
+                "failure": "https://iconbototos-web.vercel.app/",
+                "pending": "https://iconbototos-web.vercel.app/"
+            },
+            "auto_return": "approved"
+        }
+
+        # 3. Pedimos a Mercado Pago que cree la preferencia
         preference_response = sdk.preference().create(preference_data)
         preference = preference_response["response"]
-        
-        # 4. Enviamos el ID de la compra al HTML para que abra la ventana
+
+        # 4. Devolvemos el ID al frontend
         return jsonify({"id": preference["id"]})
-    
+
     except Exception as e:
-        print("ERROR AL CREAR PREFERENCIA:", e)
+        print(f"Error en el servidor: {e}")
         return jsonify({"error": str(e)}), 500
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+    # debug=True para que veas los errores en la terminal
     app.run(debug=True, port=5000)
