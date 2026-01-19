@@ -28,22 +28,28 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem 3rem;
+    padding: 1.5rem 3rem;
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(247, 245, 232, 0.9); /* Semitransparente */
+    background: rgba(247, 245, 232, 0.95);
     backdrop-filter: blur(5px);
+    border-bottom: 2px solid var(--ink-black);
 }
 
-.logo {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 1.5rem;
-    letter-spacing: -1px;
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.punto { color: var(--riso-pink); }
+.logo-img {
+    height: auto;
+    mix-blend-mode: multiply; /* Efecto tinta */
+}
+
+.logo-img.main { height: 40px; }
+.logo-img.sub { height: 25px; }
 
 .menu {
     display: flex;
@@ -51,6 +57,7 @@ body {
     gap: 2rem;
     font-size: 0.9rem;
     text-transform: uppercase;
+    font-weight: 700;
 }
 
 .menu a {
@@ -67,7 +74,7 @@ body {
     height: 4px;
     bottom: -5px;
     left: 0;
-    background-color: var(--riso-cyan);
+    background-color: var(--riso-pink);
     transition: width 0.3s ease;
 }
 
@@ -76,57 +83,65 @@ body {
 /* --- HERO --- */
 .hero {
     padding: 0 3rem 4rem 3rem;
+    margin-top: 2rem;
 }
 
 .hero-image-container {
     position: relative;
     width: 100%;
-    height: 80vh;
+    height: 75vh;
     overflow: hidden;
-    border-radius: 2px;
+    border: 3px solid var(--ink-black);
+    background-color: var(--riso-yellow);
 }
 
 .hero-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Efecto para que la imagen se mezcle con el fondo */
     mix-blend-mode: multiply; 
-    filter: contrast(1.1) saturate(1.1);
+    filter: grayscale(100%) contrast(1.2);
+    opacity: 0.8;
 }
 
-.hero-overlay {
+.hero-overlay-images {
     position: absolute;
     bottom: 2rem;
     left: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-.hero-overlay h1 {
-    font-family: var(--font-display);
-    font-size: 6rem;
-    line-height: 0.9;
-    color: var(--riso-yellow);
-    text-shadow: 2px 2px 0px var(--ink-black);
-    text-transform: uppercase;
+.hero-text-img {
+    width: 80%;
+    max-width: 600px;
+    height: auto;
+    mix-blend-mode: multiply;
+    filter: drop-shadow(3px 3px 0px var(--riso-cyan));
 }
 
-.outline {
-    display: block;
-    -webkit-text-stroke: 2px var(--riso-yellow);
-    color: transparent;
-    text-shadow: none;
+.hero-sub-images {
+    display: flex;
+    gap: 1rem;
+}
+
+.hero-text-img-small {
+    height: 40px;
+    width: auto;
+    mix-blend-mode: multiply;
 }
 
 /* --- TIENDA GRID --- */
 .container { padding: 4rem 3rem; }
 
-.section-header { margin-bottom: 3rem; border-bottom: 2px solid var(--ink-black); padding-bottom: 1rem; }
-.section-header h2 { font-family: var(--font-display); font-size: 2.5rem; }
+.section-header { margin-bottom: 3rem; border-bottom: 3px solid var(--ink-black); padding-bottom: 1rem; }
+.section-header h2 { font-family: var(--font-display); font-size: 3rem; text-transform: uppercase; letter-spacing: -1px; }
 
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 3rem 2rem;
+    gap: 4rem 3rem;
 }
 
 .card-producto {
@@ -138,54 +153,67 @@ body {
 
 .img-wrapper {
     width: 100%;
-    aspect-ratio: 1 / 1.2; /* Formato vertical */
+    aspect-ratio: 1 / 1.2;
     overflow: hidden;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     background-color: #fff;
     position: relative;
+    border: 3px solid var(--ink-black);
+    box-shadow: 5px 5px 0px var(--ink-black);
+    transition: all 0.3s ease;
 }
 
 .img-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    mix-blend-mode: multiply; /* CLAVE: Efecto tinta sobre papel */
+    mix-blend-mode: multiply;
+    filter: grayscale(100%);
     transition: filter 0.3s ease;
 }
 
+.card-producto:hover .img-wrapper {
+    box-shadow: 8px 8px 0px var(--riso-pink);
+}
+
 .card-producto:hover .img-wrapper img {
-    filter: brightness(1.1);
+    filter: grayscale(0%) contrast(1.1);
 }
 
 .info h3 {
-    font-size: 1.1rem;
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 800;
     margin-bottom: 0.5rem;
+    text-transform: uppercase;
 }
 
 .precio {
-    font-size: 0.9rem;
-    color: #555;
+    font-size: 1.1rem;
+    color: var(--ink-black);
     margin-bottom: 1rem;
+    font-weight: 700;
 }
 
 .btn-comprar {
     width: 100%;
-    padding: 0.8rem;
-    background: transparent;
-    border: 2px solid var(--ink-black);
+    padding: 1rem;
+    background: var(--ink-black);
+    color: var(--bg-paper);
+    border: 3px solid var(--ink-black);
     font-family: var(--font-mono);
     font-weight: 700;
     text-transform: uppercase;
     cursor: pointer;
     transition: all 0.2s;
+    letter-spacing: 1px;
 }
 
 .btn-comprar:hover {
     background: var(--riso-pink);
-    color: white;
-    border-color: var(--riso-pink);
-    box-shadow: 4px 4px 0px var(--riso-cyan);
+    color: var(--ink-black);
+    border-color: var(--ink-black);
+    box-shadow: 5px 5px 0px var(--ink-black);
 }
 
 /* --- FERIA --- */
@@ -196,6 +224,8 @@ body {
     padding: 6rem 3rem;
     background-color: var(--riso-cyan);
     color: var(--ink-black);
+    border-top: 3px solid var(--ink-black);
+    border-bottom: 3px solid var(--ink-black);
 }
 
 .feria-text h2 {
@@ -203,6 +233,8 @@ body {
     font-size: 4rem;
     line-height: 1;
     margin-bottom: 2rem;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 0px white;
 }
 
 .feria-gallery {
@@ -212,8 +244,9 @@ body {
 
 .feria-img {
     position: absolute;
-    border: 2px solid var(--ink-black);
+    border: 3px solid var(--ink-black);
     mix-blend-mode: normal;
+    box-shadow: 8px 8px 0px var(--ink-black);
 }
 
 .feria-img.main {
@@ -228,23 +261,39 @@ body {
     bottom: 0;
     right: 0;
     z-index: 1;
-    filter: grayscale(100%);
+    filter: grayscale(100%) sepia(20%) hue-rotate(320deg); /* Tono rosado */
 }
 
 /* --- FOOTER --- */
 footer {
-    padding: 2rem 3rem;
-    border-top: 1px solid var(--ink-black);
+    padding: 4rem 3rem;
     display: flex;
     justify-content: center;
-    font-size: 0.8rem;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 700;
 }
+
+.footer-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.footer-img { height: 50px; mix-blend-mode: multiply; }
+.footer-img-small { height: 30px; mix-blend-mode: multiply; }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-    .navbar { padding: 1.5rem; }
-    .hero-overlay h1 { font-size: 3.5rem; }
+    .navbar { padding: 1rem 1.5rem; flex-direction: column; gap: 1rem; }
+    .logo-img.main { height: 30px; }
+    .hero { padding: 0 1.5rem; margin-top: 1rem; }
+    .hero-image-container { height: 60vh; }
+    .hero-text-img { width: 90%; }
+    .hero-sub-images { flex-wrap: wrap; }
     .feria-section { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
-    .hero { padding: 0 1rem; }
-    .container { padding: 2rem 1.5rem; }
+    .container { padding: 3rem 1.5rem; }
+    .product-grid { grid-template-columns: 1fr; gap: 3rem; }
 }
