@@ -10,7 +10,7 @@ CORS(app)
 # CONFIGURACIÓN MERCADO PAGO
 # Reemplaza con tu ACCESS TOKEN (El que empieza con APP_USR-...)
 # ---------------------------------------------------------
-sdk = mercadopago.SDK("APP_USR-7ed5aea3-fb5c-413b-94a4-342cc1ce033c") 
+sdk = mercadopago.SDK("APP_USR-4820545223153906-011222-791a9448d88ef4af8a12026586bafbb0-3131448124") 
 
 @app.route("/crear_preferencia", methods=["POST"])
 def crear_preferencia():

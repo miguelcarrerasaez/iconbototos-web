@@ -1,212 +1,250 @@
-/* --- ESTÉTICA RISOGRAFÍA / ICONBOTOTOS --- */
+/* VARIABLES: Paleta Riso */
 :root {
-    /* Paleta Riso Clásica extraída de tus descripciones */
-    --paper: #fcfbf8;        /* Color Papel Crema */
-    --ink-blue: #0044cc;     /* Azul profundo (Texto principal) */
-    --ink-red: #ff3355;      /* Rojo Brillante / Fluorescente (Acentos) */
-    --ink-black: #1a1a1a;    /* Negro con un toque de calidez */
-    
-    --border-ink: 2px solid var(--ink-blue);
+    --bg-paper: #F7F5E8; /* Color papel hueso/crema */
+    --ink-black: #1a1a1a;
+    --riso-pink: #FF00C1; /* Magenta Neón */
+    --riso-cyan: #00E5FF;
+    --riso-yellow: #FFE600;
+    --font-display: 'Syne', sans-serif;
+    --font-mono: 'Space Mono', monospace;
 }
 
-/* Agregamos una textura de ruido a todo el sitio */
-body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 999;
-    opacity: 0.6;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background-color: var(--paper);
-    color: var(--ink-blue); /* El texto es azul tinta, no negro */
-    font-family: 'Space Mono', monospace; /* Mantenemos el toque fanzine */
-    overflow-x: hidden;
-    line-height: 1.4;
+    background-color: var(--bg-paper);
+    color: var(--ink-black);
+    font-family: var(--font-mono);
+    /* Textura de grano sutil para toda la web */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
-/* Títulos con "Falso Registro" (Efecto de impresión movida) */
-h1, h2, h3 {
-    font-family: 'Oswald', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: -1px;
-}
-
-/* NAVEGACIÓN */
-nav {
-    padding: 1.5rem 2rem;
+/* --- NAV --- */
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: var(--border-ink);
-    background: var(--paper);
+    padding: 2rem 3rem;
     position: sticky;
     top: 0;
     z-index: 100;
+    background: rgba(247, 245, 232, 0.9); /* Semitransparente */
+    backdrop-filter: blur(5px);
 }
 
-.logo { 
-    font-size: 1.5rem; 
-    font-weight: 900;
-    color: var(--ink-red);
-    /* Efecto de tinta corrida */
-    text-shadow: -2px 2px 0px rgba(0, 68, 204, 0.3); 
+.logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: -1px;
 }
 
-.menu a { 
-    text-decoration: none; 
-    color: var(--ink-blue); 
-    font-weight: bold; 
-    margin-left: 20px;
-    transition: color 0.3s;
-}
-.menu a:hover { color: var(--ink-red); text-decoration: line-through; }
+.punto { color: var(--riso-pink); }
 
-/* HERO SECTION */
-.hero {
-    min-height: 80vh;
+.menu {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    border-bottom: var(--border-ink);
-    padding: 2rem;
+    list-style: none;
+    gap: 2rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.menu a {
+    text-decoration: none;
+    color: var(--ink-black);
     position: relative;
 }
 
-.hero-content h1 { 
-    font-size: clamp(3rem, 8vw, 6rem);
-    line-height: 0.9;
-    color: var(--ink-blue);
-    position: relative;
-    /* Mezcla el texto con el fondo como tinta real */
-    mix-blend-mode: multiply; 
-}
-
-/* Círculo rojo decorativo detrás del texto (Efecto Risografía) */
-.hero-content::after {
+/* Efecto Hover Subrayado Riso */
+.menu a::after {
     content: '';
     position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px; height: 300px;
-    background-color: var(--ink-red);
-    border-radius: 50%;
-    z-index: -1;
-    opacity: 0.6; /* Transparencia para que se mezclen los colores */
-    filter: blur(40px);
+    width: 0;
+    height: 4px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--riso-cyan);
+    transition: width 0.3s ease;
 }
 
-.hero-content p {
-    font-family: 'EB Garamond', serif;
-    font-style: italic;
-    font-size: 1.5rem;
-    margin-top: 1rem;
-    color: var(--ink-black);
+.menu a:hover::after { width: 100%; }
+
+/* --- HERO --- */
+.hero {
+    padding: 0 3rem 4rem 3rem;
 }
 
-/* OBRAS / FANZINES */
-.galeria { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
-
-.obra-item {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0; /* Sin espacio, los bordes se tocan */
-    margin-bottom: 6rem;
-    border: var(--border-ink);
-    background: white;
-    box-shadow: 8px 8px 0px var(--ink-red); /* Sombra dura roja */
-}
-
-.obra-texto { 
-    padding: 3rem; 
-    border-right: var(--border-ink);
-    display: flex; flex-direction: column; justify-content: center;
-}
-
-.obra-texto h2 { font-size: 3rem; color: var(--ink-red); margin-bottom: 1rem; }
-.obra-texto p { font-size: 1.1rem; color: var(--ink-black); }
-
-/* TRUCO VISUAL: Las imágenes se comportan como tinta sobre papel */
-.obra-visual { 
+.hero-image-container {
     position: relative;
+    width: 100%;
+    height: 80vh;
     overflow: hidden;
-    background-color: var(--ink-blue); /* Fondo azul si la imagen falla */
+    border-radius: 2px;
 }
 
-/* Cuando pongas <img> reales, dales la clase .riso-img */
-.riso-img {
-    width: 100%; height: 100%; object-fit: cover;
-    /* ESTO ES MAGIA: */
-    filter: grayscale(100%) contrast(120%); /* Convierte foto a BN contrastado */
-    mix-blend-mode: multiply; /* Se "imprime" sobre el fondo */
-    opacity: 0.8;
-}
-/* Al pasar el mouse, revelamos el color real (opcional) */
-.obra-item:hover .riso-img { filter: none; opacity: 1; mix-blend-mode: normal; }
-
-.placeholder-img {
-    width: 100%; height: 100%;
-    background: repeating-linear-gradient(
-        45deg,
-        var(--paper),
-        var(--paper) 10px,
-        #e0e0e0 10px,
-        #e0e0e0 12px
-    );
-    display: flex; align-items: center; justify-content: center;
-    color: var(--ink-blue);
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Efecto para que la imagen se mezcle con el fondo */
+    mix-blend-mode: multiply; 
+    filter: contrast(1.1) saturate(1.1);
 }
 
-/* TIENDA */
-.tienda { padding: 4rem 2rem; border-top: var(--border-ink); background: #ffeef2; /* Papel rosado suave */ }
-.tienda h2 { text-align: center; color: var(--ink-blue); margin-bottom: 3rem; font-size: 3rem; }
+.hero-overlay {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+}
 
-.productos-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem; max-width: 1200px; margin: 0 auto;
+.hero-overlay h1 {
+    font-family: var(--font-display);
+    font-size: 6rem;
+    line-height: 0.9;
+    color: var(--riso-yellow);
+    text-shadow: 2px 2px 0px var(--ink-black);
+    text-transform: uppercase;
+}
+
+.outline {
+    display: block;
+    -webkit-text-stroke: 2px var(--riso-yellow);
+    color: transparent;
+    text-shadow: none;
+}
+
+/* --- TIENDA GRID --- */
+.container { padding: 4rem 3rem; }
+
+.section-header { margin-bottom: 3rem; border-bottom: 2px solid var(--ink-black); padding-bottom: 1rem; }
+.section-header h2 { font-family: var(--font-display); font-size: 2.5rem; }
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 3rem 2rem;
 }
 
 .card-producto {
-    background: var(--paper);
-    border: 2px solid var(--ink-blue);
-    padding: 1rem;
-    text-align: left;
-    transition: transform 0.2s;
-}
-.card-producto:hover { transform: translate(-4px, -4px); box-shadow: 4px 4px 0px var(--ink-blue); }
-
-.img-prod { 
-    height: 300px; background: #ddd; margin-bottom: 1rem; 
-    border-bottom: 2px solid var(--ink-blue);
-    /* Aquí iría la foto del producto */
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
-.precio { 
-    font-size: 1.5rem; font-family: 'Oswald'; color: var(--ink-red); 
-    display: block; margin: 10px 0;
+.card-producto:hover { transform: translateY(-5px); }
+
+.img-wrapper {
+    width: 100%;
+    aspect-ratio: 1 / 1.2; /* Formato vertical */
+    overflow: hidden;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    position: relative;
+}
+
+.img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: multiply; /* CLAVE: Efecto tinta sobre papel */
+    transition: filter 0.3s ease;
+}
+
+.card-producto:hover .img-wrapper img {
+    filter: brightness(1.1);
+}
+
+.info h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.precio {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 1rem;
 }
 
 .btn-comprar {
-    display: block; width: 100%; padding: 10px;
-    background: var(--ink-blue); color: white;
-    text-align: center; text-transform: uppercase; text-decoration: none; font-weight: bold;
-    border: none;
+    width: 100%;
+    padding: 0.8rem;
+    background: transparent;
+    border: 2px solid var(--ink-black);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
 }
-.btn-comprar:hover { background: var(--ink-red); }
 
-/* Responsive móvil */
+.btn-comprar:hover {
+    background: var(--riso-pink);
+    color: white;
+    border-color: var(--riso-pink);
+    box-shadow: 4px 4px 0px var(--riso-cyan);
+}
+
+/* --- FERIA --- */
+.feria-section {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    padding: 6rem 3rem;
+    background-color: var(--riso-cyan);
+    color: var(--ink-black);
+}
+
+.feria-text h2 {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    line-height: 1;
+    margin-bottom: 2rem;
+}
+
+.feria-gallery {
+    position: relative;
+    height: 500px;
+}
+
+.feria-img {
+    position: absolute;
+    border: 2px solid var(--ink-black);
+    mix-blend-mode: normal;
+}
+
+.feria-img.main {
+    width: 70%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.feria-img.secondary {
+    width: 60%;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    filter: grayscale(100%);
+}
+
+/* --- FOOTER --- */
+footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--ink-black);
+    display: flex;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
-    .obra-item { grid-template-columns: 1fr; }
-    .obra-texto { border-right: none; border-bottom: var(--border-ink); }
-    .hero-content h1 { font-size: 3.5rem; }
+    .navbar { padding: 1.5rem; }
+    .hero-overlay h1 { font-size: 3.5rem; }
+    .feria-section { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
+    .hero { padding: 0 1rem; }
+    .container { padding: 2rem 1.5rem; }
 }
-
-/* Animaciones */
-.hidden { opacity: 0; transform: translateY(30px); transition: 0.8s ease; }
-.show { opacity: 1; transform: translateY(0); }

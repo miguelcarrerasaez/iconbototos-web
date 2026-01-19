@@ -3,74 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iconbototos</title>
+    <title>ICONBOTOTOS | Arte Impreso</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&family=Oswald:wght@500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <ul class="menu">
-        <li><a href="#obras">Obras</a></li>
-        <li><a href="#tienda">Tienda</a></li>
-        <li><a href="https://www.instagram.com/i_conbototos/?hl=es" target="_blank">IG @i_conbototos</a></li>
-    </ul>
+    <nav class="navbar">
+        <div class="logo">ICONBOTOTOS<span class="punto">.</span></div>
+        <ul class="menu">
+            <li><a href="#tienda">Tienda</a></li>
+            <li><a href="#feria">La Feria</a></li>
+            <li><a href="https://instagram.com/i_conbototos" target="_blank">Instagram</a></li>
+            <li class="cart-icon">🛒 (0)</li>
+        </ul>
+    </nav>
 
     <header class="hero">
-        <div class="hero-content hidden">
-            <h1 class="titulo-animado">Donde la <span>palabra</span> <br>toca la imagen.</h1>
-            <p>Diseño Gráfico + Narrativa Contemporánea</p>
+        <div class="hero-image-container">
+            <img src="img/hero-fanzine.jpg" alt="Fanzine Iconbototos Vol 1" class="hero-img">
+            <div class="hero-overlay">
+                <h1>NARRATIVA<br>VISUAL<span class="outline">2026</span></h1>
+            </div>
         </div>
     </header>
 
-    <section id="obras" class="galeria">
-        <div class="obra-item hidden">
-            <div class="obra-texto">
-                <h2>El Susurro</h2>
-                <p>"La ciudad no duerme, solo parpadea en neón..."</p>
-                <span class="autor">- Texto: Mauro</span>
-            </div>
-            <div class="obra-visual">
-                <img src="tu-foto.jpg" class="riso-img" alt="Arte riso">
-            </div>
+    <section id="tienda" class="container">
+        <div class="section-header">
+            <h2>IMPRESIONES DISPONIBLES</h2>
+            <p>Riso, Láser & Errores Felices</p>
         </div>
 
-        <div class="obra-item invertido hidden">
-            <div class="obra-texto">
+        <div class="product-grid">
+            
+            <div class="card-producto">
+                <div class="img-wrapper">
+                    <img src="img/lamina-tendedero.jpg" alt="Tendedero">
                 </div>
-            <div class="obra-visual">
-                <img src="otra-foto.jpg" class="riso-img" alt="Arte riso 2">
+                <div class="info">
+                    <h3>Lámina "Tendedero"</h3>
+                    <p class="precio">$15.000 CLP</p>
+                    <button class="btn-comprar">Comprar</button>
+                </div>
             </div>
+
+            <div class="card-producto">
+                <div class="img-wrapper">
+                    <img src="img/lamina-sombra.jpg" alt="Reparto de una sombra">
+                </div>
+                <div class="info">
+                    <h3>Cruce Urbano (B&N)</h3>
+                    <p class="precio">$12.000 CLP</p>
+                    <button class="btn-comprar">Comprar</button>
+                </div>
+            </div>
+
+            <div class="card-producto">
+                <div class="img-wrapper">
+                    <img src="img/hero-fanzine.jpg" alt="Fanzine Vol 1" style="object-position: center;">
+                </div>
+                <div class="info">
+                    <h3>Fanzine Vol. 1 (Pack)</h3>
+                    <p class="precio">$8.000 CLP</p>
+                    <button class="btn-comprar">Comprar</button>
+                </div>
+            </div>
+
+            <div class="card-producto">
+                <div class="img-wrapper">
+                    <img src="img/lamina-azul.jpg" alt="Estudio Azul">
+                </div>
+                <div class="info">
+                    <h3>Estudio de Nubes Azules</h3>
+                    <p class="precio">$10.000 CLP</p>
+                    <button class="btn-comprar">Comprar</button>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <section id="tienda" class="tienda">
-        <h2 class="section-title hidden">Adquiere Arte</h2>
-        <div class="productos-grid">
-            
-            <div class="card-producto hidden">
-                <div class="img-prod"></div>
-                <h3>Lámina "Susurro"</h3>
-                <p class="precio">$15.000 CLP</p>
-                <a href="#" class="btn-comprar">Comprar</a>
-            </div>
-
-            <div class="card-producto hidden">
-                <div class="img-prod"></div>
-                <h3>Fanzine Vol. 1</h3>
-                <p class="precio">$8.000 CLP</p>
-                <a href="#" class="btn-comprar">Comprar</a>
-            </div>
-
+    <section id="feria" class="feria-section">
+        <div class="feria-text">
+            <h2>EN LA CALLE</h2>
+            <p>Nuestro estudio móvil recorre Santiago. Encuéntranos en ferias de gráfica independiente, compartiendo espacio con otros creadores, ruido y tinta.</p>
+        </div>
+        <div class="feria-gallery">
+            <img src="img/feria-1.jpg" alt="Stand en feria" class="feria-img main">
+            <img src="img/feria-2.jpg" alt="Detalle feria" class="feria-img secondary">
         </div>
     </section>
 
     <footer>
-        <p>© 2026 Colectivo de Arte. Santiago, Chile.</p>
+        <div class="footer-content">
+            <p>© 2026 Iconbototos. Santiago, Chile.</p>
+            <p>Diseño web x Riso</p>
+        </div>
     </footer>
 
     <script src="https://sdk.mercadopago.com/js/v2"></script>
-    
     <script src="main.js"></script>
-
 </body>
 </html>
