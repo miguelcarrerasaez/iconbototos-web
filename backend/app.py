@@ -1,16 +1,24 @@
+import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import mercadopago
+from dotenv import load_dotenv # <--- Importar esto
+
+# 1. Cargar las variables del archivo .env
+load_dotenv()
 
 app = Flask(__name__)
-# CORS permite que tu HTML (en Vercel o local) hable con este Python
-CORS(app) 
+CORS(app)
 
-# ---------------------------------------------------------
-# CONFIGURACIÓN MERCADO PAGO
-# Reemplaza con tu ACCESS TOKEN (El que empieza con APP_USR-...)
-# ---------------------------------------------------------
-sdk = mercadopago.SDK("APP_USR-4820545223153906-011222-791a9448d88ef4af8a12026586bafbb0-3131448124") 
+# 2. Obtener el token de forma segura
+access_token = os.getenv("MP_ACCESS_TOKEN")
+
+# Verificación de seguridad (Opcional, para que no arranque si falta la clave)
+if not access_token:
+    raise ValueError("¡ERROR CRÍTICO! No se encontró el MP_ACCESS_TOKEN en las variables de entorno.")
+
+# 3. Inicializar el SDK con la variable
+sdk = mercadopago.SDK(access_token)
 
 @app.route("/crear_preferencia", methods=["POST"])
 def crear_preferencia():
