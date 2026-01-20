@@ -92,7 +92,7 @@ body {
     height: 75vh;
     overflow: hidden;
     border: 0px solid var(--ink-black); 
-    background-color: var(--riso-yellow); 
+    /*background-color: var(--riso-yellow); */
 }
 
 .hero-img {
