@@ -100,7 +100,7 @@ body {
     height: 100%;
     object-fit: cover;
     mix-blend-mode: multiply; 
-    filter: grayscale(100%) contrast(1.2);
+    filter: grayscale(0%) contrast(1.2);
     opacity: 0.8;
 }
 
