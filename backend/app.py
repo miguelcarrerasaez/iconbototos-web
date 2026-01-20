@@ -16,6 +16,10 @@ access_token = os.getenv("MP_ACCESS_TOKEN")
 # Verificación de seguridad (Opcional, para que no arranque si falta la clave)
 if not access_token:
     raise ValueError("¡ERROR CRÍTICO! No se encontró el MP_ACCESS_TOKEN en las variables de entorno.")
+else:
+    # AGREGA ESTO PARA VER EL MENSAJE:
+    print(f"✅ Token cargado correctamente: {access_token[:10]}...") 
+    # (El print muestra los primeros 10 caracteres para que veas que cargó el correcto, sin mostrarlo todo)
 
 # 3. Inicializar el SDK con la variable
 sdk = mercadopago.SDK(access_token)
