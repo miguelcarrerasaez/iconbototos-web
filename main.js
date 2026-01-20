@@ -1,13 +1,19 @@
 // ==========================================
-// 1. CONFIGURACIÓN
+// 1. CONFIGURACIÓN (Conexión Automática)
 // ==========================================
+
+// Detecta si estás en tu casa (Localhost) o en Internet
+const BACKEND_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
+    ? "http://127.0.0.1:5000" // Si estás en tu PC, usa Python local
+    : "https://iconbototos-web.onrender.com"; // <--- ¡AQUÍ VA TU URL NUEVA!
+
+// Ejemplo: "https://iconbototos-api.onrender.com"
+// (Sin la barra / al final)
+
 // Pega aquí TU PUBLIC KEY de Mercado Pago
 const mp = new MercadoPago('APP_USR-7ed5aea3-fb5c-413b-94a4-342cc1ce033c', {
     locale: 'es-CL'
 });
-
-// URL del Backend (Cambia esto cuando subas a Render)
-const BACKEND_URL = "http://127.0.0.1:5000";
 
 // ==========================================
 // 2. LÓGICA DE COMPRA
