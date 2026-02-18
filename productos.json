@@ -1,0 +1,31 @@
+[
+  {
+    "id": 1,
+    "titulo": "Lámina \"Tendedero\"",
+    "precio": 15000,
+    "imagen": "img/lamina-tendedero.jpg",
+    "botonTexto": "Comprar"
+  },
+  {
+    "id": 2,
+    "titulo": "Cruce Urbano (B&N)",
+    "precio": 12000,
+    "imagen": "img/lamina-sombra.jpg",
+    "botonTexto": "Comprar"
+  },
+  {
+    "id": 3,
+    "titulo": "Fanzine Vol. 1 (Pack de Prueba)",
+    "precio": 500,
+    "imagen": "img/hero-fanzine.jpg",
+    "botonTexto": "Prueba Gratis",
+    "estiloImagen": "object-position: center;"
+  },
+  {
+    "id": 4,
+    "titulo": "Estudio de Nubes Azules",
+    "precio": 10000,
+    "imagen": "img/lamina-azul.jpg",
+    "botonTexto": "Comprar"
+  }
+]

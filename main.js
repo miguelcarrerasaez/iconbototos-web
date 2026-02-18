@@ -74,4 +74,52 @@ botonesCompra.forEach(boton => {
             this.style.cursor = "pointer";
         }
     });
+
+    // ==========================================
+// CATÁLOGO DINÁMICO
+// ==========================================
+
+async function cargarProductos() {
+    try {
+        // 1. Llamamos a tu archivo JSON
+        const respuesta = await fetch('productos.json');
+        const productos = await respuesta.json();
+
+        // 2. Buscamos el contenedor vacío en tu HTML
+        const contenedor = document.getElementById('contenedor-productos');
+        contenedor.innerHTML = ''; // Lo limpiamos por precaución
+
+        // 3. Fabricamos cada tarjeta usando tu diseño exacto
+        productos.forEach(producto => {
+            
+            // Revisa si la imagen necesita un estilo especial (como tu fanzine)
+            const estiloExtra = producto.estiloImagen ? `style="${producto.estiloImagen}"` : '';
+
+            // Construimos el HTML de la tarjeta
+            const tarjetaHTML = `
+                <div class="card-producto">
+                    <div class="img-wrapper">
+                        <img src="${producto.imagen}" alt="${producto.titulo}" ${estiloExtra}>
+                    </div>
+                    <div class="info">
+                        <h3>${producto.titulo}</h3>
+                        <p class="precio">$${producto.precio.toLocaleString('es-CL')} CLP</p>
+                        <button class="btn-comprar" onclick="comprarProducto('${producto.titulo}', ${producto.precio})">
+                            ${producto.botonTexto}
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Metemos la tarjeta en el contenedor
+            contenedor.innerHTML += tarjetaHTML;
+        });
+
+    } catch (error) {
+        console.error("Error al cargar los productos:", error);
+    }
+}
+
+// Esto hace que la función se ejecute apenas se abre la página
+document.addEventListener('DOMContentLoaded', cargarProductos);
 });
