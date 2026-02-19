@@ -1,9 +1,9 @@
 [
   {
     "id": 1,
-    "titulo": "Lámina Tendedero",
+    "titulo": "FERIA PRUEBA Lámina Tendedero",
     "precio": 15000,
-    "imagen": "img/lamina-tendedero.jpg",
+    "imagen": "img/feria-1.jpg",
     "botonTexto": "Comprar"
   },
   {
