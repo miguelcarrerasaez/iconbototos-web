@@ -30,7 +30,7 @@
             <li><a href="#tienda">Tienda</a></li>
             <li><a href="#feria">La Feria</a></li>
             <li><a href="https://instagram.com/i_conbototos" target="_blank">Instagram</a></li>
-            <li class="cart-icon">🛒 (<span id="contador-carrito">0</span>)</li>
+            <li class="cart-icon" onclick="abrirCarrito()" style="cursor: pointer;">🛒 (<span id="contador-carrito">0</span>)</li>
         </ul>
     </nav>
 
@@ -70,7 +70,28 @@
             <p>Diseño web x Riso</p>
         </div>
     </footer>
-
+<div id="modal-carrito" style="display: none; position: fixed; top: 0; right: 0; width: 320px; height: 100%; background: #F7F5E8; border-left: 2px solid #000; padding: 20px; z-index: 1000; overflow-y: auto; box-shadow: -5px 0 15px rgba(0,0,0,0.1);">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px;">
+            <h2 style="font-family: 'Syne', sans-serif; margin: 0;">TU CARRITO</h2>
+            <button onclick="cerrarCarrito()" style="background: transparent; border: none; font-size: 20px; cursor: pointer; font-weight: bold;">X</button>
+        </div>
+        
+        <div id="lista-carrito" style="font-family: 'Space Mono', monospace; min-height: 200px;">
+        </div>
+        
+        <div style="margin-top: 20px; border-top: 2px solid #000; padding-top: 15px; font-family: 'Space Mono', monospace;">
+            <h3 style="margin: 0 0 15px 0; font-family: 'Syne', sans-serif;">Total: $<span id="total-carrito">0</span> CLP</h3>
+            
+            <button id="btn-pagar" onclick="pagarCarrito()" class="btn-comprar" style="width: 100%; margin-bottom: 10px; font-size: 16px;">
+                Ir a Pagar
+            </button>
+            
+            <button onclick="vaciarCarrito()" style="width: 100%; background: transparent; border: 1px dashed #000; padding: 10px; cursor: pointer; font-family: 'Space Mono', monospace;">
+                Vaciar Carrito
+            </button>
+        </div>
+    </div>
     <script src="https://sdk.mercadopago.com/js/v2"></script>
     <script src="main.js"></script>
 </body>
