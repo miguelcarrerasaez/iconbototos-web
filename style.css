@@ -1,13 +1,7 @@
-/* VARIABLES: Paleta Riso */
-:root {
-    --bg-paper: #F7F5E8; /* Color papel hueso/crema */
-    --ink-black: #1a1a1a;
-    --riso-pink: #FF00C1; /* Magenta Neón */
-    --riso-cyan: #00E5FF;
-    --riso-yellow: #FFE600;
-    --font-display: 'Syne', sans-serif;
-    --font-mono: 'Space Mono', monospace;
-}
+/* ==========================================
+   ⚙️ ESTRUCTURA Y LÓGICA VISUAL (MIGUEL)
+   Los colores y fuentes se leen desde variables.css
+========================================== */
 
 * {
     margin: 0;
