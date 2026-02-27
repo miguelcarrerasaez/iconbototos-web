@@ -10,39 +10,50 @@ const mp = new MercadoPago('APP_USR-7ed5aea3-fb5c-413b-94a4-342cc1ce033c', {
 });
 
 // ==========================================
-// 2. CATÁLOGO DINÁMICO
+// 2. CATÁLOGO DINÁMICO (Conectado a Google Sheets)
 // ==========================================
-async function cargarProductos() {
-    try {
-        const respuesta = await fetch('productos.json');
-        const productos = await respuesta.json();
-        const contenedor = document.getElementById('contenedor-productos');
-        
-        contenedor.innerHTML = ''; // Limpiamos contenedor
+function cargarProductos() {
+    // Pega aquí el link (.csv) que te dio Google Sheets
+    const urlCSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSqfry1EWyA3gHYZU6i6rkow2V60-9LSeG_ugNI5HD5uv8muaTV8WGzsPMEQghCJnb8AT4TATArxzH5/pub?output=csv';
 
-        productos.forEach(producto => {
-            const estiloExtra = producto.estiloImagen ? `style="${producto.estiloImagen}"` : '';
+    Papa.parse(urlCSV, {
+        download: true,
+        header: true, // Usa la primera fila como nombres (titulo, precio, etc)
+        dynamicTyping: true, // Convierte el texto "15000" a número real
+        complete: function(results) {
+            const productos = results.data;
+            const contenedor = document.getElementById('contenedor-productos');
             
-            const tarjetaHTML = `
-                <div class="card-producto">
-                    <div class="img-wrapper">
-                        <img src="${producto.imagen}" alt="${producto.titulo}" ${estiloExtra}>
-                    </div>
-                    <div class="info">
-                        <h3>${producto.titulo}</h3>
-                        <p class="precio">$${producto.precio.toLocaleString('es-CL')} CLP</p>
-                        <button class="btn-comprar" onclick="agregarAlCarrito('${producto.titulo}', ${producto.precio})">
-                            ${producto.botonTexto}
-                        </button>
-                    </div>
-                </div>
-            `;
-            contenedor.innerHTML += tarjetaHTML;
-        });
+            contenedor.innerHTML = ''; // Limpiamos contenedor
 
-    } catch (error) {
-        console.error("Error al cargar los productos:", error);
-    }
+            productos.forEach(producto => {
+                // Si la fila está vacía (por si Monserrat deja espacios), la saltamos
+                if (!producto.titulo) return; 
+
+                const estiloExtra = producto.estiloImagen ? `style="${producto.estiloImagen}"` : '';
+                
+                const tarjetaHTML = `
+                    <div class="card-producto">
+                        <div class="img-wrapper">
+                            <img src="${producto.imagen}" alt="${producto.titulo}" ${estiloExtra}>
+                        </div>
+                        <div class="info">
+                            <h3>${producto.titulo}</h3>
+                            <p class="precio">$${producto.precio.toLocaleString('es-CL')} CLP</p>
+                            <button class="btn-comprar" onclick="agregarAlCarrito('${producto.titulo}', ${producto.precio})">
+                                ${producto.botonTexto || 'Comprar'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+                contenedor.innerHTML += tarjetaHTML;
+            });
+        },
+        error: function(error) {
+            console.error("Error al leer el Google Sheet:", error);
+            document.getElementById('contenedor-productos').innerHTML = '<p>Error al cargar el catálogo.</p>';
+        }
+    });
 }
 
 // ==========================================
