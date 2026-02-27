@@ -2,9 +2,9 @@
   {
     "id": 1,
     "titulo": "Lámina Tendedero",
-    "precio": 105000,
+    "precio": 15000,
     "imagen": "img/lamina-tendedero.jpg",
-    "botonTexto": "gratis"
+    "botonTexto": "Comprar"
   },
   {
     "id": 2,
