@@ -6,7 +6,7 @@
 
 :root {
     /* --- COLORES BASE --- */
-    --bg-paper: #eacece;    /* Color del fondo (papel hueso/crema) */
+    --bg-paper: #ff0000cb;    /* Color del fondo (papel hueso/crema) */
     --ink-black: #1a1a1a;   /* Color de los textos y bordes (tinta) */
 
     /* --- COLORES RISO (Acentos y Botones) --- */
