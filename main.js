@@ -156,8 +156,8 @@ async function pagarCarrito() {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                titulo: tituloPedido,
-                precio: totalPagar
+                // Ahora enviamos el carrito completo, ¡con todo el detalle!
+                carrito: carrito
             }),
         });
 
