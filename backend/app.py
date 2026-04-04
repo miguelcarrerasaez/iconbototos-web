@@ -50,20 +50,23 @@ except Exception as e:
 def crear_preferencia():
     try:
         datos = request.json
+        print("🛒 DATOS RECIBIDOS DEL FRONTEND:", datos) # <-- ¡Esto nos dirá la verdad!
+
         carrito = datos.get("carrito", [])
         
-        # Armamos la lista de todos los items del carrito para Mercado Pago
         items_mp = []
         for producto in carrito:
+            # Usamos .get() con un valor por defecto (0) por si el frontend no envía el precio
+            precio_producto = producto.get("precio", 0)
+            titulo_producto = producto.get("titulo", "Producto sin nombre")
+
             items_mp.append({
-                "title": producto["titulo"],
+                "title": titulo_producto,
                 "quantity": 1,
-                "unit_price": float(producto["precio"]),
+                "unit_price": float(precio_producto),
                 "currency_id": "CLP"
             })
 
-        # --- IMPORTANTE ---
-        # URL de tu servidor en Render (reemplaza si tu URL es distinta)
         URL_SERVIDOR_RENDER = "https://iconbototos-web.onrender.com"
 
         preference_data = {
@@ -74,7 +77,6 @@ def crear_preferencia():
                 "pending": "https://iconbototos-web.vercel.app/"
             },
             "auto_return": "approved",
-            # Aquí le decimos a Mercado Pago a dónde avisar cuando el pago se apruebe
             "notification_url": f"{URL_SERVIDOR_RENDER}/webhook" 
         }
 
@@ -84,7 +86,7 @@ def crear_preferencia():
         return jsonify({"id": preference["id"]})
 
     except Exception as e:
-        print(f"Error creando preferencia: {e}")
+        print(f"❌ Error creando preferencia: {e}")
         return jsonify({"error": str(e)}), 500
 
 
