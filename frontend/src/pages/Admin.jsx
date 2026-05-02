@@ -6,19 +6,23 @@ import { Toaster, toast } from 'sonner';
 export default function Admin() {
   const [productos, setProductos] = useState([]);
   const [cargando, setCargando] = useState(true);
+  const [subiendoImagen, setSubiendoImagen] = useState(false); // Estado exclusivo para la foto
   const navigate = useNavigate();
 
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [idEdicion, setIdEdicion] = useState(null);
   const [formulario, setFormulario] = useState({
-    titulo: '', precio: '', stock: '', imagen: '/img/hero-fanzine.jpg'
+    titulo: '',
+    precio: '',
+    stock: '',
+    imagen: '' 
   });
 
-  // --- NUEVO: Verificar si hay token al entrar ---
+  // 1. VERIFICAR TOKEN Y LEER PRODUCTOS
   useEffect(() => {
     const token = localStorage.getItem('token_iconbototos');
     if (!token) {
-      navigate('/login'); // Si no hay token, lo echamos al login
+      navigate('/login'); 
       return;
     }
 
@@ -28,10 +32,13 @@ export default function Admin() {
         setProductos(data);
         setCargando(false);
       })
-      .catch(err => console.error("Error cargando BD:", err));
+      .catch(err => {
+        console.error("Error cargando BD:", err);
+        setCargando(false);
+      });
   }, [navigate]);
 
-  // --- MODIFICADO: Enviar Token al eliminar ---
+  // 2. ELIMINAR PRODUCTO (Protegido con JWT)
   const eliminarProducto = async (id, titulo) => {
     if (!window.confirm(`¿Estás seguro de que quieres eliminar "${titulo}" del catálogo?`)) return;
 
@@ -40,7 +47,7 @@ export default function Admin() {
     try {
       const respuesta = await fetch(`http://127.0.0.1:5000/api/productos/${id}`, { 
         method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${token}` } // <-- NUEVO: Mostramos el pase VIP
+        headers: { 'Authorization': `Bearer ${token}` } 
       });
       
       if (respuesta.ok) {
@@ -54,22 +61,23 @@ export default function Admin() {
     }
   };
 
+  // 3. PREPARAR EDICIÓN
   const editarProducto = (producto) => {
     setFormulario({ titulo: producto.titulo, precio: producto.precio, stock: producto.stock, imagen: producto.imagen });
     setIdEdicion(producto.id);
     setMostrarFormulario(true);
   };
 
-  // --- MODIFICADO: Enviar Token al Guardar/Actualizar ---
+  // 4. GUARDAR (CREAR O ACTUALIZAR) (Protegido con JWT)
   const guardarProducto = async (e) => {
     e.preventDefault();
-    if (!formulario.titulo || !formulario.precio || !formulario.stock) {
-      toast.error('Por favor completa todos los campos');
+    if (!formulario.titulo || !formulario.precio || !formulario.stock || !formulario.imagen) {
+      toast.error('Por favor completa todos los campos y sube una imagen');
       return;
     }
 
     const payload = { ...formulario, precio: parseInt(formulario.precio), stock: parseInt(formulario.stock) };
-    const token = localStorage.getItem('token_iconbototos'); // <-- NUEVO: Buscamos el pase
+    const token = localStorage.getItem('token_iconbototos');
 
     try {
       const url = idEdicion ? `http://127.0.0.1:5000/api/productos/${idEdicion}` : 'http://127.0.0.1:5000/api/productos';
@@ -79,7 +87,7 @@ export default function Admin() {
         method: metodo,
         headers: { 
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}` // <-- NUEVO: Mostramos el pase VIP
+          'Authorization': `Bearer ${token}` 
         },
         body: JSON.stringify(payload)
       });
@@ -93,28 +101,29 @@ export default function Admin() {
           setProductos([...productos, data.producto]); 
           toast.success('¡Lámina agregada!');
         }
-        setFormulario({ titulo: '', precio: '', stock: '', imagen: '/img/hero-fanzine.jpg' });
+        setFormulario({ titulo: '', precio: '', stock: '', imagen: '' });
         setIdEdicion(null);
         setMostrarFormulario(false);
       } else {
         toast.error('Acceso denegado. Vuelve a iniciar sesión.');
       }
     } catch (error) {
-      toast.error('Error de conexión');
+      toast.error('Error de conexión al guardar');
     }
   };
 
+  // 5. CERRAR Y ABRIR FORMULARIO
   const toggleFormulario = () => {
     if (mostrarFormulario) {
-      setFormulario({ titulo: '', precio: '', stock: '', imagen: '/img/hero-fanzine.jpg' });
+      setFormulario({ titulo: '', precio: '', stock: '', imagen: '' });
       setIdEdicion(null);
     }
     setMostrarFormulario(!mostrarFormulario);
   };
 
-  // --- MODIFICADO: Borrar token al salir ---
+  // 6. CERRAR SESIÓN
   const cerrarSesion = () => {
-    localStorage.removeItem('token_iconbototos'); // Destruimos el pase
+    localStorage.removeItem('token_iconbototos');
     navigate('/login');
   };
 
@@ -122,6 +131,7 @@ export default function Admin() {
     <div style={{ padding: '40px', backgroundColor: '#f3f4f6', minHeight: '100vh', fontFamily: 'sans-serif' }}>
       <Toaster richColors position="bottom-right" />
 
+      {/* CABECERA */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', marginBottom: '30px' }}>
         <div>
           <h1 style={{ margin: 0, fontSize: '1.5rem', color: '#111827' }}>Panel de Administración</h1>
@@ -134,6 +144,7 @@ export default function Admin() {
 
       <div style={{ backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
         
+        {/* BARRA SUPERIOR BOTÓN AGREGAR */}
         <div style={{ padding: '20px', borderBottom: '1px solid #e5e7eb', display: 'flex', justifyContent: 'flex-end' }}>
           <button 
             onClick={toggleFormulario}
@@ -143,6 +154,7 @@ export default function Admin() {
           </button>
         </div>
 
+        {/* FORMULARIO DE CREACIÓN/EDICIÓN */}
         {mostrarFormulario && (
           <form onSubmit={guardarProducto} style={{ padding: '20px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e5e7eb', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr auto', gap: '15px', alignItems: 'end' }}>
             
@@ -161,17 +173,66 @@ export default function Admin() {
               <input type="number" value={formulario.stock} onChange={(e) => setFormulario({...formulario, stock: e.target.value})} placeholder="Ej: 10" style={{ padding: '10px', border: '1px solid #d1d5db', borderRadius: '6px' }} />
             </div>
 
+            {/* BOTÓN IMGBB */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-              <label style={{ fontSize: '0.85rem', fontWeight: 'bold', color: '#374151' }}>Ruta de Imagen</label>
-              <input type="text" value={formulario.imagen} onChange={(e) => setFormulario({...formulario, imagen: e.target.value})} placeholder="/img/lamina.jpg" style={{ padding: '10px', border: '1px solid #d1d5db', borderRadius: '6px' }} />
+              <label style={{ fontSize: '0.85rem', fontWeight: 'bold', color: '#374151', display: 'flex', justifyContent: 'space-between' }}>
+                Subir Imagen 
+                {subiendoImagen && <span style={{color: '#3b82f6'}}>(Subiendo... ⏳)</span>}
+              </label>
+              
+              <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                <input 
+                  type="file" 
+                  accept="image/*"
+                  disabled={subiendoImagen}
+                  onChange={async (e) => {
+                    const archivo = e.target.files[0];
+                    if (!archivo) return;
+
+                    setSubiendoImagen(true);
+                    
+                    const formData = new FormData();
+                    formData.append('image', archivo);
+
+                    try {
+                      // ⚠️ REEMPLAZA ESTO CON TU API KEY DE IMGBB
+                      const API_KEY = "369301acc9fbf5e2b93cbabc2cba70fd"; 
+                      
+                      const res = await fetch(`https://api.imgbb.com/1/upload?key=${API_KEY}`, {
+                        method: 'POST',
+                        body: formData
+                      });
+
+                      const data = await res.json();
+
+                      if (data.success) {
+                        setFormulario({...formulario, imagen: data.data.url}); 
+                        toast.success('¡Imagen lista!');
+                      } else {
+                        toast.error('Error al subir a ImgBB');
+                      }
+                    } catch (error) {
+                      console.error(error);
+                      toast.error('Error de conexión con la nube');
+                    } finally {
+                      setSubiendoImagen(false);
+                    }
+                  }} 
+                  style={{ flex: 1, padding: '7px', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '0.85rem', backgroundColor: 'white' }} 
+                />
+                {formulario.imagen && (
+                  <img src={formulario.imagen} alt="Preview" style={{ width: '35px', height: '35px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #ccc' }} />
+                )}
+              </div>
             </div>
 
-            <button type="submit" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '10px 20px', height: '40px', backgroundColor: idEdicion ? '#f59e0b' : '#3b82f6', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold' }}>
+            <button type="submit" disabled={subiendoImagen} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '10px 20px', height: '40px', backgroundColor: subiendoImagen ? '#ccc' : (idEdicion ? '#f59e0b' : '#3b82f6'), color: 'white', border: 'none', borderRadius: '6px', cursor: subiendoImagen ? 'not-allowed' : 'pointer', fontWeight: 'bold' }}>
               <Save size={18} /> {idEdicion ? 'Actualizar' : 'Guardar'}
             </button>
           </form>
         )}
 
+        {/* TABLA */}
         {cargando ? (
           <p style={{ textAlign: 'center', padding: '40px', color: '#6b7280' }}>Cargando base de datos... ⏳</p>
         ) : (
