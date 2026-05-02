@@ -5,17 +5,31 @@ import { Toaster, toast } from 'sonner';
 export default function Login() {
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); // Herramienta para cambiar de página
+  const navigate = useNavigate();
 
-  const manejarLogin = (e) => {
-    e.preventDefault(); // Evita que la página recargue al enviar el formulario
+  const manejarLogin = async (e) => {
+    e.preventDefault();
     
-    // Verificación temporal
-    if (usuario === 'monse' && password === 'admin123') {
-      toast.success('¡Bienvenida! Ingresando al panel...');
-      setTimeout(() => navigate('/admin'), 1500); // Redirige al panel después de 1.5 seg
-    } else {
-      toast.error('Credenciales incorrectas');
+    try {
+      // 1. Le enviamos a Python el usuario y contraseña
+      const respuesta = await fetch('http://127.0.0.1:5000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usuario: usuario, password: password })
+      });
+
+      if (respuesta.ok) {
+        const data = await respuesta.json();
+        // 2. Python nos da el Pase VIP (Token). Lo guardamos en la "billetera" del navegador
+        localStorage.setItem('token_iconbototos', data.token);
+        
+        toast.success('¡Bienvenida! Ingresando al panel...');
+        setTimeout(() => navigate('/admin'), 1500);
+      } else {
+        toast.error('Credenciales incorrectas ❌');
+      }
+    } catch (error) {
+      toast.error('Error al conectar con el servidor');
     }
   };
 

@@ -3,164 +3,162 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import mercadopago
 from dotenv import load_dotenv
-from flask_sqlalchemy import SQLAlchemy # <-- NUEVA Base de datos
+from flask_sqlalchemy import SQLAlchemy
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required # <-- NUEVO: Herramientas VIP
 
-# 1. Cargar las variables del archivo .env
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
 # ==========================================
-# SEGURIDAD Y CREDENCIALES
+# SEGURIDAD, TOKENS Y BASE DE DATOS
 # ==========================================
 
-# A. Mercado Pago
+# Configuración del Token (Esta llave secreta firma los pases VIP)
+app.config["JWT_SECRET_KEY"] = "clave-super-secreta-de-iconbototos-2026" 
+jwt = JWTManager(app)
+
 access_token = os.getenv("MP_ACCESS_TOKEN")
 if not access_token:
-    raise ValueError("¡ERROR CRÍTICO! No se encontró el MP_ACCESS_TOKEN en las variables de entorno.")
-else:
-    print(f"✅ Token MP cargado correctamente: {access_token[:10]}...") 
-
+    raise ValueError("¡ERROR CRÍTICO! No se encontró el MP_ACCESS_TOKEN.")
 sdk = mercadopago.SDK(access_token)
 
-# B. Base de Datos SQLite (Reemplaza a Google Sheets)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tienda.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-# ==========================================
-# MODELO DE LA BASE DE DATOS
-# ==========================================
 class Producto(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     titulo = db.Column(db.String(100), nullable=False)
     precio = db.Column(db.Integer, nullable=False)
     imagen = db.Column(db.String(200), nullable=False)
-    stock = db.Column(db.Integer, default=10) # <-- Agregamos el stock
+    stock = db.Column(db.Integer, default=10)
 
     def to_dict(self):
-        return {
-            "id": self.id,
-            "titulo": self.titulo,
-            "precio": self.precio,
-            "imagen": self.imagen,
-            "stock": self.stock
-        }
+        return { "id": self.id, "titulo": self.titulo, "precio": self.precio, "imagen": self.imagen, "stock": self.stock }
 
-# Inicializar Base de Datos al arrancar
 with app.app_context():
     db.create_all()
-    if not Producto.query.first():
-        p1 = Producto(titulo="Lámina Azul", precio=5000, imagen="/img/lamina-azul.jpg", stock=15)
-        p2 = Producto(titulo="Lámina Sombra", precio=5000, imagen="/img/lamina-sombra.jpg", stock=10)
-        p3 = Producto(titulo="Lámina Tendedero", precio=6000, imagen="/img/lamina-tendedero.jpg", stock=20)
-        db.session.add_all([p1, p2, p3])
-        db.session.commit()
-        print("✅ Base de datos SQLite inicializada con éxito.")
 
 # ==========================================
-# RUTAS DE LA API (FRONTEND)
+# RUTA DE LOGIN (NUEVO)
 # ==========================================
+@app.route('/api/login', methods=['POST'])
+def login():
+    datos = request.json
+    usuario = datos.get('usuario')
+    password = datos.get('password')
+    
+    # Aquí validamos en el servidor (más adelante podríamos tener una tabla de Usuarios)
+    if usuario == 'monse' and password == 'admin123':
+        # Si la clave es correcta, creamos el pase VIP
+        token_vip = create_access_token(identity=usuario)
+        return jsonify({"token": token_vip}), 200
+    else:
+        return jsonify({"error": "Credenciales incorrectas"}), 401
+
+
+# ==========================================
+# RUTAS DE PRODUCTOS
+# ==========================================
+
+# EL PÚBLICO SÍ PUEDE LEER EL CATÁLOGO (No requiere Token)
 @app.route('/api/productos', methods=['GET'])
 def obtener_productos():
-    # Ahora lee directamente de SQLite
     productos_db = Producto.query.all()
     return jsonify([p.to_dict() for p in productos_db])
 
+# CREAR (Requiere Pase VIP)
+@app.route('/api/productos', methods=['POST'])
+@jwt_required() # <-- EL CANDADO
+def agregar_producto():
+    try:
+        datos = request.json
+        nuevo_producto = Producto(
+            titulo=datos['titulo'], precio=datos['precio'], imagen=datos['imagen'], stock=datos.get('stock', 0)
+        )
+        db.session.add(nuevo_producto)
+        db.session.commit()
+        return jsonify({"mensaje": "Producto agregado", "producto": nuevo_producto.to_dict()}), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+# ACTUALIZAR (Requiere Pase VIP)
+@app.route('/api/productos/<int:id>', methods=['PUT'])
+@jwt_required() # <-- EL CANDADO
+def actualizar_producto(id):
+    producto = Producto.query.get(id)
+    if not producto: return jsonify({"error": "No encontrado"}), 404
+    datos = request.json
+    producto.titulo = datos.get('titulo', producto.titulo)
+    producto.precio = datos.get('precio', producto.precio)
+    producto.imagen = datos.get('imagen', producto.imagen)
+    producto.stock = datos.get('stock', producto.stock)
+    db.session.commit()
+    return jsonify({"mensaje": "Actualizado", "producto": producto.to_dict()})
+
+# ELIMINAR (Requiere Pase VIP)
+@app.route('/api/productos/<int:id>', methods=['DELETE'])
+@jwt_required() # <-- EL CANDADO
+def eliminar_producto(id):
+    producto = Producto.query.get(id)
+    if not producto: return jsonify({"error": "No encontrado"}), 404
+    db.session.delete(producto)
+    db.session.commit()
+    return jsonify({"mensaje": "Eliminado"})
+
 
 # ==========================================
-# RUTA 1: CREAR PREFERENCIA (El cliente va a pagar)
+# RUTAS DE MERCADO PAGO (Se mantienen igual)
 # ==========================================
 @app.route("/crear_preferencia", methods=["POST"])
 def crear_preferencia():
+    # ... (Tu código de crear_preferencia queda exactamente igual) ...
     try:
         datos = request.json
-        print("🛒 DATOS RECIBIDOS DEL FRONTEND:", datos)
-
         carrito = datos.get("carrito", [])
-        
         items_mp = []
         for producto in carrito:
-            precio_producto = producto.get("precio", 0)
-            titulo_producto = producto.get("titulo", "Producto sin nombre")
-            cantidad_producto = producto.get("cantidad", 1) # <-- Ahora lee si el cliente lleva 2 o 3 láminas iguales
-
             items_mp.append({
-                "title": titulo_producto,
-                "quantity": int(cantidad_producto),
-                "unit_price": float(precio_producto),
+                "title": producto.get("titulo", "Producto"),
+                "quantity": int(producto.get("cantidad", 1)),
+                "unit_price": float(producto.get("precio", 0)),
                 "currency_id": "CLP"
             })
-
         URL_SERVIDOR_RENDER = "https://iconbototos-web.onrender.com"
-
         preference_data = {
             "items": items_mp,
-            "back_urls": {
-                "success": "https://iconbototos-web.vercel.app/",
-                "failure": "https://iconbototos-web.vercel.app/",
-                "pending": "https://iconbototos-web.vercel.app/"
-            },
+            "back_urls": { "success": "https://iconbototos-web.vercel.app/", "failure": "https://iconbototos-web.vercel.app/", "pending": "https://iconbototos-web.vercel.app/" },
             "auto_return": "approved",
             "notification_url": f"{URL_SERVIDOR_RENDER}/webhook" 
         }
-
         preference_response = sdk.preference().create(preference_data)
-        preference = preference_response["response"]
-        
-        return jsonify({"id": preference["id"]})
-
+        return jsonify({"id": preference_response["response"]["id"]})
     except Exception as e:
-        print(f"❌ Error creando preferencia: {e}")
         return jsonify({"error": str(e)}), 500
 
-
-# ==========================================
-# RUTA 2: WEBHOOK (Mercado Pago avisa del cobro exitoso)
-# ==========================================
 @app.route('/webhook', methods=['POST'])
 def webhook():
+    # ... (Tu código del webhook queda exactamente igual) ...
     data = request.json
-    print("🔔 WEBHOOK RECIBIDO:", data)
-
     if data and (data.get("type") == "payment" or data.get("action") == "payment.created"):
         try:
             payment_id = data.get("data", {}).get("id")
             payment_info = sdk.payment().get(payment_id)
-            
-            if payment_info["status"] == 200:
-                estado_pago = payment_info["response"].get("status")
-                
-                if estado_pago == "approved":
-                    items_comprados = payment_info["response"].get("additional_info", {}).get("items", [])
-                    print(f"✅ Pago Aprobado. Descontando stock de: {items_comprados}")
-                    descontar_stock(items_comprados)
-                    
+            if payment_info["status"] == 200 and payment_info["response"].get("status") == "approved":
+                items_comprados = payment_info["response"].get("additional_info", {}).get("items", [])
+                descontar_stock(items_comprados)
         except Exception as e:
-            print(f"Error procesando el webhook: {e}")
-
+            print(f"Error webhook: {e}")
     return jsonify({"status": "ok"}), 200
 
-
-# ==========================================
-# FUNCIÓN INTERNA: DESCONTAR EN SQLITE
-# ==========================================
 def descontar_stock(items_comprados):
     for item in items_comprados:
-        titulo_comprado = item.get("title")
-        cantidad_comprada = int(item.get("quantity", 1))
-        
-        # Buscamos la lámina en la Base de Datos
-        producto = Producto.query.filter_by(titulo=titulo_comprado).first()
-        
+        producto = Producto.query.filter_by(titulo=item.get("title")).first()
         if producto:
-            # Le restamos la cantidad comprada, evitando que quede en negativo
-            producto.stock = max(0, producto.stock - cantidad_comprada)
+            producto.stock = max(0, producto.stock - int(item.get("quantity", 1)))
             db.session.commit()
-            print(f"📉 Stock actualizado para '{titulo_comprado}': Quedan {producto.stock}")
-        else:
-            print(f"❌ Error: El producto '{titulo_comprado}' no se encontró en la Base de Datos.")
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

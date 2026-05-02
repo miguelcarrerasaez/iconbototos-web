@@ -12,6 +12,14 @@ export default function Tienda() {
 
   const agregarAlCarrito = (producto) => {
     const productoExistente = carrito.find(item => item.id === producto.id);
+    const cantidadActualEnCarrito = productoExistente ? productoExistente.cantidad : 0;
+
+    // EL GRAN FRENO: Si intentan agregar más de lo que hay en stock
+    if (cantidadActualEnCarrito >= producto.stock) {
+      toast.error(`¡Ups! Solo quedan ${producto.stock} unidades de ${producto.titulo}`);
+      return; 
+    }
+
     if (productoExistente) {
       setCarrito(carrito.map(item => item.id === producto.id ? { ...item, cantidad: item.cantidad + 1 } : item));
       toast.success(`Se agregó otra unidad de ${producto.titulo}`);
