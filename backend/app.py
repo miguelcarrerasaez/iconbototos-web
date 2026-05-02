@@ -3,8 +3,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import mercadopago
 from dotenv import load_dotenv
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+from flask_sqlalchemy import SQLAlchemy # <-- NUEVA Base de datos
 
 # 1. Cargar las variables del archivo .env
 load_dotenv()
@@ -25,37 +24,51 @@ else:
 
 sdk = mercadopago.SDK(access_token)
 
-# B. Google Sheets
-scope = [
-    "https://spreadsheets.google.com/feeds",
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive.file",
-    "https://www.googleapis.com/auth/drive"
-]
+# B. Base de Datos SQLite (Reemplaza a Google Sheets)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tienda.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
-# Lee el archivo credenciales.json (Localmente lo lee de tu PC, en Render lo leerá del "Secret File")
-try:
-    creds = ServiceAccountCredentials.from_json_keyfile_name("credenciales.json", scope)
-    cliente_google = gspread.authorize(creds)
-    hoja_catalogo = cliente_google.open("Catálogo Iconbototos").sheet1
-    print("✅ ¡ÉXITO! Conexión perfecta con Google Sheets.")
-except Exception as e:
-    print(f"❌ ERROR AL CONECTAR CON GOOGLE SHEETS: {e}")
+# ==========================================
+# MODELO DE LA BASE DE DATOS
+# ==========================================
+class Producto(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    titulo = db.Column(db.String(100), nullable=False)
+    precio = db.Column(db.Integer, nullable=False)
+    imagen = db.Column(db.String(200), nullable=False)
+    stock = db.Column(db.Integer, default=10) # <-- Agregamos el stock
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "titulo": self.titulo,
+            "precio": self.precio,
+            "imagen": self.imagen,
+            "stock": self.stock
+        }
 
+# Inicializar Base de Datos al arrancar
+with app.app_context():
+    db.create_all()
+    if not Producto.query.first():
+        p1 = Producto(titulo="Lámina Azul", precio=5000, imagen="/img/lamina-azul.jpg", stock=15)
+        p2 = Producto(titulo="Lámina Sombra", precio=5000, imagen="/img/lamina-sombra.jpg", stock=10)
+        p3 = Producto(titulo="Lámina Tendedero", precio=6000, imagen="/img/lamina-tendedero.jpg", stock=20)
+        db.session.add_all([p1, p2, p3])
+        db.session.commit()
+        print("✅ Base de datos SQLite inicializada con éxito.")
+
+# ==========================================
+# RUTAS DE LA API (FRONTEND)
+# ==========================================
 @app.route('/api/productos', methods=['GET'])
 def obtener_productos():
-    productos = [
-        { "id": 1, "titulo": "Lámina Azul", "precio": 5000, "imagen": "/img/lamina-azul.jpg" },
-        { "id": 2, "titulo": "Lámina Sombra", "precio": 5000, "imagen": "/img/lamina-sombra.jpg" },
-        { "id": 3, "titulo": "Lámina Tendedero", "precio": 6000, "imagen": "/img/lamina-tendedero.jpg" }
-    ]
-    return jsonify(productos)
+    # Ahora lee directamente de SQLite
+    productos_db = Producto.query.all()
+    return jsonify([p.to_dict() for p in productos_db])
 
-if __name__ == '__main__':
-    app.run(debug=True)
-    
-     
+
 # ==========================================
 # RUTA 1: CREAR PREFERENCIA (El cliente va a pagar)
 # ==========================================
@@ -63,19 +76,19 @@ if __name__ == '__main__':
 def crear_preferencia():
     try:
         datos = request.json
-        print("🛒 DATOS RECIBIDOS DEL FRONTEND:", datos) # <-- ¡Esto nos dirá la verdad!
+        print("🛒 DATOS RECIBIDOS DEL FRONTEND:", datos)
 
         carrito = datos.get("carrito", [])
         
         items_mp = []
         for producto in carrito:
-            # Usamos .get() con un valor por defecto (0) por si el frontend no envía el precio
             precio_producto = producto.get("precio", 0)
             titulo_producto = producto.get("titulo", "Producto sin nombre")
+            cantidad_producto = producto.get("cantidad", 1) # <-- Ahora lee si el cliente lleva 2 o 3 láminas iguales
 
             items_mp.append({
                 "title": titulo_producto,
-                "quantity": 1,
+                "quantity": int(cantidad_producto),
                 "unit_price": float(precio_producto),
                 "currency_id": "CLP"
             })
@@ -127,36 +140,27 @@ def webhook():
         except Exception as e:
             print(f"Error procesando el webhook: {e}")
 
-    # Siempre devolver 200 OK para que Mercado Pago no reintente enviar el aviso
     return jsonify({"status": "ok"}), 200
 
 
 # ==========================================
-# FUNCIÓN INTERNA: DESCONTAR EN EXCEL
+# FUNCIÓN INTERNA: DESCONTAR EN SQLITE
 # ==========================================
 def descontar_stock(items_comprados):
-    registros = hoja_catalogo.get_all_records()
-    titulos_columnas = hoja_catalogo.row_values(1)
-    
-    if "stock" not in titulos_columnas:
-        print("❌ Error: No existe la columna 'stock' en el Excel.")
-        return
-        
-    indice_columna_stock = titulos_columnas.index("stock") + 1
-
     for item in items_comprados:
         titulo_comprado = item.get("title")
+        cantidad_comprada = int(item.get("quantity", 1))
         
-        for indice_fila, fila in enumerate(registros):
-            if str(fila.get("titulo")).strip() == str(titulo_comprado).strip():
-                stock_actual = fila.get("stock")
-                
-                if isinstance(stock_actual, (int, float)):
-                    nuevo_stock = int(stock_actual) - 1
-                    # Actualizamos la celda en Google Sheets
-                    hoja_catalogo.update_cell(indice_fila + 2, indice_columna_stock, max(0, nuevo_stock))
-                    print(f"📉 Stock actualizado para '{titulo_comprado}': Quedan {nuevo_stock}")
-                break
+        # Buscamos la lámina en la Base de Datos
+        producto = Producto.query.filter_by(titulo=titulo_comprado).first()
+        
+        if producto:
+            # Le restamos la cantidad comprada, evitando que quede en negativo
+            producto.stock = max(0, producto.stock - cantidad_comprada)
+            db.session.commit()
+            print(f"📉 Stock actualizado para '{titulo_comprado}': Quedan {producto.stock}")
+        else:
+            print(f"❌ Error: El producto '{titulo_comprado}' no se encontró en la Base de Datos.")
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
