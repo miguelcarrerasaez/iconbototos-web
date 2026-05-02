@@ -43,6 +43,19 @@ except Exception as e:
     print(f"❌ ERROR AL CONECTAR CON GOOGLE SHEETS: {e}")
 
 
+@app.route('/api/productos', methods=['GET'])
+def obtener_productos():
+    productos = [
+        { "id": 1, "titulo": "Lámina Azul", "precio": 5000, "imagen": "/img/lamina-azul.jpg" },
+        { "id": 2, "titulo": "Lámina Sombra", "precio": 5000, "imagen": "/img/lamina-sombra.jpg" },
+        { "id": 3, "titulo": "Lámina Tendedero", "precio": 6000, "imagen": "/img/lamina-tendedero.jpg" }
+    ]
+    return jsonify(productos)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+    
+     
 # ==========================================
 # RUTA 1: CREAR PREFERENCIA (El cliente va a pagar)
 # ==========================================

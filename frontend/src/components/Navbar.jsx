@@ -1,7 +1,8 @@
 import React from 'react';
-import { ShoppingCart } from 'lucide-react'; // Aquí usamos la librería de íconos que instalaste
+import { ShoppingCart } from 'lucide-react';
 
-export default function Navbar() {
+// 1. Recibimos setIsCartOpen
+export default function Navbar({ carrito, setIsCartOpen }) {
   return (
     <nav style={{ display: 'flex', justifyContent: 'space-between', padding: '20px', borderBottom: '1px solid #ccc' }}>
       <div style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>ICONBOTOTOS</div>
@@ -9,9 +10,14 @@ export default function Navbar() {
       <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
         <a href="#" style={{ textDecoration: 'none', color: 'black' }}>Inicio</a>
         <a href="#catalogo" style={{ textDecoration: 'none', color: 'black' }}>Catálogo</a>
-        <button style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}>
+        
+        {/* 2. Agregamos el onClick para abrir el panel */}
+        <button 
+          onClick={() => setIsCartOpen(true)} 
+          style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}
+        >
           <ShoppingCart size={24} />
-          <span>(0)</span>
+          <span>({carrito.length})</span>
         </button>
       </div>
     </nav>
