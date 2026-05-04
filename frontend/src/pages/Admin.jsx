@@ -26,7 +26,7 @@ export default function Admin() {
       return;
     }
 
-    fetch('http://127.0.0.1:5000/api/productos')
+    fetch('https://iconbototos-api.onrender.com/api/productos')
       .then(res => res.json())
       .then(data => {
         setProductos(data);
@@ -45,7 +45,7 @@ export default function Admin() {
     const token = localStorage.getItem('token_iconbototos');
 
     try {
-      const respuesta = await fetch(`http://127.0.0.1:5000/api/productos/${id}`, { 
+      const respuesta = await fetch(`https://iconbototos-api.onrender.com/api/productos/${id}`, { 
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` } 
       });
@@ -80,7 +80,7 @@ export default function Admin() {
     const token = localStorage.getItem('token_iconbototos');
 
     try {
-      const url = idEdicion ? `http://127.0.0.1:5000/api/productos/${idEdicion}` : 'http://127.0.0.1:5000/api/productos';
+      const url = idEdicion ? `https://iconbototos-api.onrender.com/api/productos/${idEdicion}` : 'https://iconbototos-api.onrender.com/api/productos';
       const metodo = idEdicion ? 'PUT' : 'POST';
 
       const respuesta = await fetch(url, {

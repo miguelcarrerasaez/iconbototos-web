@@ -9,7 +9,7 @@ export default function Catalogo({ agregarAlCarrito }) {
   // 2. useEffect hace el fetch a Python apenas carga el componente
   useEffect(() => {
     // IMPORTANTE: Asegúrate de que este sea el puerto donde corre tu Flask local (usualmente 5000)
-    fetch('http://127.0.0.1:5000/api/productos') 
+    fetch('http://https://iconbototos-api.onrender.com/api/productos') 
       .then(respuesta => respuesta.json())
       .then(data => {
         setProductos(data); // Guardamos los productos que mandó Python

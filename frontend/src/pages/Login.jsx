@@ -12,7 +12,7 @@ export default function Login() {
     
     try {
       // 1. Le enviamos a Python el usuario y contraseña
-      const respuesta = await fetch('http://127.0.0.1:5000/api/login', {
+      const respuesta = await fetch('https://iconbototos-api.onrender.com/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ usuario: usuario, password: password })

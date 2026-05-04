@@ -2,7 +2,7 @@
 // 1. CONFIGURACIÓN
 // ==========================================
 const BACKEND_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
-    ? "http://127.0.0.1:5000" 
+    ? "https://iconbototos-api.onrender.com" 
     : "https://iconbototos-web.onrender.com";
 
 const mp = new MercadoPago('APP_USR-7ed5aea3-fb5c-413b-94a4-342cc1ce033c', {
