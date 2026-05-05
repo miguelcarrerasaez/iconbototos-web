@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="google-site-verification" content="UixC7Bl9TaNgPok2wCZscIft_lptCK8QF3nu0r04E38" />
+    <meta charset="UTF-8">
+    <title>Iconbototos | Fanzines y Risografía</title>
+    <meta name="description" content="Editorial Iconbototos: Explora nuestra colección de fanzines, láminas y arte impreso con estética de risografía en Santiago de Chile.">
+    <meta name="keywords" content="fanzine, risografia, arte impreso, ilustracion, editorial independiente, chile, santiago">
+    <meta name="author" content="Iconbototos">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://iconbototos-web.vercel.app/">
+    <meta property="og:title" content="Iconbototos | Fanzines y Risografía">
+    <meta property="og:description" content="Descubre nuestra colección de fanzines y láminas exclusivas. Arte impreso independiente.">
+    <meta property="og:image" content="https://iconbototos-web.vercel.app/img/hero-fanzine.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="img/hero-fanzine.jpg">
+    <link rel="stylesheet" href="variables.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="img/text-iconbototos.png" alt="Iconbototos" class="logo-img main">
+
+        </div>
+        <ul class="menu">
+            <li><a href="#tienda">Tienda</a></li>
+            <li><a href="#feria">La Feria</a></li>
+            <li><a href="https://instagram.com/i_conbototos" target="_blank">Instagram</a></li>
+            <li class="cart-icon" onclick="abrirCarrito()" style="cursor: pointer;">🛒 (<span id="contador-carrito">0</span>)</li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-image-container">
+            <img src="img/hero-fanzine.jpg" alt="Fanzine Iconbototos Vol 1" class="hero-img">
+        </div> </header>
+
+    <section id="tienda" class="container">
+        <div class="section-header">
+            <h2>IMPRESIONES DISPONIBLES</h2>
+            <p>Riso, Láser & Errores Felices</p>
+        </div>
+
+        <div id="contenedor-productos" class="product-grid">
+            </div>
+    </section>
+
+    <section id="feria" class="feria-section">
+        <div class="feria-text">
+            <h2>EN LA CALLE</h2>
+            <p>Nuestro estudio móvil recorre Santiago. Encuéntranos en ferias de gráfica independiente, compartiendo espacio con otros creadores, ruido y tinta.</p>
+        </div>
+        <div class="feria-gallery">
+            <img src="img/feria-1.jpg" alt="Stand en feria" class="feria-img main">
+            <img src="img/feria-2.jpg" alt="Detalle feria" class="feria-img secondary">
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="img/text-gracias.png" alt="Gracias" class="footer-img">
+                <img src="img/text-2026.png" alt="2026" class="footer-img-small">
+            </div>
+            <p>© 2026 Iconbototos. Santiago, Chile.</p>
+            <p>Diseño web x Riso</p>
+        </div>
+    </footer>
+<div id="modal-carrito" style="display: none; position: fixed; top: 0; right: 0; width: 320px; height: 100%; background: #F7F5E8; border-left: 2px solid #000; padding: 20px; z-index: 1000; overflow-y: auto; box-shadow: -5px 0 15px rgba(0,0,0,0.1);">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px;">
+            <h2 style="font-family: 'Syne', sans-serif; margin: 0;">TU CARRITO</h2>
+            <button onclick="cerrarCarrito()" style="background: transparent; border: none; font-size: 20px; cursor: pointer; font-weight: bold;">X</button>
+        </div>
+        
+        <div id="lista-carrito" style="font-family: 'Space Mono', monospace; min-height: 200px;">
+        </div>
+        
+        <div style="margin-top: 20px; border-top: 2px solid #000; padding-top: 15px; font-family: 'Space Mono', monospace;">
+            <h3 style="margin: 0 0 15px 0; font-family: 'Syne', sans-serif;">Total: $<span id="total-carrito">0</span> CLP</h3>
+            
+            <button id="btn-pagar" onclick="pagarCarrito()" class="btn-comprar" style="width: 100%; margin-bottom: 10px; font-size: 16px;">
+                Ir a Pagar
+            </button>
+            
+            <button onclick="vaciarCarrito()" style="width: 100%; background: transparent; border: 1px dashed #000; padding: 10px; cursor: pointer; font-family: 'Space Mono', monospace;">
+                Vaciar Carrito
+            </button>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>    
+
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script src="main.js"></script>
+</body>
+</html>

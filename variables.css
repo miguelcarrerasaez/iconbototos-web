@@ -1,0 +1,20 @@
+/* ==========================================
+   🎨 PANEL DE DISEÑO PARA MONSERRAT 
+   Hola Monse! Edita los códigos HEX de los colores aquí.
+   Al guardar, toda la web de Iconbototos cambiará automáticamente.
+========================================== */
+
+:root {
+    /* --- COLORES BASE --- */
+    --bg-paper: #cb94ebb9;    /* Color del fondo (papel hueso/crema) */
+    --ink-black: #1a1a1a;   /* Color de los textos y bordes (tinta) */
+
+    /* --- COLORES RISO (Acentos y Botones) --- */
+    --riso-pink: #FF00C1;   /* Magenta Neón (Hover de los menús) */
+    --riso-cyan: #00E5FF;   /* Cian (Fondo de la sección Feria) */
+    --riso-yellow: #FFE600; /* Amarillo (Lo usa el botón al cargar) */
+
+    /* --- TIPOGRAFÍAS --- */
+    --font-display: 'Syne', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+}
