@@ -161,6 +161,17 @@ function Admin() {
         >
           🎨 Diseño Web
         </button>
+        
+      {/* --- NUEVO BOTÓN PARA VER LA TIENDA --- */}
+        <div style={{ marginTop: 'auto', paddingTop: '20px', borderTop: '3px solid #111' }}>
+          <button 
+            className="btn-menu"
+            onClick={() => window.open('/', '_blank')}
+            style={{ width: '100%', backgroundColor: '#fff000', color: '#111' }}
+          >
+            👁️ Ver Tienda Pública
+          </button>
+        </div>
       </aside>
 
       {/* --- CONTENIDO DERECHO DINÁMICO --- */}
