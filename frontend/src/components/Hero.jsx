@@ -52,11 +52,11 @@ export default function Hero() {
         <ColumnaAnimada todasLasImagenes={listaCompleta} />
         <ColumnaAnimada todasLasImagenes={listaCompleta} />
       </div>
-
+{/*
       <div className="hero-texto-overlay">
         <h1>Iconbototos</h1>
         <p>ARTE INDEPENDIENTE • RISO ART • FANZINES</p>
-      </div>
+      </div> */}
     </section>
   );
 }

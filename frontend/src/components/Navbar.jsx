@@ -9,14 +9,18 @@ export default function Navbar({ carrito, setIsCartOpen }) {
 
   return (
     <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 40px', backgroundColor: 'white', borderBottom: '2px solid #111', position: 'sticky', top: 0, zIndex: 100 }}>
-      
-      {/* Logo tipográfico fuerte estilo Risotto */}
-      <h2 
+      {/* Logo de Iconbototos con navegación al inicio */}
+      <img 
+        src="/text-iconbototos.png" 
+        alt="Logo Iconbototos" 
         onClick={() => navigate('/')} 
-        style={{ margin: 0, cursor: 'pointer', fontWeight: '900', letterSpacing: '1px', fontSize: '1.8rem', textTransform: 'uppercase' }}
-      >
-        Iconbototos
-      </h2>
+        style={{ 
+          height: '40px',      // Ajusta la altura según qué tan grande quieras que se vea
+          width: 'auto',        // Mantiene la proporción original del logo
+          cursor: 'pointer', 
+          objectFit: 'contain' 
+        }} 
+      />
       
       <div style={{ display: 'flex', gap: '25px', alignItems: 'center' }}>
         {/* Botón oculto a simple vista para el Admin */}
