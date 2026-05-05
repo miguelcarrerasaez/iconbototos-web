@@ -1,19 +1,39 @@
-/* El contenedor general que mantiene las proporciones */
+/* Contenedor general */
 .hero-container {
   position: relative;
-  padding: 120px 20px;
-  text-align: center;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-  min-height: 50vh; /* Altura mínima para que no colapse */
+  height: 80vh; /* Puedes cambiarlo a 100vh si quieres que ocupe toda la pantalla */
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden; /* Evita que las fotos se salgan del borde */
+  overflow: hidden;
+  background-color: #ffffff; /* Fondo blanco para las separaciones de la grilla */
 }
 
-/* El estilo invisible para TODAS las fotos de fondo */
-.hero-bg {
+/* La grilla de 3 columnas al fondo */
+.hero-grid-fondo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas de igual tamaño */
+  gap: 15px; /* Separación entre imágenes como en Riso Art */
+  padding: 15px; /* Margen exterior */
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+/* Contenedor individual de cada columna */
+.columna-animada {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* La imagen en sí */
+.img-bg {
   position: absolute;
   top: 0;
   left: 0;
@@ -21,19 +41,26 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  opacity: 0; /* Invisibles por defecto */
-  transition: opacity 2s ease-in-out; /* ⏳ TRANSICIÓN LENTA Y SUAVE DE 2 SEGUNDOS */
-  z-index: 1; /* Se quedan al fondo */
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out; /* Transición suave */
 }
 
-/* Cuando la foto es la "activa", se vuelve visible mágicamente */
-.hero-bg.activo {
+.img-bg.activo {
   opacity: 1;
 }
 
-/* Asegura que el texto SIEMPRE esté sobre las fotos */
+/* El cuadro de texto para que resalte sobre el caos hermoso de las fotos */
 .hero-content {
   position: relative;
-  z-index: 10; /* Un z-index alto pone las letras al frente */
-  width: 100%;
+  z-index: 10;
+  text-align: center;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+  
+  /* Le damos un sutil fondo translúcido al texto para asegurar que siempre se lea */
+  background: rgba(0, 0, 0, 0.4); 
+  padding: 40px;
+  border-radius: 12px;
+  backdrop-filter: blur(4px); /* Efecto vidrio esmerilado opcional */
+  border: 2px solid rgba(255, 255, 255, 0.1);
 }

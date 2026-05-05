@@ -1,39 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import './Hero.css'; // Importamos la magia de la animación
+import './Hero.css'; 
+
+// 🛠️ SUB-COMPONENTE: Controla cada columna por separado
+const ColumnaAnimada = ({ imagenes, tiempoIntervalo }) => {
+  const [indice, setIndice] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndice((prev) => (prev + 1) % imagenes.length);
+    }, tiempoIntervalo);
+    
+    return () => clearInterval(timer);
+  }, [imagenes, tiempoIntervalo]);
+
+  return (
+    <div className="columna-animada">
+      {imagenes.map((img, i) => (
+        <div
+          key={i}
+          className={`img-bg ${i === indice ? 'activo' : ''}`}
+          style={{ backgroundImage: `url(${img})` }}
+        />
+      ))}
+    </div>
+  );
+};
 
 export default function Hero() {
-  // 1. Aquí pones las imágenes que quieres que se alternen
-  // Deben estar guardadas en la carpeta public/img/
-  const imagenesFondo = [
-    '/img/hero-fanzine.jpg', // Tu foto original
-    '/img/02.jpg',           // Foto 2 (asegúrate de que exista en tu carpeta)
-    '/img/03.jpg'            // Foto 3 (asegúrate de que exista en tu carpeta)
-  ];
-
-  const [indiceActual, setIndiceActual] = useState(0);
-
-  // 2. Temporizador: cambia la imagen cada 4 segundos
-  useEffect(() => {
-    const intervalo = setInterval(() => {
-      setIndiceActual((prev) => (prev + 1) % imagenesFondo.length);
-    }, 4000); 
-
-    return () => clearInterval(intervalo);
-  }, [imagenesFondo.length]);
+  // 📸 BATERÍA DE IMÁGENES POR COLUMNA
+  // Reemplaza estos nombres con los archivos reales que tengas en public/img/
+  const imgsCol1 = ['/img/hero-fanzine.jpg', '/img/04.jpg', '/img/07.jpg'];
+  const imgsCol2 = ['/img/02.jpg', '/img/05.jpg', '/img/08.jpg'];
+  const imgsCol3 = ['/img/03.jpg', '/img/06.jpg', '/img/09.jpg'];
 
   return (
     <section className="hero-container">
       
-      {/* 3. Renderizamos los fondos con animación */}
-      {imagenesFondo.map((img, index) => (
-        <div
-          key={index}
-          className={`hero-bg ${index === indiceActual ? 'activo' : ''}`}
-          style={{ backgroundImage: `url(${img})` }}
-        ></div>
-      ))}
+      {/* --- EL FONDO DIVIDIDO EN 3 --- */}
+      <div className="hero-grid-fondo">
+        {/* Le damos tiempos distintos a cada una para que el cambio no sea simultáneo */}
+        <ColumnaAnimada imagenes={imgsCol1} tiempoIntervalo={3500} />
+        <ColumnaAnimada imagenes={imgsCol2} tiempoIntervalo={5000} />
+        <ColumnaAnimada imagenes={imgsCol3} tiempoIntervalo={4000} />
+      </div>
 
-      {/* 4. Tus textos exactos, flotando siempre por encima */}
+      {/* --- TUS TEXTOS FLOTANDO ENCIMA --- */}
       <div className="hero-content">
         <h1 style={{ fontSize: '4rem', marginBottom: '10px', textTransform: 'uppercase' }}>
           Iconbototos
