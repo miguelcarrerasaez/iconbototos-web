@@ -49,3 +49,56 @@ body {
   background-color: var(--color-texto);
   color: var(--color-fondo);
 }
+
+/* --- LAYOUT DEL PANEL DE ADMINISTRACIÓN --- */
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--color-fondo);
+}
+
+.admin-sidebar {
+  width: 250px;
+  background-color: white;
+  border-right: var(--borde-grueso);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-sidebar h2 {
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.btn-menu {
+  background: transparent;
+  border: 2px solid transparent;
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-menu:hover {
+  border: 2px solid var(--color-texto);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px var(--color-secundario);
+}
+
+/* El botón de la pestaña que está seleccionada actualmente */
+.btn-menu.activo {
+  background-color: var(--color-texto);
+  color: var(--color-fondo);
+  border: 2px solid var(--color-texto);
+}
+
+.admin-content {
+  flex: 1; /* Toma todo el espacio restante a la derecha */
+  padding: 40px;
+}
