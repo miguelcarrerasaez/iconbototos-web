@@ -44,7 +44,7 @@ export default function Hero() {
         <ColumnaAnimada imagenes={imgsCol3} tiempoIntervalo={4000} />
       </div>
 
-      {/* --- TUS TEXTOS FLOTANDO ENCIMA --- */}
+      {/* --- TUS TEXTOS FLOTANDO ENCIMA 
       <div className="hero-content">
         <h1 style={{ fontSize: '4rem', marginBottom: '10px', textTransform: 'uppercase' }}>
           Iconbototos
@@ -52,7 +52,7 @@ export default function Hero() {
         <p style={{ fontSize: '1.5rem', maxWidth: '600px', margin: '0 auto', fontWeight: '500' }}>
           Fanzines, láminas y arte independiente directo a tus manos.
         </p>
-      </div>
+      </div>--- */}
 
     </section>
   );
