@@ -44,7 +44,6 @@ function Admin() {
     formData.append('image', archivo);
 
     try {
-      // ⚠️ IMPORTANTE: REEMPLAZA "TU_API_KEY_AQUI" CON TU KEY REAL DE IMGBB
       const respuesta = await fetch('https://api.imgbb.com/1/upload?key=369301acc9fbf5e2b93cbabc2cba70fd', {
         method: 'POST',
         body: formData
@@ -53,7 +52,7 @@ function Admin() {
       const datos = await respuesta.json();
       
       if (datos.success) {
-        setImagen(datos.data.url); // Guardamos la URL pública
+        setImagen(datos.data.url); // Guardamos la URL pública automáticamente en el input
       } else {
         alert("Error de ImgBB: " + datos.error.message);
       }
@@ -67,8 +66,10 @@ function Admin() {
 
   const guardarProducto = async (e) => {
     e.preventDefault();
+    
+    // Validación para evitar guardar sin imagen
     if (!imagen) {
-        alert("Por favor, espera a que la imagen se suba o agrega una URL válida.");
+        alert("Por favor, espera a que la imagen se suba o pega un link válido en el campo de URL.");
         return;
     }
 
@@ -96,11 +97,13 @@ function Admin() {
         setImagen('');
         setIdEdicion(null);
         cargarProductos();
-        alert(idEdicion ? "Lámina actualizada" : "Lámina creada");
+        alert(idEdicion ? "Lámina actualizada" : "Lámina creada exitosamente");
+      } else {
+        alert("Error del servidor al guardar la lámina.");
       }
     } catch (error) {
       console.error("Error al guardar:", error);
-      alert("Hubo un error al guardar la lámina");
+      alert("Hubo un error de conexión al guardar la lámina");
     }
   };
 
@@ -161,13 +164,13 @@ function Admin() {
         >
           🎨 Diseño Web
         </button>
-        
-      {/* --- NUEVO BOTÓN PARA VER LA TIENDA --- */}
+
+        {/* --- NUEVO BOTÓN PARA VER LA TIENDA --- */}
         <div style={{ marginTop: 'auto', paddingTop: '20px', borderTop: '3px solid #111' }}>
           <button 
             className="btn-menu"
             onClick={() => window.open('/', '_blank')}
-            style={{ width: '100%', backgroundColor: '#fff000', color: '#111' }}
+            style={{ width: '100%', backgroundColor: '#fff000', color: '#111', marginTop: '10px' }}
           >
             👁️ Ver Tienda Pública
           </button>
@@ -217,10 +220,20 @@ function Admin() {
                         required 
                         style={{ padding: '8px', border: '2px solid #111' }}
                     />
+
+                    {/* --- CAMPO DE URL VISIBLE (NUEVO) --- */}
+                    <input 
+                        type="url" 
+                        placeholder="URL de la imagen (se llena sola o pégala aquí)" 
+                        value={imagen} 
+                        onChange={(e) => setImagen(e.target.value)} 
+                        required 
+                        style={{ padding: '8px', border: '2px dashed #111', backgroundColor: '#f9f9f9' }}
+                    />
                     
                     {/* BOTÓN PARA SUBIR IMAGEN */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                        <label style={{ fontWeight: 'bold', fontSize: '14px' }}>Subir Fotografía:</label>
+                        <label style={{ fontWeight: 'bold', fontSize: '14px' }}>Subir Fotografía (Opcional):</label>
                         <input 
                             type="file" 
                             accept="image/*" 
@@ -229,12 +242,12 @@ function Admin() {
                         />
                         
                         {/* Mensaje de espera */}
-                        {subiendo && <p style={{ margin: 0, color: '#ff48b0', fontWeight: 'bold' }}>⏳ Subiendo a la nube...</p>}
+                        {subiendo && <p style={{ margin: '5px 0', color: '#ff48b0', fontWeight: 'bold' }}>⏳ Subiendo a la nube...</p>}
                         
                         {/* Vista previa de la imagen ya subida */}
                         {imagen && !subiendo && (
                             <div style={{ marginTop: '10px' }}>
-                                <p style={{ margin: '0 0 5px 0', fontSize: '12px', color: '#666' }}>✓ Imagen lista</p>
+                                <p style={{ margin: '0 0 5px 0', fontSize: '12px', color: '#666' }}>✓ Imagen vinculada</p>
                                 <img 
                                     src={imagen} 
                                     alt="Vista previa" 
