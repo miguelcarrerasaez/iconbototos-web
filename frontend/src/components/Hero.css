@@ -1,0 +1,39 @@
+/* El contenedor general que mantiene las proporciones */
+.hero-container {
+  position: relative;
+  padding: 120px 20px;
+  text-align: center;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  min-height: 50vh; /* Altura mínima para que no colapse */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Evita que las fotos se salgan del borde */
+}
+
+/* El estilo invisible para TODAS las fotos de fondo */
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0; /* Invisibles por defecto */
+  transition: opacity 2s ease-in-out; /* ⏳ TRANSICIÓN LENTA Y SUAVE DE 2 SEGUNDOS */
+  z-index: 1; /* Se quedan al fondo */
+}
+
+/* Cuando la foto es la "activa", se vuelve visible mágicamente */
+.hero-bg.activo {
+  opacity: 1;
+}
+
+/* Asegura que el texto SIEMPRE esté sobre las fotos */
+.hero-content {
+  position: relative;
+  z-index: 10; /* Un z-index alto pone las letras al frente */
+  width: 100%;
+}
