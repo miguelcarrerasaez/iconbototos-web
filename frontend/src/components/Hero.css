@@ -1,38 +1,5 @@
-/* Contenedor general */
-.hero-container {
-  position: relative;
-  height: 80vh; /* Puedes cambiarlo a 100vh si quieres que ocupe toda la pantalla */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background-color: #ffffff; /* Fondo blanco para las separaciones de la grilla */
-}
+/* ... (mantén el resto igual que el anterior, pero cambia esto) ... */
 
-/* La grilla de 3 columnas al fondo */
-.hero-grid-fondo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columnas de igual tamaño */
-  gap: 15px; /* Separación entre imágenes como en Riso Art */
-  padding: 15px; /* Margen exterior */
-  box-sizing: border-box;
-  z-index: 1;
-}
-
-/* Contenedor individual de cada columna */
-.columna-animada {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-/* La imagen en sí */
 .img-bg {
   position: absolute;
   top: 0;
@@ -42,25 +9,24 @@
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transition: opacity 1.5s ease-in-out; /* Transición suave */
+  /* Reducimos a 0.3s o 0.1s para que el parpadeo sea nítido y rápido */
+  transition: opacity 0.2s steps(4, end); 
+  filter: saturate(1.2); /* Un toque extra de color para la vibra Riso */
 }
 
 .img-bg.activo {
   opacity: 1;
 }
 
-/* El cuadro de texto para que resalte sobre el caos hermoso de las fotos */
-.hero-content {
-  position: relative;
-  z-index: 10;
-  text-align: center;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
-  
-  /* Le damos un sutil fondo translúcido al texto para asegurar que siempre se lea */
-  background: rgba(0, 0, 0, 0.4); 
-  padding: 40px;
-  border-radius: 12px;
-  backdrop-filter: blur(4px); /* Efecto vidrio esmerilado opcional */
-  border: 2px solid rgba(255, 255, 255, 0.1);
+.hero-grid-fondo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px; /* Separación más delgada y elegante */
+  background-color: white;
+  z-index: 1;
 }
