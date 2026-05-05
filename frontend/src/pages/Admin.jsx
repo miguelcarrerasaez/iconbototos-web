@@ -86,7 +86,12 @@ function Admin() {
 
     // 🔑 OBTENEMOS EL TOKEN DE SEGURIDAD
     const token = localStorage.getItem('token');
-
+    // --- NUEVO FRENO DE MANO ---
+    if (!token) {
+        alert("🚨 ¡Detente ahí! Tu navegador no tiene ningún token guardado. Ve a /login e inicia sesión de nuevo.");
+        return; // Esto cancela el guardado para que no dé el error 422
+    }
+    // ---------------------------
     try {
       const respuesta = await fetch(url, {
         method: metodo,
