@@ -1,20 +1,51 @@
-/* ==========================================
-   🎨 PANEL DE DISEÑO PARA MONSERRAT 
-   Hola Monse! Edita los códigos HEX de los colores aquí.
-   Al guardar, toda la web de Iconbototos cambiará automáticamente.
-========================================== */
-
+/* --- VARIABLES DINÁMICAS (Controlables desde el Admin) --- */
 :root {
-    /* --- COLORES BASE --- */
-    --bg-paper: #cb94ebb9;    /* Color del fondo (papel hueso/crema) */
-    --ink-black: #1a1a1a;   /* Color de los textos y bordes (tinta) */
+  --color-fondo: #f4f0e6;       /* Un tono papel ahuesado típico de Riso */
+  --color-texto: #111111;       /* Negro casi puro para alto contraste */
+  --color-primario: #ff48b0;    /* Rosa flúor Risotto */
+  --color-secundario: #00e5ff;  /* Cian vibrante */
+  --color-botones: #fff000;     /* Amarillo brillante */
+  
+  --borde-grueso: 3px solid var(--color-texto);
+  --fuente-titulos: 'Helvetica Neue', Arial, sans-serif; /* Puedes cambiarla por una más bold después */
+}
 
-    /* --- COLORES RISO (Acentos y Botones) --- */
-    --riso-pink: #FF00C1;   /* Magenta Neón (Hover de los menús) */
-    --riso-cyan: #00E5FF;   /* Cian (Fondo de la sección Feria) */
-    --riso-yellow: #FFE600; /* Amarillo (Lo usa el botón al cargar) */
+/* --- ESTILOS BASE BRUTALISTAS --- */
+body {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
-    /* --- TIPOGRAFÍAS --- */
-    --font-display: 'Syne', sans-serif;
-    --font-mono: 'Space Mono', monospace;
+/* Ejemplo de cómo se vería una tarjeta de producto estilo Risotto */
+.card-producto {
+  border: var(--borde-grueso);
+  background-color: white;
+  padding: 15px;
+  /* Cero sombras, diseño 100% plano y duro */
+  box-shadow: none; 
+  transition: transform 0.2s ease;
+}
+
+.card-producto:hover {
+  transform: translate(-4px, -4px);
+  /* Un efecto clásico brutalista: la sombra es en realidad un borde sólido desplazado */
+  box-shadow: 6px 6px 0px var(--color-primario); 
+}
+
+.btn-comprar {
+  background-color: var(--color-botones);
+  color: var(--color-texto);
+  border: var(--borde-grueso);
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.btn-comprar:hover {
+  background-color: var(--color-texto);
+  color: var(--color-fondo);
 }
