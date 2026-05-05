@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Toaster, toast } from 'sonner';
 
+// Detectamos si estamos en local o en producción de forma automática
+const BACKEND_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
+    ? "http://127.0.0.1:5000"                
+    : "https://iconbototos-api.onrender.com"; 
+
 export default function Login() {
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
@@ -11,8 +16,8 @@ export default function Login() {
     e.preventDefault();
     
     try {
-      // 1. Le enviamos a Python el usuario y contraseña
-      const respuesta = await fetch('https://iconbototos-api.onrender.com/api/login', {
+      // 1. Le enviamos a Python el usuario y contraseña (usando la URL dinámica)
+      const respuesta = await fetch(`${BACKEND_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ usuario: usuario, password: password })
@@ -20,8 +25,8 @@ export default function Login() {
 
       if (respuesta.ok) {
         const data = await respuesta.json();
-        // 2. Python nos da el Pase VIP (Token). Lo guardamos en la "billetera" del navegador
-        localStorage.setItem('token_iconbototos', data.token);
+        // 2. Guardamos la llave con el nombre EXACTO que busca el panel de Admin
+        localStorage.setItem('token', data.token); 
         
         toast.success('¡Bienvenida! Ingresando al panel...');
         setTimeout(() => navigate('/admin'), 1500);
