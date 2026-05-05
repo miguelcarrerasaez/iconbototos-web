@@ -84,10 +84,16 @@ function Admin() {
       imagen: imagen
     };
 
+    // 🔑 OBTENEMOS EL TOKEN DE SEGURIDAD
+    const token = localStorage.getItem('token');
+
     try {
       const respuesta = await fetch(url, {
         method: metodo,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` // 🔑 ENVIAMOS EL TOKEN AL BACKEND
+        },
         body: JSON.stringify(nuevoProducto)
       });
 
@@ -99,7 +105,8 @@ function Admin() {
         cargarProductos();
         alert(idEdicion ? "Lámina actualizada" : "Lámina creada exitosamente");
       } else {
-        alert("Error del servidor al guardar la lámina.");
+        const errorText = await respuesta.text();
+        alert("Error del servidor: " + errorText);
       }
     } catch (error) {
       console.error("Error al guardar:", error);
@@ -118,12 +125,20 @@ function Admin() {
   const eliminarProducto = async (id) => {
     if (!window.confirm("¿Seguro que quieres eliminar esta lámina de forma permanente?")) return;
 
+    // 🔑 OBTENEMOS EL TOKEN DE SEGURIDAD
+    const token = localStorage.getItem('token');
+
     try {
       const respuesta = await fetch(`${BACKEND_URL}/api/productos/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}` // 🔑 ENVIAMOS EL TOKEN AL BACKEND
+        }
       });
       if (respuesta.ok) {
         cargarProductos();
+      } else {
+        alert("No tienes permiso para borrar o tu sesión expiró.");
       }
     } catch (error) {
       console.error("Error al eliminar:", error);
@@ -221,7 +236,7 @@ function Admin() {
                         style={{ padding: '8px', border: '2px solid #111' }}
                     />
 
-                    {/* --- CAMPO DE URL VISIBLE (NUEVO) --- */}
+                    {/* --- CAMPO DE URL VISIBLE --- */}
                     <input 
                         type="url" 
                         placeholder="URL de la imagen (se llena sola o pégala aquí)" 
