@@ -14,7 +14,7 @@ export default function VideoBanner() {
       }}
     >
       <video 
-        src="/video_banner.mp4" 
+        src="/img/video_banner.mp4" 
         autoPlay 
         loop 
         muted 
