@@ -54,7 +54,7 @@ body {
 .producto-card {
   position: relative;
   background-color: white;
-  border: var(--borde-grueso); /* Usamos tu variable de borde negro */
+  /*border: var(--borde-grueso); /* Usamos tu variable de borde negro */
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -64,8 +64,8 @@ body {
 /* HOVER BRUTALISTA: Sombra dura de color rosa en lugar de sombra suave */
 .producto-card:hover {
   transform: translate(-6px, -6px); /* Salta hacia arriba y a la izquierda */
-  box-shadow: 8px 8px 0px var(--color-primario); /* Sombra sólida flúor */
-  z-index: 10;
+ /* box-shadow: 8px 8px 0px var(--color-primario);  Sombra sólida flúor 
+  z-index: 10;*/
 }
 
 .producto-imagen-wrapper {
