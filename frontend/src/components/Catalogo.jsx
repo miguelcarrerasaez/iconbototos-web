@@ -24,10 +24,10 @@ export default function Catalogo({ agregarAlCarrito }) {
   }, []);
 
   return (
-    <section id="catalogo" className="seccion-catalogo">
+    /* <section id="catalogo" className="seccion-catalogo">
       <h2 style={{ textAlign: 'center', marginBottom: '40px', fontSize: '2.5rem', textTransform: 'uppercase' }}>
-        Nuestro Catálogo
-      </h2>
+      Nuestro Catálogo 
+      </h2>*/
       
       {cargando ? (
         <div style={{ textAlign: 'center', padding: '50px' }}>
