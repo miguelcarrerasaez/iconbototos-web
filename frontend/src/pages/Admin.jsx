@@ -287,4 +287,15 @@ function Admin() {
         {vistaActiva === 'diseno' && (
           <div>
             <h1>Apariencia de la Tienda</h1>
-            <div style={{ backgroundColor: '#fff', border: '3px solid #111', padding: '40px',
+            <div style={{ backgroundColor: '#fff', border: '3px solid #111', padding: '40px', textAlign: 'center' }}>
+                <h2 style={{ color: '#00e5ff' }}>Próximamente 🚧</h2>
+            </div>
+          </div>
+        )}
+
+      </main>
+    </div>
+  );
+}
+
+export default Admin;
