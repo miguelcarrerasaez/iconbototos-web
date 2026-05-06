@@ -5,6 +5,7 @@ import Hero from '../components/Hero';
 import Catalogo from '../components/Catalogo';
 import Carrito from '../components/Carrito';
 import Footer from '../components/Footer';
+import VideoBanner from '../components/VideoBanner';
 
 export default function Tienda() {
   const [carrito, setCarrito] = useState([]);
@@ -45,6 +46,7 @@ export default function Tienda() {
       <Navbar carrito={carrito} setIsCartOpen={setIsCartOpen} />
       <Hero />
       <Catalogo agregarAlCarrito={agregarAlCarrito} /> 
+      <VideoBanner />
       <Footer />
       <Carrito carrito={carrito} isCartOpen={isCartOpen} setIsCartOpen={setIsCartOpen} agregarAlCarrito={agregarAlCarrito} quitarDelCarrito={quitarDelCarrito} />
     </div>
