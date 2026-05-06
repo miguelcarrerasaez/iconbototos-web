@@ -11,7 +11,7 @@ export default function Navbar({ carrito, setIsCartOpen }) {
     <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 40px', backgroundColor: 'white', borderBottom: '2px solid #111', position: 'sticky', top: 0, zIndex: 100 }}>
       {/* Logo de Iconbototos con navegación al inicio */}
       <img 
-        src="/text-iconbototos.png" 
+        src="/img/logo_iconbototos.png" 
         alt="Logo Iconbototos" 
         onClick={() => navigate('/')} 
         style={{ 
