@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingCart } from 'lucide-react';
 
-// URL dinámica para que funcione tanto en tu PC como en la web
 const BACKEND_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
     ? "http://127.0.0.1:5000"                
     : "https://iconbototos-api.onrender.com"; 
@@ -24,17 +23,14 @@ export default function Catalogo({ agregarAlCarrito }) {
   }, []);
 
   return (
-      <section id="catalogo" className="seccion-catalogo">
-      
+    <section id="catalogo" className="seccion-catalogo">
       {cargando ? (
         <div style={{ textAlign: 'center', padding: '50px' }}>
           <h3>Cargando láminas... ⏳</h3>
         </div>
       ) : (
-        /* AQUÍ ESTÁ LA MAGIA: Llamamos a la clase de la grilla de 4 columnas */
         <div className="catalogo-grid">
           {productos.map((producto) => (
-            /* Llamamos a la clase de la tarjeta brutalista */
             <div key={producto.id} className="producto-card" style={{ opacity: producto.stock === 0 ? 0.6 : 1 }}>
               
               {/* Etiqueta de Agotado */}
@@ -71,7 +67,6 @@ export default function Catalogo({ agregarAlCarrito }) {
                     justifyContent: 'center', 
                     alignItems: 'center', 
                     gap: '8px',
-                    // Si está agotado, apagamos el color flúor del botón
                     backgroundColor: producto.stock === 0 ? '#ccc' : 'var(--color-botones)',
                     color: producto.stock === 0 ? '#666' : 'var(--color-texto)',
                     cursor: producto.stock === 0 ? 'not-allowed' : 'pointer'
