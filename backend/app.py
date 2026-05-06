@@ -39,6 +39,7 @@ class Producto(db.Model):
     titulo = db.Column(db.String(100), nullable=False)
     precio = db.Column(db.Integer, nullable=False)
     imagen = db.Column(db.String(200), nullable=False)
+    imagen_hover = db.Column(db.String(200), nullable=True) # 📸 NUEVO: La segunda foto
     stock = db.Column(db.Integer, default=10)
 
     def to_dict(self):
@@ -47,6 +48,7 @@ class Producto(db.Model):
             "titulo": self.titulo,
             "precio": self.precio,
             "imagen": self.imagen,
+            "imagen_hover": self.imagen_hover, # 📸 NUEVO
             "stock": self.stock
         }
 
@@ -92,6 +94,7 @@ def agregar_producto():
             titulo=datos['titulo'],
             precio=datos['precio'],
             imagen=datos['imagen'],
+            imagen_hover=datos.get('imagen_hover', ''),
             stock=datos.get('stock', 0)
         )
         db.session.add(nuevo_producto)
