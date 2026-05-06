@@ -73,7 +73,7 @@ body {
   width: 100%;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  border-bottom: var(--borde-grueso); /* Separa la imagen del texto con una línea fuerte */
+  /*border-bottom: var(--borde-grueso); /* Separa la imagen del texto con una línea fuerte */
   background-color: #eaeaea;
 }
 
