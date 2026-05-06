@@ -28,9 +28,20 @@ sdk = mercadopago.SDK(access_token)
 
 
 # ==========================================
-# CONFIGURACIÓN DE LA BASE DE DATOS SQLITE
+# CONFIGURACIÓN DE LA BASE DE DATOS (NEON / SQLITE)
 # ==========================================
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tienda.db'
+# 1. Intentamos leer la URL de la base de datos del servidor (Render/Neon)
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+if DATABASE_URL:
+    # SQLAlchemy requiere que la URL empiece con 'postgresql://' en lugar de 'postgres://'
+    if DATABASE_URL.startswith("postgres://"):
+        DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+else:
+    # 2. Si no hay URL en el entorno, usamos SQLite local para que no se rompa nada en tu PC
+    DATABASE_URL = 'sqlite:///tienda.db'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -39,7 +50,7 @@ class Producto(db.Model):
     titulo = db.Column(db.String(100), nullable=False)
     precio = db.Column(db.Integer, nullable=False)
     imagen = db.Column(db.String(200), nullable=False)
-    imagen_hover = db.Column(db.String(200), nullable=True) # 📸 NUEVO: La segunda foto
+    imagen_hover = db.Column(db.String(200), nullable=True) # 📸 Segunda foto
     stock = db.Column(db.Integer, default=10)
 
     def to_dict(self):
@@ -48,7 +59,7 @@ class Producto(db.Model):
             "titulo": self.titulo,
             "precio": self.precio,
             "imagen": self.imagen,
-            "imagen_hover": self.imagen_hover, # 📸 NUEVO
+            "imagen_hover": self.imagen_hover, 
             "stock": self.stock
         }
 
@@ -107,7 +118,7 @@ def agregar_producto():
 @app.route('/api/productos/<int:id>', methods=['PUT'])
 @jwt_required()
 def actualizar_producto(id):
-    producto = db.session.get(Producto, id) # Actualizado para evitar warnings de SQLAlchemy 2.0
+    producto = db.session.get(Producto, id)
     if not producto:
         return jsonify({"error": "Producto no encontrado"}), 404
     
@@ -115,6 +126,7 @@ def actualizar_producto(id):
     producto.titulo = datos.get('titulo', producto.titulo)
     producto.precio = datos.get('precio', producto.precio)
     producto.imagen = datos.get('imagen', producto.imagen)
+    producto.imagen_hover = datos.get('imagen_hover', producto.imagen_hover) # 📸 Permite actualizar la 2da foto
     producto.stock = datos.get('stock', producto.stock)
     
     db.session.commit()
