@@ -1,0 +1,198 @@
+/* --- VARIABLES DINÁMICAS (Controlables desde el Admin) --- */
+:root {
+  --color-fondo: #f4f0e6;       /* Un tono papel ahuesado típico de Riso */
+  --color-texto: #111111;       /* Negro casi puro para alto contraste */
+  --color-primario: #ff48b0;    /* Rosa flúor Risotto */
+  --color-secundario: #00e5ff;  /* Cian vibrante */
+  --color-botones: #fff000;     /* Amarillo brillante */
+  
+  --borde-grueso: 3px solid var(--color-texto);
+  --fuente-titulos: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* --- ESTILOS BASE BRUTALISTAS --- */
+body {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.btn-comprar {
+  background-color: var(--color-botones);
+  color: var(--color-texto);
+  border: var(--borde-grueso);
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.btn-comprar:hover {
+  background-color: var(--color-texto);
+  color: var(--color-fondo);
+}
+
+/* =========================================
+   NUEVO: CATÁLOGO PÚBLICO (4 COLUMNAS)
+   ========================================= */
+.seccion-catalogo {
+  padding: 60px 40px;
+  background-color: var(--color-fondo);
+}
+
+.catalogo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+  gap: 5px; 
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* La tarjeta del producto adaptada a tu estilo Brutalista */
+.producto-card {
+  position: relative;
+  background-color: white;
+  /*border: var(--borde-grueso); /* Usamos tu variable de borde negro */
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* HOVER BRUTALISTA: Sombra dura de color rosa en lugar de sombra suave */
+.producto-card:hover {
+  transform: translate(-6px, -6px); /* Salta hacia arriba y a la izquierda */
+ /* box-shadow: 8px 8px 0px var(--color-primario);  Sombra sólida flúor 
+  z-index: 10;*/
+}
+
+.producto-imagen-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  /*border-bottom: var(--borde-grueso); /* Separa la imagen del texto con una línea fuerte */
+  background-color: #eaeaea;
+}
+
+.img-principal, .img-secundaria {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.img-secundaria {
+  opacity: 0;
+}
+
+.producto-card:hover .img-secundaria {
+  opacity: 1;
+  transform: scale(1.05); /* Efecto zoom suave en la foto mientras la tarjeta salta */
+}
+
+.producto-card:hover .img-principal {
+  opacity: 0;
+}
+
+.producto-info {
+  padding: 15px;
+  background-color: white;
+}
+
+.producto-info h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--color-texto);
+}
+
+.producto-precio-stock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.precio {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.stock-bajo {
+  font-size: 0.85rem;
+  color: var(--color-secundario); /* Letras cian para el stock */
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* RESPONSIVO */
+@media (max-width: 1024px) {
+  .catalogo-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .catalogo-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 20px; }
+}
+@media (max-width: 480px) {
+  .catalogo-grid { grid-template-columns: 1fr; }
+}
+
+/* =========================================
+   LAYOUT DEL PANEL DE ADMINISTRACIÓN
+   ========================================= */
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--color-fondo);
+}
+
+.admin-sidebar {
+  width: 250px;
+  background-color: white;
+  border-right: var(--borde-grueso);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-sidebar h2 {
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.btn-menu {
+  background: transparent;
+  border: 2px solid transparent;
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-menu:hover {
+  border: 2px solid var(--color-texto);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px var(--color-secundario);
+}
+
+.btn-menu.activo {
+  background-color: var(--color-texto);
+  color: var(--color-fondo);
+  border: 2px solid var(--color-texto);
+}
+
+.admin-content {
+  flex: 1;
+  padding: 40px;
+}
