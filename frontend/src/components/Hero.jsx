@@ -1,19 +1,27 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import './Hero.css';
 
-const ColumnaAnimada = ({ todasLasImagenes }) => {
-  const [indice, setIndice] = useState(0);
+// Componente individual para cada columna
+const ColumnaAnimada = ({ todasLasImagenes, indiceInicial, ritmo }) => {
+  const [indice, setIndice] = useState(indiceInicial);
 
   useEffect(() => {
-    // Definimos el intervalo de tiempo (2.5 segundos es un ritmo editorial elegante)
+    // El intervalo "latido" que mantiene la columna cambiando para siempre
     const intervalo = setInterval(() => {
-      setIndice((prevIndice) => (prevIndice + 1) % todasLasImagenes.length);
-    }, 2500);
+      setIndice((prevIndice) => {
+        let nuevoIndice;
+        // Obligamos a que la nueva imagen elegida al azar NUNCA sea igual a la anterior
+        do {
+          nuevoIndice = Math.floor(Math.random() * todasLasImagenes.length);
+        } while (nuevoIndice === prevIndice);
+        
+        return nuevoIndice;
+      });
+    }, ritmo);
 
-    // Limpiamos el intervalo al desmontar el componente
     return () => clearInterval(intervalo);
-  }, [todasLasImagenes.length]);
-  
+  }, [todasLasImagenes.length, ritmo]);
+
   return (
     <div className="columna-contenedor">
       {todasLasImagenes.map((img, i) => (
@@ -45,18 +53,35 @@ export default function Hero() {
     '/img/hero.14.jpg',
   ], []);
 
+  // Generamos 3 índices iniciales distintos matemáticamente separados
+  // para asegurar que las 3 columnas arranquen con fotos diferentes
+  const inicial1 = 0; 
+  const inicial2 = 4;
+  const inicial3 = 8;
+
   return (
     <section className="hero-seccion">
+      {/* 
+        Restauramos el hero-grid que envuelve las columnas 
+        para que mantengan su forma de 3 bloques perfectos 
+      */}
       <div className="hero-grid">
-        <ColumnaAnimada todasLasImagenes={listaCompleta} />
-        <ColumnaAnimada todasLasImagenes={listaCompleta} />
-        <ColumnaAnimada todasLasImagenes={listaCompleta} />
+        <ColumnaAnimada 
+          todasLasImagenes={listaCompleta} 
+          indiceInicial={inicial1} 
+          ritmo={2500} /* Cambia cada 2.5 segundos */
+        />
+        <ColumnaAnimada 
+          todasLasImagenes={listaCompleta} 
+          indiceInicial={inicial2} 
+          ritmo={3200} /* Cambia cada 3.2 segundos (desfasado) */
+        />
+        <ColumnaAnimada 
+          todasLasImagenes={listaCompleta} 
+          indiceInicial={inicial3} 
+          ritmo={2800} /* Cambia cada 2.8 segundos (desfasado) */
+        />
       </div>
-{/*
-      <div className="hero-texto-overlay">
-        <h1>Iconbototos</h1>
-        <p>ARTE INDEPENDIENTE • RISO ART • FANZINES</p>
-      </div> */}
     </section>
   );
 }
