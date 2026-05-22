@@ -201,3 +201,13 @@ body {
 .ocultar-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* Zoom simétrico hacia adentro al hacer hover en el catálogo horizontal */
+.horizontal-item-wrapper:hover .img-horizontal-zoom {
+  transform: scale(1.08);
+}
+
+/* Efecto hover interactivo para el icono de compra horizontal */
+.btn-add-horizontal:hover {
+  color: var(--color-primario) !important;
+}

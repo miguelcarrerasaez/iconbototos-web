@@ -10,6 +10,7 @@ import Carrito from './components/Carrito';
 // --- SECCIONES DE LA PÁGINA ---
 import Hero from './components/Hero';
 import Catalogo from './components/Catalogo';
+import CatalogoHorizontal from './components/CatalogoHorizontal';
 import VideoBanner from './components/VideoBanner';
 import Admin from './pages/Admin';
 
@@ -70,15 +71,16 @@ function LayoutPrincipal() {
 
       <main style={{ flexGrow: 1 }}>
         <Routes>
-          {/* 1. HOME: Vitrina, Bienvenida y Video */}
+          {/* 1. HOME: Carrusel (Hero), Catálogo Horizontal sin márgenes y Video Banner */}
           <Route path="/" element={
             <>
               <Hero />
+              <CatalogoHorizontal agregarAlCarrito={agregarAlCarrito} />
               <VideoBanner />
             </>
           } />
 
-          {/* 2. TIENDA: Solo el catálogo asimétrico */}
+          {/* 2. TIENDA: Vista clásica estructurada en grilla */}
           <Route path="/tienda" element={
             <div style={{ paddingTop: '40px', paddingBottom: '80px' }}>
               <Catalogo agregarAlCarrito={agregarAlCarrito} /> 
