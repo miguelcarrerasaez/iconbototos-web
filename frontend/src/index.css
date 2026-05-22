@@ -196,3 +196,8 @@ body {
   flex: 1;
   padding: 40px;
 }
+
+/* Oculta la barra de scroll horizontal en Chrome, Safari y Edge */
+.ocultar-scrollbar::-webkit-scrollbar {
+  display: none;
+}
