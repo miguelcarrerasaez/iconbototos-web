@@ -14,11 +14,24 @@ export default function CatalogoHorizontal({ agregarAlCarrito }) {
       .then(data => { setProductos(data); setCargando(false); });
   }, []);
 
-  // Scroll Horizontal infinito (efecto visual)
-  const productosDuplicados = [...productos, ...productos];
+  // Para el efecto infinito, duplicamos o triplicamos la lista
+  const productosInfinitos = [...productos, ...productos, ...productos];
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const handleWheel = (e) => {
+      e.preventDefault(); // Evita que la página suba/baje
+      container.scrollLeft += e.deltaY; // Mueve horizontalmente según la rueda
+    };
+
+    container.addEventListener('wheel', handleWheel, { passive: false });
+    return () => container.removeEventListener('wheel', handleWheel);
+  }, [cargando]);
 
   return (
-    <section style={{ width: '100%', overflow: 'hidden', backgroundColor: '#f4f0e6' }}>
+    <section style={{ width: '100%', overflow: 'hidden', backgroundColor: '#f4f0e6', padding: '0' }}>
       {cargando ? <p style={{ padding: '20px' }}>Cargando galería...</p> : (
         <div 
           ref={scrollContainerRef}
@@ -30,15 +43,17 @@ export default function CatalogoHorizontal({ agregarAlCarrito }) {
             scrollbarWidth: 'none'
           }}
         >
-          {productosDuplicados.map((producto, index) => (
+          {productosInfinitos.map((producto, index) => (
             <div key={`${producto.id}-${index}`} className="item-galeria">
               <div className="imagen-contenedor">
                 <img src={producto.imagen} alt={producto.titulo} className="img-zoom" />
               </div>
               <div className="info-galeria">
-                <h4>{producto.titulo}</h4>
-                <p>${producto.precio}</p>
-                <button onClick={() => agregarAlCarrito(producto)}><ShoppingCart size={16} /></button>
+                <h4 style={{ margin: 0 }}>{producto.titulo}</h4>
+                <p style={{ margin: 0 }}>${producto.precio}</p>
+                <button onClick={() => agregarAlCarrito(producto)} className="btn-add">
+                   <ShoppingCart size={16} />
+                </button>
               </div>
             </div>
           ))}

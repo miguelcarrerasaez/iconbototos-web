@@ -255,3 +255,58 @@ body {
   text-transform: uppercase;
   font-size: 0.9rem;
 }
+
+/* Asegura que el scroll esté limpio */
+.horizontal-scroll-container::-webkit-scrollbar { display: none; }
+
+.item-galeria {
+  flex: 0 0 320px; /* Ancho de la tarjeta */
+  border-right: 2px solid #111;
+  background: white;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1; /* Nivel base */
+}
+
+/* EFECTO: Romper el marco */
+.item-galeria:hover {
+  z-index: 10; /* Se pone encima de todos los vecinos */
+  transform: scale(1.05); /* Agranda ligeramente toda la tarjeta */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25); /* Sombra para dar profundidad */
+}
+
+/* La imagen crece y se desborda suavemente */
+.imagen-contenedor {
+  width: 100%;
+  height: 400px;
+  overflow: visible; /* IMPORTANTE: Quitamos hidden para que la imagen pueda sobresalir */
+  border-bottom: 2px solid #111;
+}
+
+.img-zoom {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+/* Cuando haces hover en la tarjeta, la imagen se expande */
+.item-galeria:hover .img-zoom {
+  transform: scale(1.1); /* Zoom hacia afuera */
+}
+
+/* Estilos de información */
+.info-galeria {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-add {
+  background: none;
+  border: 1px solid #111;
+  cursor: pointer;
+  padding: 5px;
+}
+.btn-add:hover { background: #111; color: white; }
