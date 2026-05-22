@@ -48,7 +48,7 @@
   overflow: hidden;
 }
 
-/* 4. Las imágenes: transiciones rápidas y cubriendo su espacio */
+/* 4. Las imágenes: Ahora usan clip-path para el efecto de cortina */
 .img-item {
   position: absolute;
   top: 0;
@@ -57,12 +57,17 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out; /* Transición rápida */
+  
+  /* Definimos que la imagen empieza oculta hacia la derecha (100% de recorte) */
+  clip-path: inset(0% 100% 0% 0%);
+  
+  /* Transición suave y sofisticada */
+  transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 .img-item.activo {
-  opacity: 1;
+  /* Al activarse, el recorte desaparece (0%) y la imagen se revela */
+  clip-path: inset(0%);
 }
 
 /* 5. El texto: flotando por encima con fondo para legibilidad */

@@ -6,7 +6,7 @@ const ColumnaAnimada = ({ todasLasImagenes }) => {
   const [tiempoSiguiente, setTiempoSiguiente] = useState(1000);
 
   useEffect(() => {
-    const ritmos = [100, 200, 500, 1000, 2000, 3000, 150, 800];
+    const ritmos = [800, 1200, 1500, 2000];
     
     const cambiarImagen = () => {
       setIndice(Math.floor(Math.random() * todasLasImagenes.length));
