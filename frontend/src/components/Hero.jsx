@@ -2,22 +2,18 @@ import React, { useState, useEffect, useMemo } from 'react';
 import './Hero.css';
 
 const ColumnaAnimada = ({ todasLasImagenes }) => {
-  const [indice, setIndice] = useState(Math.floor(Math.random() * todasLasImagenes.length));
-  const [tiempoSiguiente, setTiempoSiguiente] = useState(1000);
+  const [indice, setIndice] = useState(0);
 
   useEffect(() => {
-    const ritmos = [800, 1200, 1500, 2000];
-    
-    const cambiarImagen = () => {
-      setIndice(Math.floor(Math.random() * todasLasImagenes.length));
-      const nuevoRitmo = ritmos[Math.floor(Math.random() * ritmos.length)];
-      setTiempoSiguiente(nuevoRitmo);
-    };
+    // Definimos el intervalo de tiempo (2.5 segundos es un ritmo editorial elegante)
+    const intervalo = setInterval(() => {
+      setIndice((prevIndice) => (prevIndice + 1) % todasLasImagenes.length);
+    }, 2500);
 
-    const timer = setTimeout(cambiarImagen, tiempoSiguiente);
-    return () => clearTimeout(timer);
-  }, [indice, tiempoSiguiente, todasLasImagenes.length]);
-
+    // Limpiamos el intervalo al desmontar el componente
+    return () => clearInterval(intervalo);
+  }, [todasLasImagenes.length]);
+  
   return (
     <div className="columna-contenedor">
       {todasLasImagenes.map((img, i) => (

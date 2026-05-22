@@ -59,7 +59,7 @@
   background-position: center;
   
   /* Definimos que la imagen empieza oculta hacia la derecha (100% de recorte) */
-  clip-path: inset(0% 100% 0% 0%);
+  clip-path: inset(100% 0% 0% 0%);
   
   /* Transición suave y sofisticada */
   transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1);
@@ -67,7 +67,7 @@
 
 .img-item.activo {
   /* Al activarse, el recorte desaparece (0%) y la imagen se revela */
-  clip-path: inset(0%);
+  clip-path: inset(0% 0% 0% 0%);
 }
 
 /* 5. El texto: flotando por encima con fondo para legibilidad */
