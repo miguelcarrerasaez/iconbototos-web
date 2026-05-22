@@ -11,7 +11,7 @@ import Carrito from './components/Carrito';
 import Hero from './components/Hero';
 import Catalogo from './components/Catalogo';
 import VideoBanner from './components/VideoBanner';
-import Admin from './Admin'; 
+import Admin from './pages/Admin';
 
 // --- COMPONENTE TEMPORAL PARA PÁGINAS EN CONSTRUCCIÓN ---
 const PaginaEnConstruccion = ({ titulo }) => (
