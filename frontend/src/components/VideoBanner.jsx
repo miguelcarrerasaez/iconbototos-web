@@ -1,4 +1,4 @@
-{/*import React from 'react';
+import React from 'react';
 
 export default function VideoBanner() {
   return (
@@ -14,7 +14,7 @@ export default function VideoBanner() {
       }}
     >
       <video 
-        src="/img/video_banner.mp4" 
+        src="/img/.mp4" 
         autoPlay 
         loop 
         muted 
