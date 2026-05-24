@@ -284,3 +284,13 @@ body {
   padding: 5px;
 }
 .btn-add:hover { background: #111; color: white; }
+
+/* Transición simple para el overlay del menú */
+.menu-overlay {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
