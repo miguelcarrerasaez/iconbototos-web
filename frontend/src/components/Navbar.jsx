@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom'; 
 import { ShoppingCart, User, Menu, X } from 'lucide-react';
 
 export default function Navbar({ carrito, setIsCartOpen }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
-
   const links = ['nosotros', 'tienda', 'eventos', 'imprimir', 'portafolio', 'talleres', 'contacto'];
 
   return (
@@ -19,38 +18,28 @@ export default function Navbar({ carrito, setIsCartOpen }) {
          <img src="/img/logo_iconbototos.png" alt="Iconbototos Logo" style={{ height: '40px' }} />
        </Link>
 
-       {/* 2. BOTÓN HAMBURGUESA */}
-       <button 
-        onClick={() => setMenuOpen(!menuOpen)} 
-        style={{ background: 'none', border: 'none', cursor: 'pointer', zIndex: 101 }}
-       >
-         {menuOpen ? <X size={32} /> : <Menu size={32} />}
-       </button>
+       {/* 2. GRUPO DERECHA: Login, Carrito y Menú */}
+       <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+         <Link to="/admin" style={{ color: '#111' }}><User size={24} /></Link>
+         
+         <button onClick={() => setIsCartOpen(true)} style={{ background: 'none', border: 'none', cursor: 'pointer', position: 'relative' }}>
+           <ShoppingCart size={24} />
+           {totalItems > 0 && <span style={{ position: 'absolute', top: '-5px', right: '-5px', fontSize: '10px', background: '#ff48b0', color: 'white', borderRadius: '50%', padding: '2px 5px' }}>{totalItems}</span>}
+         </button>
 
-       {/* 3. MENU OVERLAY (El menú hamburguesa desplegado) */}
+         <button onClick={() => setMenuOpen(!menuOpen)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+           {menuOpen ? <X size={24} /> : <Menu size={24} />}
+         </button>
+       </div>
+
+       {/* 3. MENÚ DESPLEGABLE (Cuadrado pequeño hacia abajo) */}
        {menuOpen && (
-         <div style={{
-           position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
-           backgroundColor: '#f4f0e6', display: 'flex', flexDirection: 'column',
-           justifyContent: 'center', alignItems: 'center', gap: '30px', zIndex: 99
-         }}>
+         <div className="navbar-dropdown">
            {links.map(ruta => (
-             <Link key={ruta} to={`/${ruta}`} onClick={() => setMenuOpen(false)} style={{
-               textDecoration: 'none', color: '#111', fontWeight: '900',
-               fontSize: '2rem', textTransform: 'uppercase', fontFamily: "'Arimo', sans-serif"
-             }}>
+             <Link key={ruta} to={`/${ruta}`} onClick={() => setMenuOpen(false)} className="dropdown-link">
                {ruta}
              </Link>
            ))}
-           
-           {/* Iconos de Login y Carrito dentro del menú */}
-           <div style={{ display: 'flex', gap: '40px', marginTop: '20px' }}>
-              <Link to="/admin" onClick={() => setMenuOpen(false)}><User size={32} /></Link>
-              <button onClick={() => { setIsCartOpen(true); setMenuOpen(false); }} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-                <ShoppingCart size={32} />
-                {totalItems > 0 && <span style={{ marginLeft: '5px', fontWeight: 'bold' }}>({totalItems})</span>}
-              </button>
-           </div>
          </div>
        )}
     </nav>
