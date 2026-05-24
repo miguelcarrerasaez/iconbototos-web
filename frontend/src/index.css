@@ -212,74 +212,41 @@ body {
   color: var(--color-primario) !important;
 }
 
-/* 1. Contenedor horizontal sin barra */
-.horizontal-scroll-container::-webkit-scrollbar { display: none; }
+/* =========================================
+   CATÁLOGO HORIZONTAL (Versión Reducida)
+   ========================================= */
 
-/* 2. Item pegado al otro */
-.item-galeria {
-  flex: 0 0 300px;
-  border-right: 2px solid #111;
-  background: white;
-}
-
-/* 3. El Zoom: La imagen se agranda suavemente */
-.imagen-contenedor {
-  width: 100%;
-  height: 400px;
-  overflow: hidden; /* Esto hace que el zoom quede contenido */
-  border-bottom: 2px solid #111;
-}
-
-.img-zoom {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.item-galeria:hover .img-zoom {
-  transform: scale(1.15); /* Zoom elegante */
-}
-
-/* 4. Estilos de texto */
-.info-galeria {
-  padding: 20px;
+/* 1. Contenedor horizontal */
+.horizontal-scroll-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  overflow-x: auto;
+  gap: 0px;
+  scrollbar-width: none;
 }
-
-.info-galeria h4 {
-  font-family: 'Arimo', sans-serif;
-  margin: 0;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-}
-
-/* Asegura que el scroll esté limpio */
 .horizontal-scroll-container::-webkit-scrollbar { display: none; }
 
+/* 2. Item: Reducido de 320px a 220px */
 .item-galeria {
-  flex: 0 0 320px; /* Ancho de la tarjeta */
+  flex: 0 0 220px; 
   border-right: 2px solid #111;
   background: white;
   transition: all 0.3s ease;
   position: relative;
-  z-index: 1; /* Nivel base */
+  z-index: 1;
 }
 
-/* EFECTO: Romper el marco */
+/* EFECTO: Romper el marco al hacer hover */
 .item-galeria:hover {
-  z-index: 10; /* Se pone encima de todos los vecinos */
-  transform: scale(1.05); /* Agranda ligeramente toda la tarjeta */
-  box-shadow: 0 20px 40px rgba(0,0,0,0.25); /* Sombra para dar profundidad */
+  z-index: 10;
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
 }
 
-/* La imagen crece y se desborda suavemente */
+/* 3. La imagen: Reducida de 400px a 280px */
 .imagen-contenedor {
   width: 100%;
-  height: 400px;
-  overflow: visible; /* IMPORTANTE: Quitamos hidden para que la imagen pueda sobresalir */
+  height: 280px; 
+  overflow: visible;
   border-bottom: 2px solid #111;
 }
 
@@ -292,15 +259,22 @@ body {
 
 /* Cuando haces hover en la tarjeta, la imagen se expande */
 .item-galeria:hover .img-zoom {
-  transform: scale(1.1); /* Zoom hacia afuera */
+  transform: scale(1.1);
 }
 
-/* Estilos de información */
+/* 4. Estilos de texto */
 .info-galeria {
-  padding: 20px;
+  padding: 10px; /* Padding reducido */
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.info-galeria h4 {
+  font-family: 'Arimo', sans-serif;
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 0.8rem; /* Fuente un poco más pequeña */
 }
 
 .btn-add {
