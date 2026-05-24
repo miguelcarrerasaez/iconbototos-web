@@ -27,7 +27,7 @@
   /* Esto asegura que las esquinas del video se corten siguiendo la curva del borde */
   overflow: hidden; 
   
-  background-color: #f0f0f0; 
+  background-color: #ffffff; 
   box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
   z-index: 1;
 }
@@ -36,6 +36,6 @@
 .hero-video {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Funciona como background-size: cover pero para videos/imágenes */
+  object-fit: contain; /* 'contain' asegura que el video se vea entero siempre sin cortes */
   display: block;
 }
