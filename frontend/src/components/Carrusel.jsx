@@ -20,7 +20,7 @@ export default function Carrusel() {
           <div key={producto.id} className="carrusel-card">
             <img 
               className="carrusel-imagen" 
-              src="https://via.placeholder.com/270x300" 
+              src="D:\iconbototos\frontend\public\img\lamina-azul.jpg" 
               alt={producto.titulo} 
             />
             <div className="carrusel-info">
