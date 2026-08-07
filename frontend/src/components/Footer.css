@@ -1,0 +1,78 @@
+/* =========================================
+   SECCIÓN FOOTER
+   ========================================= */
+
+/* 1. Contenedor principal del footer */
+.footer-seccion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, #0078BF 0%, rgba(241, 80, 96, 0) 100%);
+  width: 100%;
+}
+
+/* 2. Contenedor padre: flex column, centrado, padding 20px, ancho 1090px */
+.footer-contenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 1090px;
+}
+
+/* 3. Contenedor de columnas: flex row, gap 4px, ancho 817px */
+.footer-columnas {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 817px;
+}
+
+/* 4. Columna individual: 260px ancho, flex column */
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  width: 260px;
+  gap: 18px;
+}
+
+/* 5. Título de columna (Studio, Ayuda, Social) */
+.footer-titulo-col {
+  font-family: 'Lorimer No 2', sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  color: #121212;
+  line-height: 48.11px;
+  margin: 0;
+}
+
+/* 6. Enlaces dentro de las columnas */
+.footer-enlace {
+  font-family: 'Lorimer No 2', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  color: #121212;
+  line-height: 28.8px;
+  text-decoration: none;
+  display: block;
+}
+
+/* 7. Contenedor de íconos sociales: flex row, gap 11px */
+.footer-social {
+  display: flex;
+  flex-direction: row;
+  gap: 11px;
+  align-items: center;
+}
+
+/* 8. Enlace de ícono social */
+.footer-social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
