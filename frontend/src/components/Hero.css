@@ -1,41 +1,76 @@
+/* =========================================
+   SECCIÓN HERO (RISO, MAGIA, ZINES)
+   ========================================= */
+
 /* 1. Contenedor principal de la sección */
 .hero-seccion {
-  position: relative;
-  width: 100%;
-  height: 85vh; 
-  background-color: white; 
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #ffffff;
+  padding: 30px 10px;
 }
 
-/* 2. La caja contenedora: Mantiene los bordes redondeados y el tamaño */
-.hero-grid {
-  position: absolute;
-  top: 50%; 
-  left: 50%; 
-  transform: translate(-50%, -50%); 
-  
-  width: 85%; 
-  max-width: 1400px; 
-  height: 90%; 
-  
-  /* Mantenemos los bordes redondeados */
-  border-radius: 40px; 
-  
-  /* Esto asegura que las esquinas del video se corten siguiendo la curva del borde */
-  overflow: hidden; 
-  
-  background-color: #ffffff; 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
-  z-index: 1;
-}
-
-/* 3. El Video: Ocupa todo el espacio de la caja sin deformarse */
-.hero-video {
+/* 2. Contenedor padre: flex horizontal, centrado, gap 59px */
+.hero-contenedor {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 59px;
+  max-width: 870px;
   width: 100%;
-  height: 100%;
-  object-fit: contain; /* 'contain' asegura que el video se vea entero siempre sin cortes */
-  display: block;
+}
+
+/* 3. Columna de texto: flex vertical, gap 36px, width 341px */
+.hero-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  width: 341px;
+}
+
+/* 4. Título */
+.hero-titulo {
+  font-family: 'Lorimer No 2', sans-serif;
+  font-weight: 500;
+  font-size: 36px;
+  color: #000000;
+  line-height: 43.2px;
+  margin: 0;
+}
+
+/* 5. Párrafo descriptivo */
+.hero-parrafo {
+  font-family: 'Lorimer No 2', sans-serif;
+  font-weight: 500;
+  font-size: 32px;
+  color: #000000;
+  line-height: 38.4px;
+  margin: 0;
+}
+
+/* 6. Botón "Comprar ahora" */
+.hero-boton {
+  font-family: 'Lorimer No 2', sans-serif;
+  font-weight: 500;
+  font-size: 32px;
+  color: #121212;
+  background-color: transparent;
+  border: 2px solid #121212;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: fit-content;
+}
+
+/* 7. Imagen a la derecha */
+.hero-imagen {
+  width: 470px;
+  height: 481px;
+  border-radius: 20px;
+  object-fit: cover;
 }

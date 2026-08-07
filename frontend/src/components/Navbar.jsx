@@ -10,8 +10,10 @@ export default function Navbar({ carrito, setIsCartOpen }) {
   return (
     <nav style={{
       display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-      padding: '15px 40px', backgroundColor: '#ffffff', borderBottom: '2px solid #111',
-      position: 'sticky', top: 0, zIndex: 100
+      height: '71px', padding: '10px 0px', backgroundColor: '#ffffff',
+      gap: '80px',
+      position: 'sticky', top: 0, zIndex: 100,
+      fontFamily: "'Lorimer No 2', sans-serif"
     }}>
        {/* 1. LOGO IZQUIERDA */}
        <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>

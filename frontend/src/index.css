@@ -298,13 +298,14 @@ body {
 /* Estilo del menú desplegable */
 .navbar-dropdown {
   position: absolute;
-  top: 70px; /* Ajusta según la altura de tu navbar */
+  top: 71px; /* Ajusta según la altura de tu navbar */
   right: 40px;
   background-color: white;
   border: 2px solid #111;
   padding: 10px 0;
   display: flex;
   flex-direction: column;
+  gap: 1px;
   width: 200px;
   box-shadow: 5px 5px 0px rgba(0,0,0,0.1);
   z-index: 99;
@@ -312,11 +313,11 @@ body {
 
 .dropdown-link {
   text-decoration: none;
-  color: #111;
-  padding: 10px 20px;
-  font-family: 'Arimo', sans-serif;
-  text-transform: uppercase;
-  font-weight: bold;
+  color: #121212;
+  padding: 9px 57px;
+  font-family: 'Lorimer No 2', sans-serif;
+  font-size: 20px;
+  line-height: 24px;
   transition: background 0.2s;
 }
 

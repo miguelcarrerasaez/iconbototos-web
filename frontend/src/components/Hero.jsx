@@ -4,34 +4,26 @@ import './Hero.css';
 export default function Hero() {
   return (
     <section className="hero-seccion">
-      
-      {/* Contenedor principal que mantiene la forma y los bordes redondeados */}
-      <div className="hero-grid">
+      {/* Contenedor padre: flex horizontal, centrado, gap 59px */}
+      <div className="hero-contenedor">
         
-        {/* 
-          AQUÍ VA TU VIDEO 
-          Asegúrate de guardar el video de Montserrat en tu carpeta "public/img/" 
-          con el nombre "video-hero.mp4" (o cambia la ruta abajo)
-        */}
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
-          className="hero-video"
-        >
-          <source src="/img/video-hero.mp4" type="video/mp4" />
-          
-          {/* Fallback de Figma por si el video tarda en cargar */}
-          <img 
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-            src="https://placehold.co/858x510" 
-            alt="Iconbototos" 
-          />
-        </video>
+        {/* Columna de texto: flex vertical, gap 36px, width 341px */}
+        <div className="hero-texto">
+          <h1 className="hero-titulo">RISO, MAGIA, ZINES</h1>
+          <p className="hero-parrafo">
+            Libros, prints y publicaciones en edición limitada realizados en risografía, en colaboración con artistas emergentes de todo el mundo.
+          </p>
+          <button className="hero-boton">Comprar ahora</button>
+        </div>
+
+        {/* Imagen a la derecha */}
+        <img 
+          className="hero-imagen" 
+          src="https://via.placeholder.com/470x481" 
+          alt="Iconbototos" 
+        />
 
       </div>
-
     </section>
   );
 }
