@@ -1,0 +1,68 @@
+/* =========================================
+   SECCIÓN CATEGORÍAS
+   ========================================= */
+
+/* 1. Contenedor principal de la sección */
+.categorias-seccion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+}
+
+/* 2. Contenedor padre: flex column, gap 15px, ancho 920px */
+.categorias-contenedor {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 920px;
+}
+
+/* 3. Texto "Compra según la categoría" */
+.categorias-titulo {
+  font-family: 'Lorimer No 2', sans-serif;
+  font-weight: 500;
+  font-size: 32px;
+  color: #000000;
+  text-align: left;
+  margin: 0;
+}
+
+/* 4. Contenedor de ilustraciones: flex row, centrado, gap 10px */
+.categorias-grid {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 920px;
+}
+
+/* 5. Contenedor individual de cada ilustración */
+.categorias-item {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 6. Item central: título "FANZINES" arriba de la imagen */
+.categorias-item-centro {
+  position: relative;
+}
+
+/* 7. Título "FANZINES" */
+.categorias-label {
+  font-family: 'Lorimer No 2', sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  color: #000000;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* 8. Imágenes de las ilustraciones */
+.categorias-img {
+  object-fit: cover;
+  display: block;
+}
