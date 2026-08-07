@@ -1,0 +1,19 @@
+/* =========================================
+   SECCIÓN ANIMACIÓN (Banner de botas)
+   ========================================= */
+
+/* 1. Contenedor de la sección */
+.animacion-seccion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+}
+
+/* 2. Imagen del banner: 880px x 523px, sin bordes, object-fit cover */
+.animacion-imagen {
+  width: 880px;
+  height: 523px;
+  object-fit: cover;
+  display: block;
+}

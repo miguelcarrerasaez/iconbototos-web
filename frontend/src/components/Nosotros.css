@@ -1,0 +1,65 @@
+/* =========================================
+   SECCIÓN NOSOTROS
+   ========================================= */
+
+/* 1. Contenedor principal de la sección */
+.nosotros-seccion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+}
+
+/* 2. Contenedor padre: flex row, centrado, gap 60px, ancho 871px */
+.nosotros-contenedor {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  width: 871px;
+}
+
+/* 3. Imagen izquierda: 470px x 481px, border-radius 20px */
+.nosotros-imagen {
+  width: 470px;
+  height: 481px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+/* 4. Columna de texto: flex column, gap 36px, ancho 341px */
+.nosotros-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  width: 341px;
+}
+
+/* 5. Párrafo descriptivo */
+.nosotros-parrafo {
+  font-family: 'Lorimer No 2', sans-serif;
+  font-weight: 500;
+  font-size: 32px;
+  color: #000000;
+  line-height: 38.4px;
+  margin: 0;
+}
+
+/* 6. Botón "Saber más" */
+.nosotros-boton {
+  font-family: 'Lorimer No 2', sans-serif;
+  font-weight: 500;
+  font-size: 32px;
+  color: #121212;
+  background-color: transparent;
+  border: 2px solid #121212;
+  border-radius: 10px;
+  padding: 10px;
+  width: 137px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}

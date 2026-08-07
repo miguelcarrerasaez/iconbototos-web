@@ -10,6 +10,8 @@ import Carrito from './components/Carrito';
 // --- SECCIONES DE LA PÁGINA ---
 import Hero from './components/Hero';
 import Carrusel from './components/Carrusel';
+import Animacion from './components/Animacion';
+import Nosotros from './components/Nosotros';
 import Catalogo from './components/Catalogo';
 import CatalogoHorizontal from './components/CatalogoHorizontal';
 import VideoBanner from './components/VideoBanner';
@@ -77,6 +79,8 @@ function LayoutPrincipal() {
             <>
               <Hero />
               <Carrusel />
+              <Animacion />
+              <Nosotros />
               <CatalogoHorizontal agregarAlCarrito={agregarAlCarrito} />
               <VideoBanner />
             </>
