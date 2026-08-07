@@ -9,6 +9,7 @@ import Carrito from './components/Carrito';
 
 // --- SECCIONES DE LA PÁGINA ---
 import Hero from './components/Hero';
+import Carrusel from './components/Carrusel';
 import Catalogo from './components/Catalogo';
 import CatalogoHorizontal from './components/CatalogoHorizontal';
 import VideoBanner from './components/VideoBanner';
@@ -75,6 +76,7 @@ function LayoutPrincipal() {
           <Route path="/" element={
             <>
               <Hero />
+              <Carrusel />
               <CatalogoHorizontal agregarAlCarrito={agregarAlCarrito} />
               <VideoBanner />
             </>

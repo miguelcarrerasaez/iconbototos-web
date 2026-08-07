@@ -1,0 +1,84 @@
+/* =========================================
+   SECCIÓN CARRUSEL DE PRODUCTOS
+   ========================================= */
+
+/* 1. Contenedor padre: flex column, alineado a la derecha, ancho 880px */
+.carrusel-seccion {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 880px;
+  margin: 0 auto;
+  background-color: #ffffff;
+}
+
+/* 2. Enlace "Ver más" */
+.carrusel-ver-mas {
+  font-family: 'Lorimer No 2', sans-serif;
+  font-weight: 500;
+  font-size: 32px;
+  color: #000000;
+  text-align: right;
+  text-decoration: none;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+/* 3. Contenedor del carrusel: flex row, centrado, gap 4px, ancho 879px */
+.carrusel-contenedor {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 879px;
+}
+
+/* 4. Tarjeta de producto: 300px x 400px, fondo blanco */
+.carrusel-card {
+  width: 300px;
+  height: 400px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 5. Imagen del producto: 270px x 300px, centrada, margin-top 15px */
+.carrusel-imagen {
+  width: 270px;
+  height: 300px;
+  object-fit: cover;
+  margin-top: 15px;
+}
+
+/* 6. Info de la tarjeta: título + botón carrito */
+.carrusel-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 270px;
+  padding-top: 10px;
+}
+
+/* 7. Título del producto */
+.carrusel-titulo {
+  font-family: 'Lorimer No 2', sans-serif;
+  font-weight: 500;
+  font-size: 32px;
+  color: #000000;
+  margin: 0;
+}
+
+/* 8. Botón de carrito circular */
+.carrusel-carrito {
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+  background-color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
