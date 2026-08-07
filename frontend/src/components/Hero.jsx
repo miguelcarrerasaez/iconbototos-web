@@ -19,8 +19,8 @@ export default function Hero() {
         {/* Imagen a la derecha */}
         <img 
           className="hero-imagen" 
-          src="https://via.placeholder.com/470x481" 
-          alt="Iconbototos" 
+          src="/img/03.jpg" 
+          alt="Persona sosteniendo póster de Riso, Magia, Zines" 
         />
 
       </div>
