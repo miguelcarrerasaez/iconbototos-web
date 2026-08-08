@@ -8,6 +8,7 @@
   align-items: center;
   justify-content: center;
   background-color: #ffffff;
+  margin-bottom: 100px;
 }
 
 /* 2. Contenedor padre: flex row, centrado, gap 60px, ancho 871px */
@@ -68,6 +69,10 @@
    RESPONSIVE (Móvil)
    ========================================= */
 @media (max-width: 768px) {
+  .nosotros-seccion {
+    margin-bottom: 50px;
+  }
+
   .nosotros-contenedor {
     flex-direction: column;
     width: 100%;

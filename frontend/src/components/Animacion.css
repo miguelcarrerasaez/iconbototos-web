@@ -8,6 +8,7 @@
   align-items: center;
   justify-content: center;
   background-color: #ffffff;
+  margin-bottom: 100px;
 }
 
 /* 2. Imagen del banner: 880px x 523px, sin bordes, object-fit cover */
@@ -22,6 +23,10 @@
    RESPONSIVE (Móvil)
    ========================================= */
 @media (max-width: 768px) {
+  .animacion-seccion {
+    margin-bottom: 50px;
+  }
+
   .animacion-imagen {
     width: 100%;
     max-width: 100%;

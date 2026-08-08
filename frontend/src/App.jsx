@@ -14,8 +14,6 @@ import Animacion from './components/Animacion';
 import Nosotros from './components/Nosotros';
 import Categorias from './components/Categorias';
 import Catalogo from './components/Catalogo';
-import CatalogoHorizontal from './components/CatalogoHorizontal';
-import VideoBanner from './components/VideoBanner';
 import Admin from './pages/Admin';
 
 // --- COMPONENTE TEMPORAL PARA PÁGINAS EN CONSTRUCCIÓN ---
@@ -75,7 +73,7 @@ function LayoutPrincipal() {
 
       <main style={{ flexGrow: 1 }}>
         <Routes>
-          {/* 1. HOME: Carrusel (Hero), Catálogo Horizontal sin márgenes y Video Banner */}
+          {/* 1. HOME: Hero, Carrusel, Animación, Nosotros, Categorías y Footer */}
           <Route path="/" element={
             <>
               <Hero />
@@ -83,8 +81,6 @@ function LayoutPrincipal() {
               <Animacion />
               <Nosotros />
               <Categorias />
-              <CatalogoHorizontal agregarAlCarrito={agregarAlCarrito} />
-              <VideoBanner />
             </>
           } />
 

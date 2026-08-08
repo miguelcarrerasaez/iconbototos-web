@@ -9,6 +9,7 @@
   justify-content: center;
   background-color: #ffffff;
   padding: 30px 10px;
+  margin-bottom: 100px;
 }
 
 /* 2. Contenedor padre: flex horizontal, centrado, gap 59px */
@@ -79,6 +80,10 @@
    RESPONSIVE (Móvil)
    ========================================= */
 @media (max-width: 768px) {
+  .hero-seccion {
+    margin-bottom: 50px;
+  }
+
   .hero-contenedor {
     flex-direction: column;
     width: 100%;
