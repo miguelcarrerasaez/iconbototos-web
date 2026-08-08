@@ -19,8 +19,8 @@ export default function Hero() {
         {/* Imagen a la derecha */}
         <img 
           className="hero-imagen" 
-          src="/img/03.jpg" 
-          alt="Persona sosteniendo póster de Riso, Magia, Zines" 
+          src="/img/hero-fanzine.jpg" 
+          alt="Fanzine Iconbototos" 
         />
 
       </div>

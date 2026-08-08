@@ -13,12 +13,12 @@ export default function Categorias() {
         {/* Contenedor de ilustraciones: flex row, centrado, gap 10px */}
         <div className="categorias-grid">
 
-          {/* Izquierda: Cafetera */}
+          {/* Izquierda: Tetera */}
           <div className="categorias-item">
             <img 
               className="categorias-img" 
-              src="/img/cafetera.png" 
-              alt="Cafetera" 
+              src="/img/tetera.png" 
+              alt="Tetera" 
               style={{ width: '155.24px', height: '178.70px' }}
             />
           </div>
@@ -28,18 +28,18 @@ export default function Categorias() {
             <span className="categorias-label">FANZINES</span>
             <img 
               className="categorias-img" 
-              src="/img/fanzine.png" 
-              alt="Fanzine" 
+              src="/img/carta.png" 
+              alt="Carta" 
               style={{ width: '287.11px', height: '321.04px' }}
             />
           </div>
 
-          {/* Derecha: Uvas */}
+          {/* Derecha: Uva */}
           <div className="categorias-item">
             <img 
               className="categorias-img" 
-              src="/img/uvas.png" 
-              alt="Uvas" 
+              src="/img/uva.png" 
+              alt="Uva" 
               style={{ width: '168.23px', height: '178.47px' }}
             />
           </div>

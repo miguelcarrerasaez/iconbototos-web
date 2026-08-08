@@ -4,10 +4,13 @@ import './Animacion.css';
 export default function Animacion() {
   return (
     <section className="animacion-seccion">
-      <img 
+      <video 
         className="animacion-imagen" 
-        src="/img/fanzine.botas.jpeg" 
-        alt="Animación Iconbototos" 
+        src="/img/video-hero.mp4"
+        autoPlay 
+        loop 
+        muted 
+        playsInline
       />
     </section>
   );
