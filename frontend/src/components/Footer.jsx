@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 // SVG del icono de Instagram (32x32, stroke #121212)
@@ -22,18 +23,18 @@ export default function Footer() {
           {/* Columna 1: Studio */}
           <div className="footer-col">
             <h3 className="footer-titulo-col">Studio</h3>
-            <a href="/imprimir" className="footer-enlace">¡Quiero imprimir!</a>
-            <a href="/nosotros" className="footer-enlace">Nosotros</a>
-            <a href="/tienda" className="footer-enlace">Tienda</a>
+            <Link to="/imprimir" className="footer-enlace">¡Quiero imprimir!</Link>
+            <Link to="/nosotros" className="footer-enlace">Nosotros</Link>
+            <Link to="/tienda" className="footer-enlace">Tienda</Link>
           </div>
 
           {/* Columna 2: Ayuda */}
           <div className="footer-col">
             <h3 className="footer-titulo-col">Ayuda</h3>
-            <a href="/faq" className="footer-enlace">Preguntas frecuentes</a>
-            <a href="/legal" className="footer-enlace">Legal</a>
-            <a href="/devolucion" className="footer-enlace">Política de devolución</a>
-            <a href="/terminos" className="footer-enlace">Términos y condiciones</a>
+            <Link to="/faq" className="footer-enlace">Preguntas frecuentes</Link>
+            <Link to="/legal" className="footer-enlace">Legal</Link>
+            <Link to="/devolucion" className="footer-enlace">Política de devolución</Link>
+            <Link to="/terminos" className="footer-enlace">Términos y condiciones</Link>
           </div>
 
           {/* Columna 3: Social */}
