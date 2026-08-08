@@ -11,30 +11,36 @@
   width: 100%;
 }
 
-/* 2. Contenedor padre: flex column, centrado, padding 20px, ancho 1090px */
+/* 2. Contenedor padre: flex column, centrado, padding 20px, max-width 1090px */
 .footer-contenedor {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px;
-  width: 1090px;
+  max-width: 1090px;
+  width: 100%;
+  margin: 0 auto;
 }
 
-/* 3. Contenedor de columnas: flex row, gap 4px, ancho 817px */
+/* 3. Contenedor de columnas: flex row, centrado, gap 4px, compacto */
 .footer-columnas {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  width: 817px;
+  max-width: 817px;
+  width: fit-content;
+  margin: 0 auto;
 }
 
-/* 4. Columna individual: 260px ancho, flex column */
+/* 4. Columna individual: 260px ancho, flex column, alineada a la izquierda */
 .footer-col {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
   width: 260px;
   gap: 18px;
 }
