@@ -13,7 +13,7 @@ import Carrusel from './components/Carrusel';
 import Animacion from './components/Animacion';
 import Nosotros from './components/Nosotros';
 import Categorias from './components/Categorias';
-import Catalogo from './components/Catalogo';
+import Tienda from './pages/Tienda';
 import Admin from './pages/Admin';
 
 // --- COMPONENTE TEMPORAL PARA PÁGINAS EN CONSTRUCCIÓN ---
@@ -84,12 +84,8 @@ function LayoutPrincipal() {
             </>
           } />
 
-          {/* 2. TIENDA: Vista clásica estructurada en grilla */}
-          <Route path="/tienda" element={
-            <div style={{ paddingTop: '40px', paddingBottom: '80px' }}>
-              <Catalogo agregarAlCarrito={agregarAlCarrito} /> 
-            </div>
-          } />
+          {/* 2. TIENDA: Vista del catálogo */}
+          <Route path="/tienda" element={<Tienda />} />
 
           {/* 3. RUTAS EDITORIALES EN CONSTRUCCIÓN */}
           <Route path="/nosotros" element={<PaginaEnConstruccion titulo="Nosotros" />} />
