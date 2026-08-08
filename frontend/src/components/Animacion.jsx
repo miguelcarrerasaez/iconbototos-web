@@ -6,7 +6,7 @@ export default function Animacion() {
     <section className="animacion-seccion">
       <img 
         className="animacion-imagen" 
-        src="https://via.placeholder.com/880x523" 
+        src="/img/fanzine.botas.jpeg" 
         alt="Animación Iconbototos" 
       />
     </section>

@@ -10,7 +10,7 @@ export default function Nosotros() {
         {/* Imagen izquierda: 470px x 481px */}
         <img 
           className="nosotros-imagen" 
-          src="https://via.placeholder.com/470x481" 
+          src="/img/90ad871dc63677999a8837f34bd5bba9801f9737.jpg" 
           alt="Nosotros Iconbototos" 
         />
 

@@ -4,9 +4,9 @@ import './Carrusel.css';
 
 export default function Carrusel() {
   const productos = [
-    { id: 1, titulo: 'Lenta' },
-    { id: 2, titulo: 'Domingo' },
-    { id: 3, titulo: 'Título obra' },
+    { id: 1, titulo: 'Lenta', imagen: '/img/lento.png' },
+    { id: 2, titulo: 'Domingo', imagen: '/img/domingo.jpg' },
+    { id: 3, titulo: 'Título obra', imagen: '/img/fanzine_iconbototos.jpg' },
   ];
 
   return (
@@ -20,7 +20,7 @@ export default function Carrusel() {
           <div key={producto.id} className="carrusel-card">
             <img 
               className="carrusel-imagen" 
-              src="D:\iconbototos\frontend\public\img\lamina-azul.jpg" 
+              src={producto.imagen} 
               alt={producto.titulo} 
             />
             <div className="carrusel-info">
