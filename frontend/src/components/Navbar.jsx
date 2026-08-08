@@ -16,7 +16,7 @@ export default function Navbar({ carrito, setIsCartOpen }) {
     }}>
        {/* 1. LOGO IZQUIERDA */}
        <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
-         <img src="/img/logo_iconbototos.png" alt="Iconbototos Logo" style={{ height: '40px' }} />
+         <img src="/img/Logo.svg" alt="Iconbototos Logo" style={{ height: '40px' }} />
        </Link>
 
        {/* 2. GRUPO DERECHA: Login, Buscar, Carrito y Menú */}
