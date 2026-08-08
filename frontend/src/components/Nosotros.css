@@ -38,7 +38,7 @@
 
 /* 5. Párrafo descriptivo */
 .nosotros-parrafo {
-  font-family: 'Lorimer No 2', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 500;
   font-size: 32px;
   color: #000000;
@@ -48,7 +48,7 @@
 
 /* 6. Botón "Saber más" */
 .nosotros-boton {
-  font-family: 'Lorimer No 2', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 500;
   font-size: 32px;
   color: #121212;
@@ -62,4 +62,26 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+/* =========================================
+   RESPONSIVE (Móvil)
+   ========================================= */
+@media (max-width: 768px) {
+  .nosotros-contenedor {
+    flex-direction: column;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    padding: 0 20px;
+  }
+
+  .nosotros-imagen {
+    width: 100%;
+    height: auto;
+  }
+
+  .nosotros-texto {
+    width: 100%;
+  }
 }

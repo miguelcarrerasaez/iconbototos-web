@@ -32,7 +32,7 @@
 
 /* 4. Título */
 .hero-titulo {
-  font-family: 'Lorimer No 2', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 500;
   font-size: 36px;
   color: #000000;
@@ -42,7 +42,7 @@
 
 /* 5. Párrafo descriptivo */
 .hero-parrafo {
-  font-family: 'Lorimer No 2', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 500;
   font-size: 32px;
   color: #000000;
@@ -52,7 +52,7 @@
 
 /* 6. Botón "Comprar ahora" */
 .hero-boton {
-  font-family: 'Lorimer No 2', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 500;
   font-size: 32px;
   color: #121212;
@@ -73,4 +73,26 @@
   height: 481px;
   border-radius: 20px;
   object-fit: cover;
+}
+
+/* =========================================
+   RESPONSIVE (Móvil)
+   ========================================= */
+@media (max-width: 768px) {
+  .hero-contenedor {
+    flex-direction: column;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    padding: 0 20px;
+  }
+
+  .hero-texto {
+    width: 100%;
+  }
+
+  .hero-imagen {
+    max-width: 100%;
+    height: auto;
+  }
 }
