@@ -9,8 +9,8 @@ export default function Navbar({ carrito, setIsCartOpen }) {
   return (
     <nav style={{
       display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-      height: '71px', padding: '10px 0px', backgroundColor: '#ffffff',
-      gap: '80px',
+      height: '71px', padding: '10px 10px', backgroundColor: '#ffffff',
+      gap: '80px', maxWidth: '880px', margin: '0 auto', width: '100%',
       position: 'sticky', top: 0, zIndex: 100,
       fontFamily: "'Montserrat', sans-serif"
     }}>

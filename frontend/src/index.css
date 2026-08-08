@@ -12,11 +12,16 @@
 
 /* --- ESTILOS BASE BRUTALISTAS --- */
 body {
-  background-color: var(--color-fondo);
+  background-color: #FFFFFF;
   color: var(--color-texto);
   font-family: 'Montserrat', sans-serif;
   margin: 0;
   padding: 0;
+}
+
+#root {
+  background-color: #FFFFFF;
+  min-height: 100vh;
 }
 
 .btn-comprar {
