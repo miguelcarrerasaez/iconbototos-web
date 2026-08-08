@@ -1,6 +1,6 @@
 /* --- VARIABLES DINÁMICAS (Controlables desde el Admin) --- */
 :root {
-  --color-fondo: #f4f0e6;       /* Un tono papel ahuesado típico de Riso */
+  --color-fondo: #FFFFFF;       /* Blanco puro */
   --color-texto: #111111;       /* Negro casi puro para alto contraste */
   --color-primario: #ff48b0;    /* Rosa flúor Risotto */
   --color-secundario: #00e5ff;  /* Cian vibrante */
@@ -11,17 +11,16 @@
 }
 
 /* --- ESTILOS BASE BRUTALISTAS --- */
-body {
-  background-color: #FFFFFF;
-  color: var(--color-texto);
-  font-family: 'Montserrat', sans-serif;
+html, body, #root, .App {
+  background-color: #FFFFFF !important;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
 }
 
-#root {
-  background-color: #FFFFFF;
-  min-height: 100vh;
+body {
+  color: var(--color-texto);
+  font-family: 'Montserrat', sans-serif;
 }
 
 .btn-comprar {

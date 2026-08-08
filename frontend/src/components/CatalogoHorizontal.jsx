@@ -31,7 +31,7 @@ export default function CatalogoHorizontal({ agregarAlCarrito }) {
   }, [cargando]);
 
   return (
-    <section style={{ width: '100%', overflow: 'hidden', backgroundColor: '#f4f0e6', padding: '0' }}>
+    <section style={{ width: '100%', overflow: 'hidden', backgroundColor: '#FFFFFF', padding: '0' }}>
       {cargando ? <p style={{ padding: '20px' }}>Cargando galería...</p> : (
         <div 
           ref={scrollContainerRef}

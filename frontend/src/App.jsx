@@ -65,7 +65,7 @@ function LayoutPrincipal() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--color-fondo)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
       <Toaster richColors position="bottom-right" />
       
       {/* Ocultamos la Navbar pública si estamos en el Panel de Admin */}
