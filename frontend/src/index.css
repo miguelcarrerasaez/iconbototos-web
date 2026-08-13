@@ -1,331 +1,55 @@
-/* --- VARIABLES DINÁMICAS (Controlables desde el Admin) --- */
+/* =========================================
+   1. PALETA DE COLORES
+   ========================================= */
 :root {
-  --color-fondo: #FFFFFF;       /* Blanco puro */
-  --color-texto: #111111;       /* Negro casi puro para alto contraste */
-  --color-primario: #ff48b0;    /* Rosa flúor Risotto */
-  --color-secundario: #00e5ff;  /* Cian vibrante */
-  --color-botones: #fff000;     /* Amarillo brillante */
+  --color-negro-logo: #121212;
+  --color-negro-puro: #000000;
+  --color-blanco: #FFFFFF;
+  --color-gris-claro: #EEEEEE;
+  --color-gris-tienda: #D2D2D2;
+
+  /* Degradado Maestro del Footer */
+  --footer-gradient: linear-gradient(to top, #0078BF 0%, rgba(241, 80, 96, 0) 100%);
+
+/* =========================================
+   2. SISTEMA TIPOGRÁFICO
+   ========================================= */
+  --font-display: 'Montserrat', sans-serif; /* Unificado para títulos */
+  --font-body: 'Montserrat', sans-serif;    /* Unificado para textos */
+
+  /* Jerarquía de tamaños (Home) */
+  --text-h1: 40px; 
+  --text-h2: 36px; 
+  --text-h3: 32px; 
+  --text-h4: 24px; 
+  --text-h5: 20px; 
+
+  /* Jerarquía de tamaños (Tienda) */
+  --text-tienda-titulo: 40px;
+  --text-tienda-card: 24px;
+  --text-tienda-body: 18px;
+
+/* =========================================
+   3. LAYOUT Y ESPACIADOS
+   ========================================= */
+  --max-width-canvas: 1080px;
+  --gap-grid-home: 40px;      
+  --gap-grid-tienda: 45px;    
   
-  --borde-grueso: 3px solid var(--color-texto);
-  --fuente-titulos: 'Helvetica Neue', Arial, sans-serif;
+  /* Radios de borde (Borders) */
+  --radio-botones: 10px;
+  --radio-imagenes: 20px;
+  --radio-circulo: 100px;
 }
 
-/* --- ESTILOS BASE BRUTALISTAS --- */
+/* =========================================
+   4. RESET Y FONDO GLOBAL
+   ========================================= */
 html, body, #root, .App {
-  background-color: #FFFFFF !important;
-  min-height: 100vh;
+  background-color: var(--color-blanco) !important;
+  color: var(--color-negro-puro);
+  font-family: var(--font-body); /* Por defecto usamos Montserrat */
   margin: 0;
   padding: 0;
-}
-
-body {
-  color: var(--color-texto);
-  font-family: 'Montserrat', sans-serif;
-}
-
-.btn-comprar {
-  background-color: var(--color-botones);
-  color: var(--color-texto);
-  border: var(--borde-grueso);
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-.btn-comprar:hover {
-  background-color: var(--color-texto);
-  color: var(--color-fondo);
-}
-
-/* =========================================
-   NUEVO: CATÁLOGO PÚBLICO (4 COLUMNAS)
-   ========================================= */
-.seccion-catalogo {
-  padding: 60px 40px;
-  background-color: var(--color-fondo);
-}
-
-.catalogo-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
-  gap: 5px; 
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-/* La tarjeta del producto adaptada a tu estilo Brutalista */
-.producto-card {
-  position: relative;
-  background-color: white;
-  /*border: var(--borde-grueso); /* Usamos tu variable de borde negro */
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-/* HOVER BRUTALISTA: Sombra dura de color rosa en lugar de sombra suave */
-.producto-card:hover {
-  transform: translate(-6px, -6px); /* Salta hacia arriba y a la izquierda */
- /* box-shadow: 8px 8px 0px var(--color-primario);  Sombra sólida flúor 
-  z-index: 10;*/
-}
-
-.producto-imagen-wrapper {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  overflow: hidden;
-  /*border-bottom: var(--borde-grueso); /* Separa la imagen del texto con una línea fuerte */
-  background-color: #eaeaea;
-}
-
-.img-principal, .img-secundaria {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.img-secundaria {
-  opacity: 0;
-}
-
-.producto-card:hover .img-secundaria {
-  opacity: 1;
-  transform: scale(1.05); /* Efecto zoom suave en la foto mientras la tarjeta salta */
-}
-
-.producto-card:hover .img-principal {
-  opacity: 0;
-}
-
-.producto-info {
-  padding: 15px;
-  background-color: white;
-}
-
-.producto-info h3 {
-  margin: 0 0 10px 0;
-  font-size: 1.1rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  color: var(--color-texto);
-}
-
-.producto-precio-stock {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.precio {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-
-.stock-bajo {
-  font-size: 0.85rem;
-  color: var(--color-secundario); /* Letras cian para el stock */
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-/* RESPONSIVO */
-@media (max-width: 1024px) {
-  .catalogo-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 768px) {
-  .catalogo-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 20px; }
-}
-@media (max-width: 480px) {
-  .catalogo-grid { grid-template-columns: 1fr; }
-}
-
-/* =========================================
-   LAYOUT DEL PANEL DE ADMINISTRACIÓN
-   ========================================= */
-.admin-container {
-  display: flex;
   min-height: 100vh;
-  background-color: var(--color-fondo);
-}
-
-.admin-sidebar {
-  width: 250px;
-  background-color: white;
-  border-right: var(--borde-grueso);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.admin-sidebar h2 {
-  margin-top: 0;
-  margin-bottom: 30px;
-  font-size: 1.5rem;
-  text-transform: uppercase;
-}
-
-.btn-menu {
-  background: transparent;
-  border: 2px solid transparent;
-  padding: 12px 15px;
-  text-align: left;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-menu:hover {
-  border: 2px solid var(--color-texto);
-  transform: translate(-2px, -2px);
-  box-shadow: 4px 4px 0px var(--color-secundario);
-}
-
-.btn-menu.activo {
-  background-color: var(--color-texto);
-  color: var(--color-fondo);
-  border: 2px solid var(--color-texto);
-}
-
-.admin-content {
-  flex: 1;
-  padding: 40px;
-}
-
-/* Oculta la barra de scroll horizontal en Chrome, Safari y Edge */
-.ocultar-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-/* Zoom simétrico hacia adentro al hacer hover en el catálogo horizontal */
-.horizontal-item-wrapper:hover .img-horizontal-zoom {
-  transform: scale(1.08);
-}
-
-/* Efecto hover interactivo para el icono de compra horizontal */
-.btn-add-horizontal:hover {
-  color: var(--color-primario) !important;
-}
-
-/* =========================================
-   CATÁLOGO HORIZONTAL (Versión Reducida)
-   ========================================= */
-
-/* 1. Contenedor horizontal */
-.horizontal-scroll-container {
-  display: flex;
-  overflow-x: auto;
-  gap: 0px;
-  scrollbar-width: none;
-}
-.horizontal-scroll-container::-webkit-scrollbar { display: none; }
-
-/* 2. Item: Reducido de 320px a 220px */
-.item-galeria {
-  flex: 0 0 220px; 
-  border-right: 0px solid #111;
-  background: white;
-  transition: all 0.3s ease;
-  position: relative;
-  z-index: 1;
-}
-
-/* EFECTO: Romper el marco al hacer hover */
-.item-galeria:hover {
-  z-index: 10;
-  transform: scale(1.05);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-}
-
-/* 3. La imagen: Reducida de 400px a 280px */
-.imagen-contenedor {
-  width: 100%;
-  height: 200px; 
-  overflow: visible;
-  border-bottom: 0px solid #111;
-}
-
-.img-zoom {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-/* Cuando haces hover en la tarjeta, la imagen se expande */
-.item-galeria:hover .img-zoom {
-  transform: scale(1.1);
-}
-
-/* 4. Estilos de texto */
-.info-galeria {
-  padding: 10px; /* Padding reducido */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.info-galeria h4 {
-  font-family: 'Arimo', sans-serif;
-  margin: 0;
-  text-transform: uppercase;
-  font-size: 0.8rem; /* Fuente un poco más pequeña */
-}
-
-.btn-add {
-  background: none;
-  border: 0px solid #111;
-  cursor: pointer;
-  padding: 5px;
-}
-.btn-add:hover { background: #111; color: white; }
-
-/* Transición simple para el overlay del menú */
-.menu-overlay {
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Estilo del menú desplegable */
-.navbar-dropdown {
-  position: absolute;
-  top: 71px; /* Ajusta según la altura de tu navbar */
-  right: 40px;
-  background-color: white;
-  border: 2px solid #111;
-  padding: 10px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  width: 200px;
-  box-shadow: 5px 5px 0px rgba(0,0,0,0.1);
-  z-index: 99;
-}
-
-.dropdown-link {
-  text-decoration: none;
-  color: #121212;
-  padding: 9px 57px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 20px;
-  line-height: 24px;
-  transition: background 0.2s;
-}
-
-.dropdown-link:hover {
-  background-color: #ff48b0;
-  color: white;
 }
