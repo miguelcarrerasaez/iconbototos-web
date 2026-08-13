@@ -41,14 +41,14 @@ export default function Footer() {
           <div className="footer-col">
             <h3 className="footer-titulo-col">Social</h3>
             <div className="footer-social">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="footer-social-icon">
-                <InstagramIcon />
+              <a href="https://www.instagram.com/i_conbototos/" target="_blank" rel="noopener noreferrer" className="footer-social-icon">
+                <img src="/img/icono_instagram.svg" alt="Instagram" />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="footer-social-icon">
-                <InstagramIcon />
+              <a href="https://www.instagram.com/i_conbototos/" target="_blank" rel="noopener noreferrer" className="footer-social-icon">
+                <img src="/img/icono_instagram.svg" alt="Instagram" />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="footer-social-icon">
-                <InstagramIcon />
+              <a href="https://www.instagram.com/i_conbototos/" target="_blank" rel="noopener noreferrer" className="footer-social-icon">
+                <img src="/img/icono_instagram.svg" alt="Instagram" />
               </a>
             </div>
           </div>
