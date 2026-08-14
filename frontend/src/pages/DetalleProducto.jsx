@@ -111,21 +111,21 @@ export default function DetalleProducto() {
         <h2 className="te-podria-titulo">Te podría interesar</h2>
         <div className="te-podria-grilla">
           <div className="tarjeta-interes">
-            <img src="/img/Post 01.png" alt="Objetos que quitan el frío" className="tarjeta-interes-img" />
+            <img src="/img/objetos.jpg" alt="Objetos que quitan el frío" className="tarjeta-interes-img" />
             <div className="tarjeta-interes-info">
               <h3 className="tarjeta-interes-titulo">Objetos que quitan el frío</h3>
               <p className="tarjeta-interes-autor">Monserrat Mella</p>
             </div>
           </div>
           <div className="tarjeta-interes">
-            <img src="/img/domingo_2.png" alt="Sábanas" className="tarjeta-interes-img" />
+            <img src="/img/sabanas.jpg" alt="Sábanas" className="tarjeta-interes-img" />
             <div className="tarjeta-interes-info">
               <h3 className="tarjeta-interes-titulo">Sábanas</h3>
               <p className="tarjeta-interes-autor">Violeta Capasso</p>
             </div>
           </div>
           <div className="tarjeta-interes">
-            <img src="/img/domingo.jpg" alt="Domingo" className="tarjeta-interes-img" />
+            <img src="/img/domingo.fanzine.jpg" alt="Domingo" className="tarjeta-interes-img" />
             <div className="tarjeta-interes-info">
               <h3 className="tarjeta-interes-titulo">Domingo</h3>
               <p className="tarjeta-interes-autor">Monserrat Mella</p>
