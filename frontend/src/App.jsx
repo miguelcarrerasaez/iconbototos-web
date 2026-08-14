@@ -14,6 +14,7 @@ import Animacion from './components/Animacion';
 import Nosotros from './components/Nosotros';
 import Categorias from './components/Categorias';
 import Tienda from './pages/Tienda';
+import DetalleProducto from './pages/DetalleProducto'; // <-- NUEVO IMPORT AGREGADO
 import Admin from './pages/Admin';
 
 // --- COMPONENTE TEMPORAL PARA PÁGINAS EN CONSTRUCCIÓN ---
@@ -86,8 +87,11 @@ function LayoutPrincipal() {
 
           {/* 2. TIENDA: Vista del catálogo */}
           <Route path="/tienda" element={<Tienda />} />
+          
+          {/* 3. TIENDA DETALLE: Vista individual del producto */}
+          <Route path="/tienda/:id" element={<DetalleProducto />} />
 
-          {/* 3. RUTAS EDITORIALES EN CONSTRUCCIÓN */}
+          {/* 4. RUTAS EDITORIALES EN CONSTRUCCIÓN */}
           <Route path="/nosotros" element={<PaginaEnConstruccion titulo="Nosotros" />} />
           <Route path="/eventos" element={<PaginaEnConstruccion titulo="Eventos" />} />
           <Route path="/imprimir" element={<PaginaEnConstruccion titulo="¡Imprimir!" />} />
@@ -95,7 +99,7 @@ function LayoutPrincipal() {
           <Route path="/talleres" element={<PaginaEnConstruccion titulo="Talleres" />} />
           <Route path="/contacto" element={<PaginaEnConstruccion titulo="Contacto" />} />
 
-          {/* 4. PANEL DE ADMINISTRACIÓN RISO */}
+          {/* 5. PANEL DE ADMINISTRACIÓN RISO */}
           <Route path="/admin/*" element={<Admin />} />
         </Routes>
       </main>
