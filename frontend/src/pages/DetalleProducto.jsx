@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { productos } from '../../data/productos';
-import './DetalleProducto.css'; // O ajusta la ruta si lo guardaste en /components
+import { productos } from '../data/productos'; // <-- Un solo '..' para subir a src/
+import '../components/DetalleProducto.css';    // <-- Ruta correcta apuntando a components/
 
 export default function DetalleProducto() {
   const { id } = useParams();
