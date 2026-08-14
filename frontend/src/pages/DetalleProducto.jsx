@@ -84,10 +84,11 @@ export default function DetalleProducto() {
 
           {producto.stock && (
             <div className="detalle-stock">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                 <rect x="6" y="8" width="20" height="18" rx="2" stroke="#407060" strokeWidth="1.5"/>
-                 <path d="M11 14L15 18L21 12" stroke="#407060" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+              <img 
+                src="/img/ícono_carita.stock.svg" 
+                alt="Ícono stock" 
+                style={{ width: '32px', height: '32px' }} 
+              />
               En stock
             </div>
           )}
