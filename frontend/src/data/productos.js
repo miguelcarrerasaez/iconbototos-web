@@ -104,21 +104,20 @@ export const productos = [
   },
   {
     id: "8",
-    titulo: "PRINT Flores",
+    titulo: "PRINT FLORES AZULES",
     categoria: "Print",
     autor: "Nombre Autor/a",
     precio: "$15.000",
     stock: true,
     imagenes: ["/img/print_flo.png", "/img/print_flo2.png"],
     descripcion: {
-      sinopsis: "Pega aquí el texto...",
-      bio: "Pega aquí la bio...",
-      fichaTecnica: "Papel / Dimensiones / Gramaje"
+
+      fichaTecnica: "Risografía impresa a dos tintas / Ilustración de Desuka / 50 ejemplares / 29,7 x 42 cm"
     }
   },
   {
     id: "9",
-    titulo: "PRINT FLORES AZULES",
+    titulo: "PRINT NIÑA DE LAS FLORES",
     categoria: "Print",
     autor: "Nombre Autor/a",
     precio: "$15.000",
@@ -126,7 +125,7 @@ export const productos = [
     imagenes: ["/img/print_sara.jpg"],
     descripcion: {
 
-      fichaTecnica: "Risografía impresa a dos tintas. / Ilustración de Desuka /50 ejemplares / 29,7 x 42 cm"
+      fichaTecnica: "Risografía impresa a una tinta / Ilustración de Sara / 50 ejemplares /29,7 x 42 cm"
     }
   },
   {
@@ -139,12 +138,12 @@ export const productos = [
     imagenes: ["/img/print_simon.jpg"],
     descripcion: {
 
-      fichaTecnica: "Risografía impresa a una tinta / Ilustración de Sara / 50 ejemplares /29,7 x 42 cm"
+      fichaTecnica: "Risografía impresa a una tinta / Ilustración de Simón Noctem / 50 ejemplares /29,7 x 42 cm"
     }
   },
   {
     id: "11",
-    titulo: "PRINT SIMÓN",
+    titulo: "PRINT TRONCO",
     categoria: "Print",
     autor: "Nombre Autor/a",
     precio: "$15.000",
@@ -152,7 +151,7 @@ export const productos = [
     imagenes: ["/img/print_tronco.png"],
     descripcion: {
 
-      fichaTecnica: "Risografía impresa a una tinta / Ilustración de Simón Noctem / 50 ejemplares / 29,7 x 42 cm"
+      fichaTecnica: "Risografía impresa a dos tintas / Fotografía de Violeta Capasso / 100 ejemplares / 29,7 x 42 cm"
     }
   }
 
