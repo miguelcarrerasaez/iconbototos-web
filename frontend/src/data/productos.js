@@ -44,8 +44,7 @@ export const productos = [
     stock: true,
     imagenes: ["/img/sabanas.png", "/img/sabanas_2.png"],
     descripcion: {
-    
-      fichaTecnica: "Risografía impresa a 2 tintas / Fotografía de Violeta Capasso / 100 ejemplares / 29,7 x 42 cm"
+      sinopsis: "Risografía impresa a 2 tintas / Fotografía de Violeta Capasso / 100 ejemplares / 29,7 x 42 cm"
     }
   },
   {
@@ -85,8 +84,7 @@ export const productos = [
     stock: true,
     imagenes: ["/img/lento.png", "/img/lento_2.png", "/img/lento_3.png", "/img/lento_4.png", "/img/lento_5.png", "/img/lento_6.png"],
     descripcion: {
-
-      fichaTecnica: "Lámina de stickers que no tiene apuro / Fefa Lunares / 50 ejemplares / Impreso en láser."
+      sinopsis: "Lámina de stickers que no tiene apuro / Fefa Lunares / 50 ejemplares / Impreso en láser."
     }
   },
   {
@@ -98,8 +96,7 @@ export const productos = [
     stock: true,
     imagenes: ["/img/objetos.png", "/img/objetos_2.png"],
     descripcion: {
-
-      fichaTecnica: "Lámina de stickers para dar abrigo. / Monserrat Mella. / 50 ejemplares /Impreso en láser."
+      sinopsis: "Lámina de stickers para dar abrigo. / Monserrat Mella. / 50 ejemplares /Impreso en láser."
     }
   },
   {
@@ -111,8 +108,7 @@ export const productos = [
     stock: true,
     imagenes: ["/img/print_flo.png", "/img/print_flo2.png"],
     descripcion: {
-
-      fichaTecnica: "Risografía impresa a dos tintas / Ilustración de Desuka / 50 ejemplares / 29,7 x 42 cm"
+      sinopsis: "Risografía impresa a dos tintas / Ilustración de Desuka / 50 ejemplares / 29,7 x 42 cm"
     }
   },
   {
@@ -124,8 +120,7 @@ export const productos = [
     stock: true,
     imagenes: ["/img/print_sara.jpg"],
     descripcion: {
-
-      fichaTecnica: "Risografía impresa a una tinta / Ilustración de Sara / 50 ejemplares /29,7 x 42 cm"
+      sinopsis: "Risografía impresa a una tinta / Ilustración de Sara / 50 ejemplares /29,7 x 42 cm"
     }
   },
   {
@@ -137,8 +132,7 @@ export const productos = [
     stock: true,
     imagenes: ["/img/print_simon.jpg"],
     descripcion: {
-
-      fichaTecnica: "Risografía impresa a una tinta / Ilustración de Simón Noctem / 50 ejemplares /29,7 x 42 cm"
+      sinopsis: "Risografía impresa a una tinta / Ilustración de Simón Noctem / 50 ejemplares /29,7 x 42 cm"
     }
   },
   {
@@ -150,8 +144,7 @@ export const productos = [
     stock: true,
     imagenes: ["/img/print_tronco.png"],
     descripcion: {
-
-      fichaTecnica: "Risografía impresa a dos tintas / Fotografía de Violeta Capasso / 100 ejemplares / 29,7 x 42 cm"
+      sinopsis: "Risografía impresa a dos tintas / Fotografía de Violeta Capasso / 100 ejemplares / 29,7 x 42 cm"
     }
   }
 

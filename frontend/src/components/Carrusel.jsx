@@ -4,9 +4,9 @@ import './Carrusel.css';
 
 export default function Carrusel() {
   const productos = [
-    { id: 1, titulo: 'Lenta', imagen: '/img/lento.png' },
-    { id: 2, titulo: 'Domingo', imagen: '/img/domingo.jpg' },
-    { id: 3, titulo: 'Título obra', imagen: '/img/fanzine_iconbototos.jpg' },
+    { id: 1, titulo: 'Lento', imagen: '/img/lento.png' },
+    { id: 2, titulo: 'Sábanas', imagen: '/img/sabanas.png' },
+    { id: 3, titulo: 'Domingo', imagen: '/img/domingo.png' },
   ];
 
   return (
