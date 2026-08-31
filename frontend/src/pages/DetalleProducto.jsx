@@ -10,10 +10,12 @@ export default function DetalleProducto() {
   const [cantidad, setCantidad] = useState(1);
   const [indiceImagen, setIndiceImagen] = useState(0); // Controla qué foto del carrusel se ve
   
-  const producto = productos.find(p => p.id === id);
+  const producto = productos.find((p) => p.id === id);
 
-  if (!producto) return <h2 style={{textAlign: 'center', marginTop: '50px'}}>Producto no encontrado</h2>;
-
+  // NUEVO: Si el producto no se encuentra, mostramos un mensaje en vez de romper la web
+  if (!producto) {
+    return <div style={{ textAlign: "center", padding: "100px" }}><h2>Producto no encontrado</h2></div>;
+  }
   // Lógica del Carrusel
   const irImagenAnterior = () => {
     setIndiceImagen(prev => (prev === 0 ? producto.imagenes.length - 1 : prev - 1));
