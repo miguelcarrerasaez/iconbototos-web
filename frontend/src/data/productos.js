@@ -1,7 +1,7 @@
 export const productos = [
   {
     id: "1",
-    titulo: "Domingo",
+    titulo: "DDOMINGO",
     categoria: "Fanzine",
     autor: "Monserrat Mella González",
     precio: "$12.000",
@@ -37,72 +37,69 @@ export const productos = [
   },
   {
     id: "3",
-    titulo: "Sábanas",
+    titulo: "SÁBANAS",
     categoria: "Fanzine",
     autor: "Violeta Capasso", 
     precio: "$12.000", 
     stock: true,
     imagenes: ["/img/sabanas.png", "/img/sabanas_2.png"],
     descripcion: {
-      sinopsis: "Pega aquí el texto desde Figma...",
-      bio: "Pega aquí la bio desde Figma...",
-      fichaTecnica: "Primera edición / XX copias / XX páginas"
+    
+      fichaTecnica: "Risografía impresa a 2 tintas / Fotografía de Violeta Capasso / 100 ejemplares / 29,7 x 42 cm"
     }
   },
   {
     id: "4",
-    titulo: "Al cajón de los juguetes",
+    titulo: "AL CAJÓN DE LOS JUGUETES",
     categoria: "Fanzine",
     autor: "Nombre Autor/a",
     precio: "$12.000",
     stock: true,
     imagenes: ["/img/al_cajon_1.jpg"],
     descripcion: {
-      sinopsis: "Pega aquí el texto desde Figma...",
-      bio: "Pega aquí la bio desde Figma...",
-      fichaTecnica: "Detalles / de / ficha"
+      sinopsis: "Libro objeto compuesto por 5 fanzines -cuentos y poemas-, juguetes, stickers y tarjetas.",
+      bio: "En torno a la infancia y la construcción de una identidad.",
+      fichaTecnica: "Impreso en Risografía /30 copias"
     }
   },
   {
     id: "5",
-    titulo: "Quizás las fotos son una maldición...",
+    titulo: "QUIZÁS LAS FOTOS SON UNA MALDICIÓN Y NO DEBERÍA FOTOGRAFIAR EN NOMBRE DEL AMOR",
     categoria: "Fanzine",
     autor: "Nombre Autor/a",
     precio: "$12.000",
     stock: true,
     imagenes: ["/img/quizas.png", "/img/quizas_2.png", "/img/quizas_3.png", "/img/quizas_4.png"],
     descripcion: {
-      sinopsis: "Pega aquí el texto...",
-      bio: "Pega aquí la bio...",
-      fichaTecnica: "Detalles / de / ficha"
+      sinopsis: "Libro de fotografía en torno a las relaciones afectivas. Años de registros compulsivos.",
+      bio: "Violeta Capasso.",
+      fichaTecnica: "Primera edición / 150 ejemplares / Impreso en risografía a 2 tintas / Medidas por definir"
     }
   },
   {
     id: "6",
-    titulo: "Lámina Stickers Lento",
+    titulo: "LENTO",
     categoria: "Stickers",
     autor: "Monserrat Mella",
     precio: "$3.000",
     stock: true,
     imagenes: ["/img/lento.png", "/img/lento_2.png", "/img/lento_3.png", "/img/lento_4.png", "/img/lento_5.png", "/img/lento_6.png"],
     descripcion: {
-      sinopsis: "Pega aquí el texto...",
-      bio: "Pega aquí la bio...",
-      fichaTecnica: "Dimensiones / Material"
+
+      fichaTecnica: "Lámina de stickers que no tiene apuro / Fefa Lunares / 50 ejemplares / Impreso en láser."
     }
   },
   {
     id: "7",
-    titulo: "Lámina Stickers Objetos que quitan el frío",
+    titulo: "OBJETOS QUE QUITAN EL FRÍO",
     categoria: "Stickers",
     autor: "Monserrat Mella",
     precio: "$3.000",
     stock: true,
     imagenes: ["/img/objetos.png", "/img/objetos_2.png"],
     descripcion: {
-      sinopsis: "Pega aquí el texto...",
-      bio: "Pega aquí la bio...",
-      fichaTecnica: "Dimensiones / Material"
+
+      fichaTecnica: "Lámina de stickers para dar abrigo. / Monserrat Mella. / 50 ejemplares /Impreso en láser."
     }
   },
   {
@@ -121,44 +118,41 @@ export const productos = [
   },
   {
     id: "9",
-    titulo: "PRINT Sara",
+    titulo: "PRINT FLORES AZULES",
     categoria: "Print",
     autor: "Nombre Autor/a",
     precio: "$15.000",
     stock: true,
     imagenes: ["/img/print_sara.jpg"],
     descripcion: {
-      sinopsis: "Pega aquí el texto...",
-      bio: "Pega aquí la bio...",
-      fichaTecnica: "Papel / Dimensiones / Gramaje"
+
+      fichaTecnica: "Risografía impresa a dos tintas. / Ilustración de Desuka /50 ejemplares / 29,7 x 42 cm"
     }
   },
   {
     id: "10",
-    titulo: "PRINT Simón",
+    titulo: "PRINT NIÑA DE LAS FLORES",
     categoria: "Print",
     autor: "Nombre Autor/a",
     precio: "$15.000",
     stock: true,
     imagenes: ["/img/print_simon.jpg"],
     descripcion: {
-      sinopsis: "Pega aquí el texto...",
-      bio: "Pega aquí la bio...",
-      fichaTecnica: "Papel / Dimensiones / Gramaje"
+
+      fichaTecnica: "Risografía impresa a una tinta / Ilustración de Sara / 50 ejemplares /29,7 x 42 cm"
     }
   },
   {
     id: "11",
-    titulo: "PRINT Tronco",
+    titulo: "PRINT SIMÓN",
     categoria: "Print",
     autor: "Nombre Autor/a",
     precio: "$15.000",
     stock: true,
     imagenes: ["/img/print_tronco.png"],
     descripcion: {
-      sinopsis: "Pega aquí el texto...",
-      bio: "Pega aquí la bio...",
-      fichaTecnica: "Papel / Dimensiones / Gramaje"
+
+      fichaTecnica: "Risografía impresa a una tinta / Ilustración de Simón Noctem / 50 ejemplares / 29,7 x 42 cm"
     }
   }
 
