@@ -7,8 +7,8 @@ export const productos = [
     precio: "$12.000",
     stock: true,
     imagenes: [
-      "/img/domingo.jpg", 
-      "/img/domingo_2.png", 
+      "/img/domingo.png", 
+      "/img/domingo_2.jpg", 
       "/img/domingo_3.jpg"
     ],
     descripcion: {
@@ -25,9 +25,9 @@ export const productos = [
     precio: "$12.000",
     stock: true,
     imagenes: [
-      "/img/hay_flores_1.jpg", // Recuerda guardar tu foto exportada con este nombre en public/img/
-      "/img/hay_flores_2.jpg", 
-      "/img/hay_flores_3.jpg"
+      "/img/hay_flores.png", // Recuerda guardar tu foto exportada con este nombre en public/img/
+      "/img/hay_flores2.png", 
+      "/img/hay_flores3.png"
     ],
     descripcion: {
       sinopsis: "Fanzine de autora, por Carolina Benalcázar, que reúne sus textos y serigrafía.",
@@ -42,7 +42,7 @@ export const productos = [
     autor: "Violeta Capasso", 
     precio: "$12.000", 
     stock: true,
-    imagenes: ["/img/sabanas_1.jpg", "/img/sabanas_2.jpg"],
+    imagenes: ["/img/sabanas.png", "/img/sabanas_2.png"],
     descripcion: {
       sinopsis: "Pega aquí el texto desde Figma...",
       bio: "Pega aquí la bio desde Figma...",
@@ -70,7 +70,7 @@ export const productos = [
     autor: "Nombre Autor/a",
     precio: "$12.000",
     stock: true,
-    imagenes: ["/img/maldicion_1.jpg"],
+    imagenes: ["/img/quizas.png", "/img/quizas_2.png", "/img/quizas_3.png", "/img/quizas_4.png"],
     descripcion: {
       sinopsis: "Pega aquí el texto...",
       bio: "Pega aquí la bio...",
@@ -84,7 +84,7 @@ export const productos = [
     autor: "Monserrat Mella",
     precio: "$3.000",
     stock: true,
-    imagenes: ["/img/stickers_lento.jpg"],
+    imagenes: ["/img/lento.png", "/img/lento_2.png", "/img/lento_3.png", "/img/lento_4.png", "/img/lento_5.png", "/img/lento_6.png"],
     descripcion: {
       sinopsis: "Pega aquí el texto...",
       bio: "Pega aquí la bio...",
@@ -98,7 +98,7 @@ export const productos = [
     autor: "Monserrat Mella",
     precio: "$3.000",
     stock: true,
-    imagenes: ["/img/stickers_objetos.jpg"],
+    imagenes: ["/img/objetos.png", "/img/objetos_2.png"],
     descripcion: {
       sinopsis: "Pega aquí el texto...",
       bio: "Pega aquí la bio...",
@@ -112,7 +112,7 @@ export const productos = [
     autor: "Nombre Autor/a",
     precio: "$15.000",
     stock: true,
-    imagenes: ["/img/print_flores.jpg"],
+    imagenes: ["/img/print_flo.png", "/img/print_flo2.png"],
     descripcion: {
       sinopsis: "Pega aquí el texto...",
       bio: "Pega aquí la bio...",
@@ -154,7 +154,7 @@ export const productos = [
     autor: "Nombre Autor/a",
     precio: "$15.000",
     stock: true,
-    imagenes: ["/img/print_tronco.jpg"],
+    imagenes: ["/img/print_tronco.png"],
     descripcion: {
       sinopsis: "Pega aquí el texto...",
       bio: "Pega aquí la bio...",
