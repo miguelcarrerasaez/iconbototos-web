@@ -35,4 +35,131 @@ export const productos = [
       fichaTecnica: "Primera edición / 30 copias por color / 12 páginas / 21.5 x 28.5 cm / Publication date: 2024"
     }
   }
+  {
+    id: "3",
+    titulo: "Sábanas",
+    categoria: "Fanzine",
+    autor: "Violeta Capasso", 
+    precio: "$12.000", 
+    stock: true,
+    imagenes: ["/img/sabanas_1.jpg", "/img/sabanas_2.jpg"],
+    descripcion: {
+      sinopsis: "Pega aquí el texto desde Figma...",
+      bio: "Pega aquí la bio desde Figma...",
+      fichaTecnica: "Primera edición / XX copias / XX páginas"
+    }
+  },
+  {
+    id: "4",
+    titulo: "Al cajón de los juguetes",
+    categoria: "Fanzine",
+    autor: "Nombre Autor/a",
+    precio: "$12.000",
+    stock: true,
+    imagenes: ["/img/al_cajon_1.jpg"],
+    descripcion: {
+      sinopsis: "Pega aquí el texto desde Figma...",
+      bio: "Pega aquí la bio desde Figma...",
+      fichaTecnica: "Detalles / de / ficha"
+    }
+  },
+  {
+    id: "5",
+    titulo: "Quizás las fotos son una maldición...",
+    categoria: "Fanzine",
+    autor: "Nombre Autor/a",
+    precio: "$12.000",
+    stock: true,
+    imagenes: ["/img/maldicion_1.jpg"],
+    descripcion: {
+      sinopsis: "Pega aquí el texto...",
+      bio: "Pega aquí la bio...",
+      fichaTecnica: "Detalles / de / ficha"
+    }
+  },
+  {
+    id: "6",
+    titulo: "Lámina Stickers Lento",
+    categoria: "Stickers",
+    autor: "Monserrat Mella",
+    precio: "$3.000",
+    stock: true,
+    imagenes: ["/img/stickers_lento.jpg"],
+    descripcion: {
+      sinopsis: "Pega aquí el texto...",
+      bio: "Pega aquí la bio...",
+      fichaTecnica: "Dimensiones / Material"
+    }
+  },
+  {
+    id: "7",
+    titulo: "Lámina Stickers Objetos que quitan el frío",
+    categoria: "Stickers",
+    autor: "Monserrat Mella",
+    precio: "$3.000",
+    stock: true,
+    imagenes: ["/img/stickers_objetos.jpg"],
+    descripcion: {
+      sinopsis: "Pega aquí el texto...",
+      bio: "Pega aquí la bio...",
+      fichaTecnica: "Dimensiones / Material"
+    }
+  },
+  {
+    id: "8",
+    titulo: "PRINT Flores",
+    categoria: "Print",
+    autor: "Nombre Autor/a",
+    precio: "$15.000",
+    stock: true,
+    imagenes: ["/img/print_flores.jpg"],
+    descripcion: {
+      sinopsis: "Pega aquí el texto...",
+      bio: "Pega aquí la bio...",
+      fichaTecnica: "Papel / Dimensiones / Gramaje"
+    }
+  },
+  {
+    id: "9",
+    titulo: "PRINT Sara",
+    categoria: "Print",
+    autor: "Nombre Autor/a",
+    precio: "$15.000",
+    stock: true,
+    imagenes: ["/img/print_sara.jpg"],
+    descripcion: {
+      sinopsis: "Pega aquí el texto...",
+      bio: "Pega aquí la bio...",
+      fichaTecnica: "Papel / Dimensiones / Gramaje"
+    }
+  },
+  {
+    id: "10",
+    titulo: "PRINT Simón",
+    categoria: "Print",
+    autor: "Nombre Autor/a",
+    precio: "$15.000",
+    stock: true,
+    imagenes: ["/img/print_simon.jpg"],
+    descripcion: {
+      sinopsis: "Pega aquí el texto...",
+      bio: "Pega aquí la bio...",
+      fichaTecnica: "Papel / Dimensiones / Gramaje"
+    }
+  },
+  {
+    id: "11",
+    titulo: "PRINT Tronco",
+    categoria: "Print",
+    autor: "Nombre Autor/a",
+    precio: "$15.000",
+    stock: true,
+    imagenes: ["/img/print_tronco.jpg"],
+    descripcion: {
+      sinopsis: "Pega aquí el texto...",
+      bio: "Pega aquí la bio...",
+      fichaTecnica: "Papel / Dimensiones / Gramaje"
+    }
+  }
+
 ];
