@@ -30,9 +30,9 @@ export const productos = [
       "/img/hay_flores3.png"
     ],
     descripcion: {
-      sinopsis: "Fanzine de autora, por Carolina Benalcázar, que reúne sus textos y serigrafía.",
-      bio: "Carolina Benalcázar es ilustradora y editora. Desde Quito, Ecuador, forma parte de Invasión 1989.",
-      fichaTecnica: "Primera edición / 30 copias por color / 12 páginas / 21.5 x 28.5 cm / Publication date: 2024"
+      sinopsis: "Fanzine sobre perros, bicicletas y la música que nos acompaña.",
+      bio: "Carolina Benalcázar es ilustradora y editora. Reside en Quito, Ecuador. Forma parte de Recodo Press. ",
+      fichaTecnica: "Primera edición / 50 copias / páginas por definir / medidas por definir / Publication date: 2014"
     }
   },
   {
