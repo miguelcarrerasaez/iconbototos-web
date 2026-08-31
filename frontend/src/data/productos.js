@@ -34,7 +34,7 @@ export const productos = [
       bio: "Carolina Benalcázar es ilustradora y editora. Desde Quito, Ecuador, forma parte de Invasión 1989.",
       fichaTecnica: "Primera edición / 30 copias por color / 12 páginas / 21.5 x 28.5 cm / Publication date: 2024"
     }
-  }
+  },
   {
     id: "3",
     titulo: "Sábanas",
