@@ -26,7 +26,7 @@ export default function DetalleProducto() {
   };
 
   // Convertimos el texto "Dato / Dato / Dato" en una lista hacia abajo
-  const lineasFichaTecnica = producto.descripcion.fichaTecnica.split(' / ');
+  const lineasFichaTecnica = producto.descripcion.fichaTecnica ? producto.descripcion.fichaTecnica.split(' / ') : [];
 
   return (
     <div className="detalle-layout">
@@ -100,13 +100,18 @@ export default function DetalleProducto() {
       {/* SECCIÓN 2: DESCRIPCIÓN */}
       <div className="detalle-descripcion">
         <p>{producto.descripcion.sinopsis}</p>
-        <p>{producto.descripcion.bio}</p>
-        {/* Renderizamos la ficha técnica línea por línea hacia abajo */}
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {lineasFichaTecnica.map((linea, index) => (
-            <span key={index}>{linea}</span>
-          ))}
-        </div>
+        
+        {producto.descripcion.bio && (
+          <p>{producto.descripcion.bio}</p>
+        )}
+        
+        {lineasFichaTecnica.length > 0 && (
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {lineasFichaTecnica.map((linea, index) => (
+              <span key={index}>{linea}</span>
+            ))}
+          </div>
+        )}
       </div>
 
 {/* SECCIÓN 3: TE PODRÍA INTERESAR */}
