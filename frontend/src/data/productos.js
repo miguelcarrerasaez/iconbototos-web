@@ -30,11 +30,9 @@ export const productos = [
       "/img/hay_flores3.png"
     ],
     descripcion: {
-      sinopsis: "Fanzine sobre perros, bicicletas y la música que nos acompaña."
-      "Carolina Benalcázar es ilustradora y editora. Reside en Quito, Ecuador. Forma parte de Recodo Press."
-      "Primera edición / 50 copias / páginas por definir / medidas por definir / Publication date: 2014"
-      bio:  
-      fichaTecnica: 
+      sinopsis: "Fanzine sobre perros, bicicletas y la música que nos acompaña.",
+      bio: "Carolina Benalcázar es ilustradora y editora. Reside en Quito, Ecuador. Forma parte de Recodo Press.",  
+      fichaTecnica: "Primera edición / 50 copias / páginas por definir / medidas por definir / Publication date: 2014"
     }
   },
   {
