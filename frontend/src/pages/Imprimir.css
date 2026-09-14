@@ -1,0 +1,240 @@
+/* ============================================
+   LANDING /imprimir
+   CSS puro con Flexbox y CSS Grid
+   ============================================ */
+
+.imprimir-layout {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-blanco);
+  overflow-x: hidden;
+}
+
+/* ============================================
+   SECCIÓN 1: NUESTRAS TINTAS
+   ============================================ */
+
+.imprimir-tintas {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 90px 24px 70px;
+}
+
+/* Cabecera: título a la izquierda + párrafo a la derecha */
+.tintas-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 48px;
+  margin-bottom: 70px;
+}
+
+.tintas-titulo {
+  margin: 0;
+  font-size: 3.2rem;
+  line-height: 1.1;
+  color: var(--color-negro-logo, #121212);
+}
+
+.tintas-descripcion {
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.65;
+  color: #4b4b4b;
+}
+
+/* Contenedor flex con las 3 tarjetas de tinta */
+.tintas-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 48px;
+}
+
+.tinta-tarjeta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 240px;
+}
+
+.tinta-cuadro {
+  width: 240px;
+  height: 240px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.tinta-nombre {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-negro-logo, #121212);
+}
+
+/* ============================================
+   SECCIÓN 2: CÓMO IMPRIMIMOS
+   ============================================ */
+
+.imprimir-como {
+  background: linear-gradient(180deg, #e0f2fe 0%, #ffffff 100%);
+  padding: 90px 24px 100px;
+}
+
+.como-titulo {
+  margin: 0 0 60px;
+  text-align: center;
+  font-size: 3rem;
+  line-height: 1.1;
+  color: var(--color-negro-logo, #121212);
+}
+
+/* Grilla de 2 columnas con gap de 40px */
+.como-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.como-bloque {
+  background-color: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 14px;
+  padding: 32px 32px 36px;
+  box-shadow: 0 4px 18px rgba(18, 18, 18, 0.06);
+}
+
+.como-bloque-titulo {
+  margin: 0 0 12px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #0e7490;
+}
+
+.como-bloque-texto {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #4b4b4b;
+}
+
+/* ============================================
+   SECCIÓN 3: CALL TO ACTION (CTA)
+   ============================================ */
+
+.imprimir-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 100px 24px 120px;
+}
+
+.cta-titulo {
+  margin: 0;
+  max-width: 720px;
+  font-size: 2.4rem;
+  line-height: 1.25;
+  color: var(--color-negro-logo, #121212);
+}
+
+.cta-boton {
+  display: inline-block;
+  margin-top: 40px;
+  padding: 18px 56px;
+  background-color: #ff48b0;
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(255, 72, 176, 0.35);
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover: oscurece levemente el fondo del botón */
+.cta-boton:hover {
+  background-color: #cf3a8f;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(207, 58, 143, 0.4);
+}
+
+.cta-boton:active {
+  transform: translateY(0);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+/* Tablet */
+@media (max-width: 900px) {
+  .tintas-header {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .tintas-titulo {
+    font-size: 2.6rem;
+  }
+
+  .como-titulo {
+    font-size: 2.6rem;
+  }
+}
+
+/* Móvil */
+@media (max-width: 640px) {
+  .imprimir-tintas {
+    padding: 60px 20px 50px;
+  }
+
+  .imprimir-como {
+    padding: 60px 20px 70px;
+  }
+
+  .tintas-titulo,
+  .como-titulo {
+    font-size: 2.1rem;
+  }
+
+  .como-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .tintas-grid {
+    gap: 36px;
+  }
+
+  .tinta-tarjeta,
+  .tinta-cuadro {
+    width: 200px;
+  }
+
+  .tinta-cuadro {
+    height: 200px;
+  }
+
+  .imprimir-cta {
+    padding: 70px 20px 90px;
+  }
+
+  .cta-titulo {
+    font-size: 1.8rem;
+  }
+
+  .cta-boton {
+    width: 100%;
+    max-width: 320px;
+    padding: 16px 32px;
+  }
+}
