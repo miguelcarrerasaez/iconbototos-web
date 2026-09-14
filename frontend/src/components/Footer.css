@@ -106,5 +106,16 @@
 
   .footer-col {
     align-items: center;
+    text-align: center; /* Aseguramos que la columna en sí centre el texto */
+    width: 100%; /* Le damos todo el ancho para que el centro sea real */
+  }
+
+  /* Forzamos a los elementos internos a centrarse sin excusas */
+  .footer-col a,
+  .footer-col p,
+  .footer-col ul,
+  .footer-col li {
+    text-align: center !important;
+    justify-content: center;
   }
 }

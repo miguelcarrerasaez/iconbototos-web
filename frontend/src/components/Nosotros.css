@@ -82,7 +82,8 @@
     width: 100%;
     max-width: 100vw;
     box-sizing: border-box;
-    padding: 0 20px;
+    /* Subimos el padding a 40px para igualar el estilo editorial de Imprimir */
+    padding: 0 40px !important; 
   }
 
   .nosotros-imagen {
@@ -92,6 +93,9 @@
 
   .nosotros-texto {
     width: 100%;
+    /* Ajuste fino opcional para que la lectura sea más cómoda en celular */
+    font-size: 13px;
+    line-height: 1.6;
   }
 }
 /* Menú Desplegable */
