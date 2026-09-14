@@ -16,6 +16,7 @@ import Categorias from './components/Categorias';
 import Tienda from './pages/Tienda';
 import DetalleProducto from './pages/DetalleProducto'; // <-- NUEVO IMPORT AGREGADO
 import Imprimir from './pages/Imprimir';
+import PaginaNosotros from './pages/Nosotros';
 import Admin from './pages/Admin';
 
 // --- COMPONENTE TEMPORAL PARA PÁGINAS EN CONSTRUCCIÓN ---
@@ -93,7 +94,7 @@ function LayoutPrincipal() {
           <Route path="/tienda/:id" element={<DetalleProducto />} />
 
           {/* 4. RUTAS EDITORIALES EN CONSTRUCCIÓN */}
-          <Route path="/nosotros" element={<PaginaEnConstruccion titulo="Nosotros" />} />
+          <Route path="/nosotros" element={<PaginaNosotros />} />
           <Route path="/eventos" element={<PaginaEnConstruccion titulo="Eventos" />} />
           <Route path="/imprimir" element={<Imprimir />} />
           <Route path="/portafolio" element={<PaginaEnConstruccion titulo="Portafolio" />} />

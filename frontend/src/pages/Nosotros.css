@@ -1,0 +1,138 @@
+/* =========================================
+   PÁGINA NOSOTROS (/nosotros)
+   Estilo editorial | Brutalista:
+   - Sin box-shadow
+   - Sin border-radius (todo cuadrado y plano)
+   - Solo tipografía 'Montserrat', sans-serif
+   ========================================= */
+
+.nosotros-layout {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 80px 24px 100px;
+  background-color: #ffffff;
+  color: #000000;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* =========================================
+   SECCIÓN 1: TÍTULO Y PRIMERA GALERÍA
+   ========================================= */
+
+.nosotros-titulo {
+  margin: 0 0 40px;
+  font-size: 4rem;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.galleria-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 90px;
+}
+
+.galleria-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+/* =========================================
+   BLOQUES DE TEXTO (párrafos)
+   ========================================= */
+
+.nosotros-bloque-texto {
+  margin-bottom: 90px;
+}
+
+.nosotros-parrafo {
+  max-width: 700px;
+  margin: 0 auto;       /* bloque de texto centrado en la página */
+  text-align: left;     /* el texto en sí alineado a la izquierda */
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.7;
+  color: #000000;
+}
+
+/* =========================================
+   SECCIÓN 3: EL EQUIPO (RETRATOS)
+   ========================================= */
+
+.equipo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 90px;
+}
+
+.equipo-miembro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* texto alineado a la izquierda respecto a su foto */
+}
+
+.equipo-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.equipo-nombre {
+  margin: 16px 0 4px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.equipo-cargo {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: #000000;
+}
+
+/* =========================================
+   RESPONSIVE (mantiene las grillas de 3 col)
+   ========================================= */
+
+@media (max-width: 640px) {
+  .nosotros-layout {
+    padding: 50px 20px 70px;
+  }
+
+  .nosotros-titulo {
+    font-size: 2.8rem;
+    margin-bottom: 30px;
+  }
+
+  .galleria-grid {
+    gap: 10px;
+    margin-bottom: 60px;
+  }
+
+  .nosotros-bloque-texto {
+    margin-bottom: 60px;
+  }
+
+  .equipo-grid {
+    gap: 20px;
+    margin-bottom: 60px;
+  }
+
+  .equipo-nombre {
+    margin-top: 12px;
+    font-size: 13px;
+  }
+
+  .equipo-cargo {
+    font-size: 12px;
+  }
+}
