@@ -80,3 +80,6 @@ export default function Navbar({ carrito, setIsCartOpen }) {
            )}
          </div>
        </div>
+</nav>
+  );
+}
