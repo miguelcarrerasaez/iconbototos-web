@@ -45,6 +45,11 @@
 /* =========================================
    4. RESET Y FONDO GLOBAL
    ========================================= */
+/* Evita que los paddings sumen ancho extra y rompan la pantalla */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 html, body, #root, .App {
   background-color: var(--color-blanco) !important;
   color: var(--color-negro-puro);
@@ -52,4 +57,8 @@ html, body, #root, .App {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  
+  /* LAS DOS REGLAS MÁGICAS PARA MÓVIL */
+  width: 100%;
+  overflow-x: hidden; /* Recorta cualquier elemento que intente salirse de los lados */
 }
