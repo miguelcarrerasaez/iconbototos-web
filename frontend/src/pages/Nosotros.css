@@ -27,40 +27,49 @@
 }
 
 /* =========================================
-   CARRUSEL DE FOTOS (NUEVO)
+   CARRUSEL DE FOTOS (INFINITO Y CONSTANTE)
    ========================================= */
 .nosotros-carrusel {
   width: 100%;
+  overflow: hidden; /* Oculta lo que se sale del contenedor */
   margin-bottom: 90px;
 }
 
 .nosotros-carrusel-track {
   display: flex;
   gap: 15px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory; /* Habilita el "swipe" nativo en celulares */
-  scrollbar-width: none; /* Oculta la barra de scroll en Firefox */
-  -ms-overflow-style: none; /* Oculta la barra en IE/Edge */
+  width: max-content; /* Permite que la pista sea tan ancha como todas las fotos sumadas */
+  
+  /* Animación: dura 30 segundos (cámbialo si lo quieres más rápido o lento) */
+  animation: scroll-infinito 30s linear infinite; 
 }
 
-/* Oculta la barra de scroll en Chrome/Safari */
-.nosotros-carrusel-track::-webkit-scrollbar {
-  display: none; 
+/* Pausa la animación si el usuario pone el mouse encima (opcional, muy útil en escritorio) */
+.nosotros-carrusel-track:hover {
+  animation-play-state: paused;
 }
 
 .nosotros-carrusel-img {
-  /* En MÓVIL: La foto ocupa el 85%. Se asoma la siguiente foto para invitar a deslizar. */
-  flex: 0 0 85%; 
+  width: 80vw; /* En celular ocupa casi todo el ancho */
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  scroll-snap-align: center;
 }
 
-/* En ESCRITORIO: Forzamos que se vean 3 fotos exactas como en tu diseño original */
+/* En escritorio, limitamos el tamaño de la foto para que sigan entrando 3 en pantalla */
 @media (min-width: 641px) {
   .nosotros-carrusel-img {
-    flex: 0 0 calc(33.333% - 10px); 
-    scroll-snap-align: start;
+    width: 260px; 
+  }
+}
+
+/* La magia del movimiento continuo */
+@keyframes scroll-infinito {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Mueve la pista exactamente a la mitad de su longitud total (donde empiezan las copias) */
+    transform: translateX(calc(-50% - 7.5px)); /* 7.5px compensa la mitad del gap */
   }
 }
 
@@ -136,7 +145,7 @@
     font-size: 2.8rem;
     margin-bottom: 30px;
   }
-  
+
   .nosotros-bloque-texto {
     margin-bottom: 60px;
   }

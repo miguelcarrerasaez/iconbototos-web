@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import './Nosotros.css';
 
-// Primera galería: imágenes del estudio (placeholders)
+// Primera galería: 5 imágenes del estudio
 const galeriaEstudio = [
   { src: '/img/nosotros-1.png', alt: 'Nosotros - Imagen 1' },
   { src: '/img/nosotros-2.png', alt: 'Nosotros - Imagen 2' },
@@ -10,7 +10,10 @@ const galeriaEstudio = [
   { src: '/img/nosotros-5.png', alt: 'Nosotros - Imagen 5' }
 ];
 
-// El equipo: retrato + nombre (negrita) + cargo (regular)
+// Creamos un arreglo con las fotos duplicadas para el efecto infinito
+const fotosInfinitas = [...galeriaEstudio, ...galeriaEstudio];
+
+// El equipo: retrato + nombre + cargo
 const equipo = [
   { src: '/img/equipo-1.png', alt: 'Monserrat Mella', nombre: 'Monserrat Mella', cargo: 'Diseñadora' },
   { src: '/img/equipo-2.png', alt: 'Mauro Lucero', nombre: 'Mauro Lucero', cargo: 'Editor' },
@@ -18,41 +21,18 @@ const equipo = [
 ];
 
 export default function Nosotros() {
-  // Referencia para controlar la "pista" del carrusel
-  const trackRef = useRef(null);
-
-  // Efecto que mueve el carrusel automáticamente cada 3 segundos
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (trackRef.current) {
-        const track = trackRef.current;
-        const maxScroll = track.scrollWidth - track.clientWidth;
-        
-        // Si llegó al final, vuelve al inicio. Si no, avanza el ancho de una foto.
-        if (track.scrollLeft >= maxScroll - 10) {
-          track.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          const imageWidth = track.firstElementChild?.clientWidth || 0;
-          track.scrollBy({ left: imageWidth + 15, behavior: 'smooth' }); // +15px del gap
-        }
-      }
-    }, 1500);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <div className="nosotros-layout">
 
-      {/* SECCIÓN 1: TÍTULO Y PRIMERA GALERÍA (CARRUSEL) */}
+      {/* SECCIÓN 1: TÍTULO Y CARRUSEL INFINITO */}
       <section className="nosotros-intro">
         <h1 className="nosotros-titulo">Nosotros</h1>
 
         <div className="nosotros-carrusel">
-          <div className="nosotros-carrusel-track" ref={trackRef}>
-            {galeriaEstudio.map(img => (
+          <div className="nosotros-carrusel-track">
+            {fotosInfinitas.map((img, index) => (
               <img
-                key={img.src}
+                key={index} /* Usamos el index porque las fotos se repiten */
                 src={img.src}
                 alt={img.alt}
                 className="nosotros-carrusel-img"
@@ -61,6 +41,9 @@ export default function Nosotros() {
           </div>
         </div>
       </section>
+
+      {/* SECCIÓN 2: PRIMER PÁRRAFO */}
+      {/* ... El resto de tu código queda exactamente igual ... */}
 
       {/* SECCIÓN 2: PRIMER PÁRRAFO */}
       <section className="nosotros-bloque-texto">
