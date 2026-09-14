@@ -1,12 +1,25 @@
-.imprimir-page {
-  padding-top: 80px; /* Evita que el Navbar fijo tape el título */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 71px;
+  padding: 10px 20px;
+  background-color: var(--color-blanco);
+  max-width: var(--max-width-canvas);
+  margin: 0 auto;
+  width: 100%;
+  position: relative; /* <-- Cambiado de sticky a relative */
+  /* top: 0; <-- LÍNEA ELIMINADA */
+  z-index: 100;
 }
 
 /* Contenedor general para centrar el contenido en pantallas gigantes, pero manteniendo todo alineado a la izquierda por dentro */
 .imprimir-container {
-  max-width: 7400px;
-  margin: 0 auto;
+  width: 100%; /* Obliga a calcular el centro exacto de la pantalla */
+  max-width: 850px; 
+  margin: 0 auto !important; /* Fuerza los márgenes automáticos a los lados */
   padding: 0 20px;
+  box-sizing: border-box;
 }
 
 /* =========================================
