@@ -40,19 +40,32 @@ export default function Navbar({ carrito, setIsCartOpen }) {
            {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
          </button>
 
-         {/* 3. BURBUJA DEL MENÚ HAMBURGUESA AISLADA */}
-         <div style={{ position: 'relative', display: 'flex' }}>
+         {/* 3. BURBUJA DEL MENÚ HAMBURGUESA (FORZADA CON ESTILOS EN LÍNEA) */}
+         <div style={{ position: 'relative', display: 'flex', height: '40px' }}>
            <button 
              onClick={() => setMenuOpen(!menuOpen)} 
              className="navbar-icon-btn"
-             style={{ backgroundColor: menuOpen ? 'var(--color-gris-claro)' : 'transparent' }}
+             style={{ 
+               backgroundColor: menuOpen ? 'var(--color-gris-claro)' : 'transparent',
+               height: '40px',
+               padding: 0,
+               border: 'none',
+               display: 'flex'
+             }}
            >
-             <img src="/img/MenúHamburguesa.svg" alt="Menú" />
+             <img src="/img/MenúHamburguesa.svg" alt="Menú" style={{ display: 'block', height: '40px' }} />
            </button>
 
            {/* MENÚ DESPLEGABLE */}
            {menuOpen && (
-             <div className="navbar-dropdown">
+             <div 
+               className="navbar-dropdown"
+               style={{ 
+                 top: '40px', /* Forzamos la posición exacta ignorando el CSS externo */
+                 marginTop: '0px',
+                 right: '0px'
+               }}
+             >
                {links.map(link => (
                  <Link 
                    key={link.path} 
@@ -67,6 +80,3 @@ export default function Navbar({ carrito, setIsCartOpen }) {
            )}
          </div>
        </div>
-    </nav>
-  );
-}
