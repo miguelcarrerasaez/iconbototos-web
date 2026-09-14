@@ -17,6 +17,7 @@ import Tienda from './pages/Tienda';
 import DetalleProducto from './pages/DetalleProducto'; // <-- NUEVO IMPORT AGREGADO
 import Imprimir from './pages/Imprimir';
 import PaginaNosotros from './pages/Nosotros';
+import PaginaContacto from './pages/Contacto';
 import Admin from './pages/Admin';
 
 // --- COMPONENTE TEMPORAL PARA PÁGINAS EN CONSTRUCCIÓN ---
@@ -99,7 +100,7 @@ function LayoutPrincipal() {
           <Route path="/imprimir" element={<Imprimir />} />
           <Route path="/portafolio" element={<PaginaEnConstruccion titulo="Portafolio" />} />
           <Route path="/talleres" element={<PaginaEnConstruccion titulo="Talleres" />} />
-          <Route path="/contacto" element={<PaginaEnConstruccion titulo="Contacto" />} />
+          <Route path="/contacto" element={<PaginaContacto />} />
 
           {/* 5. PANEL DE ADMINISTRACIÓN RISO */}
           <Route path="/admin/*" element={<Admin />} />

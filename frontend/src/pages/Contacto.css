@@ -1,0 +1,159 @@
+/* =========================================
+   PÁGINA CONTACTO (/contacto)
+   Diseño limpio y minimalista
+   - Sin box-shadow genéricos
+   - Solo tipografía 'Montserrat', sans-serif
+   ========================================= */
+
+.contacto-layout {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 80px 24px 100px;
+  text-align: left;
+  background-color: #ffffff;
+  color: #121212;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* =========================================
+   SECCIÓN 1: ENCABEZADO
+   ========================================= */
+
+.contacto-titulo {
+  margin: 0 0 60px; /* margen inferior amplio */
+  font-size: 54px;
+  font-weight: 300;
+  line-height: 1;
+  color: #121212;
+}
+
+/* =========================================
+   SECCIÓN 2: TEXTOS DEL FORMULARIO
+   ========================================= */
+
+.contacto-subtitulo {
+  margin: 0; /* sin margen inferior */
+  font-size: 24px;
+  font-weight: 700;
+  color: #121212;
+}
+
+.contacto-descripcion {
+  margin: 0 0 30px; /* margen inferior de 30px */
+  font-size: 12px;
+  font-weight: 500;
+  color: #000000;
+}
+
+/* =========================================
+   SECCIÓN 3: FORMULARIO (compacto a la izquierda)
+   ========================================= */
+
+.contacto-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 500px; /* el formulario no se estira por toda la pantalla */
+}
+
+.campo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo-etiqueta {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #000000;
+}
+
+/* Estilos comunes de inputs y textarea */
+.campo-input,
+.campo-textarea {
+  background-color: #f4f4f4;
+  border: 1px solid #7a7a7a;
+  border-radius: 6px;
+  padding: 12px 15px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: #121212;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.campo-input::placeholder {
+  color: #9a9a9a;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.campo-input:focus,
+.campo-textarea:focus {
+  border-color: #ff48b0;
+}
+
+.campo-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* =========================================
+   BOTÓN ENVIAR (magenta de marca)
+   ========================================= */
+
+.contacto-boton {
+  align-self: flex-start; /* alineado a la izquierda */
+  background-color: #ff48b0;
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.contacto-boton:hover {
+  background-color: #e23fa0;
+}
+
+.contacto-boton:active {
+  transform: translateY(1px);
+}
+
+/* Mensaje de confirmación */
+.contacto-exito {
+  margin: 24px 0 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #000000;
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 640px) {
+  .contacto-layout {
+    padding: 50px 20px 70px;
+  }
+
+  .contacto-titulo {
+    font-size: 40px;
+    margin-bottom: 50px;
+  }
+
+  .contacto-formulario {
+    max-width: 100%;
+  }
+
+  .contacto-boton {
+    width: 100%;
+    text-align: center;
+  }
+}
