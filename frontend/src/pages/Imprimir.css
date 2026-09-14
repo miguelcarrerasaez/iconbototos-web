@@ -1,3 +1,7 @@
+.imprimir-page {
+  padding-top: 80px; /* Evita que el Navbar fijo tape el título */
+}
+
 /* Contenedor general para centrar el contenido en pantallas gigantes, pero manteniendo todo alineado a la izquierda por dentro */
 .imprimir-container {
   max-width: 7400px;
@@ -15,10 +19,10 @@
 
 .tintas-header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column; /* Apilamos el título arriba y el párrafo abajo */
+  align-items: flex-start; /* Todo alineado a la izquierda */
   margin-bottom: 60px;
-  gap: 40px;
+  gap: 20px; /* Un espacio prudente entre el título y el párrafo */
 }
 
 /* Tipografía Editorial para los Títulos */
