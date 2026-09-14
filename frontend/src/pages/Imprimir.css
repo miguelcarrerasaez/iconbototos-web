@@ -16,7 +16,7 @@
 /* Contenedor general para centrar el contenido en pantallas gigantes, pero manteniendo todo alineado a la izquierda por dentro */
 .imprimir-container {
   width: 100%; /* Obliga a calcular el centro exacto de la pantalla */
-  max-width: 850px; 
+  max-width: 660px; 
   margin: 0 auto !important; /* Fuerza los márgenes automáticos a los lados */
   padding: 0 20px;
   box-sizing: border-box;
@@ -32,10 +32,11 @@
 
 .tintas-header {
   display: flex;
-  flex-direction: column; /* Apilamos el título arriba y el párrafo abajo */
-  align-items: flex-start; /* Todo alineado a la izquierda */
+  flex-direction: row; /* Coloca el título y el texto uno al lado del otro */
+  justify-content: space-between; /* Título a la izquierda, texto a la derecha */
+  align-items: flex-start; 
   margin-bottom: 60px;
-  gap: 20px; /* Un espacio prudente entre el título y el párrafo */
+  gap: 40px; 
 }
 
 /* Tipografía Editorial para los Títulos */
