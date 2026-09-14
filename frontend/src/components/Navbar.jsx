@@ -42,8 +42,12 @@ export default function Navbar({ carrito, setIsCartOpen }) {
            {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
          </button>
 
-         <button onClick={() => setMenuOpen(!menuOpen)} className="navbar-icon-btn">
-           <img src="/img/MenúHamburguesa.svg" alt="Menú" />
+         <button 
+            onClick={() => setMenuOpen(!menuOpen)} 
+            className="navbar-icon-btn" 
+            style={{ backgroundColor: menuOpen ? 'var(--color-gris-claro)' : 'transparent' }}
+         >
+          <img src="/img/MenúHamburguesa.svg" alt="Menú" />
          </button>
 
          {/* 3. MENÚ DESPLEGABLE */}
