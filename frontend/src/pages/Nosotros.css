@@ -26,18 +26,42 @@
   line-height: 1;
 }
 
-.galleria-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
+/* =========================================
+   CARRUSEL DE FOTOS (NUEVO)
+   ========================================= */
+.nosotros-carrusel {
+  width: 100%;
   margin-bottom: 90px;
 }
 
-.galleria-img {
-  display: block;
-  width: 100%;
+.nosotros-carrusel-track {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory; /* Habilita el "swipe" nativo en celulares */
+  scrollbar-width: none; /* Oculta la barra de scroll en Firefox */
+  -ms-overflow-style: none; /* Oculta la barra en IE/Edge */
+}
+
+/* Oculta la barra de scroll en Chrome/Safari */
+.nosotros-carrusel-track::-webkit-scrollbar {
+  display: none; 
+}
+
+.nosotros-carrusel-img {
+  /* En MÓVIL: La foto ocupa el 85%. Se asoma la siguiente foto para invitar a deslizar. */
+  flex: 0 0 85%; 
   aspect-ratio: 4 / 5;
   object-fit: cover;
+  scroll-snap-align: center;
+}
+
+/* En ESCRITORIO: Forzamos que se vean 3 fotos exactas como en tu diseño original */
+@media (min-width: 641px) {
+  .nosotros-carrusel-img {
+    flex: 0 0 calc(33.333% - 10px); 
+    scroll-snap-align: start;
+  }
 }
 
 /* =========================================
