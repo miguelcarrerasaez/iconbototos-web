@@ -24,6 +24,7 @@
   display: flex;
   gap: 5px;
   align-items: center;
+  position: relative; /* Agrega esta línea */
 }
 
 /* Botones de Íconos */
@@ -59,32 +60,36 @@
 /* Menú Desplegable */
 .navbar-dropdown {
   position: absolute;
-  top: 71px;
-  right: 20px;
+  top: 100%; 
+  right: 0; 
   background-color: var(--color-gris-claro);
-  width: 200px;
-  border-radius: 10px;
+  width: 170px;
   display: flex;
   flex-direction: column;
-  gap: 1px;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-  overflow: hidden;
+  box-shadow: -4px 4px 12px rgba(0,0,0,0.05);
+  z-index: 1000;
+  border-radius: 0; 
 }
 
 .dropdown-link {
   font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 18px;
-  height: 41.56px;
-  padding-left: 20px;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 12px 15px;
   display: flex;
+  justify-content: center; 
   align-items: center;
   color: var(--color-negro-puro);
   text-decoration: none;
-  background-color: var(--color-blanco);
-  text-transform: capitalize;
+  background-color: var(--color-gris-claro);
+  border-bottom: 2px solid var(--color-blanco);
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-link:last-child {
+  border-bottom: none;
 }
 
 .dropdown-link:hover {
-  background-color: var(--color-gris-claro);
+  background-color: #e5e5e5;
 }
