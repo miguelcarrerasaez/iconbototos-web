@@ -60,7 +60,7 @@
 /* Menú Desplegable */
 .navbar-dropdown {
   position: absolute;
-  top: 45%; 
+  top: 40%; 
   right: 0; 
   margin-top: 0;
   background-color: var(--color-gris-claro);
