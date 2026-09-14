@@ -60,8 +60,8 @@
 /* Menú Desplegable */
 .navbar-dropdown {
   position: absolute;
-  top: 40%; 
-  right: 0; 
+  top: 100%; /* Se pega milimétricamente debajo del botón */
+  right: 0;  /* Se alinea exactamente al borde derecho del botón */
   margin-top: 0;
   background-color: var(--color-gris-claro);
   width: 170px;
