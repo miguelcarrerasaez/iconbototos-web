@@ -1,6 +1,6 @@
 /* Contenedor general para centrar el contenido en pantallas gigantes, pero manteniendo todo alineado a la izquierda por dentro */
 .imprimir-container {
-  max-width: 900px;
+  max-width: 7400px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -41,12 +41,13 @@
 
 .texto-descriptivo {
   font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #121212;
-  max-width: 400px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #000000; /* Letra negra absoluta */
+  font-weight: 500; /* Más peso para que destaque */
+  max-width: 220px; /* Obliga al texto a romperse en unas 7-8 líneas */
   margin: 0;
-  margin-top: 15px; /* Para alinearlo visualmente con el texto del título */
+  margin-top: 15px; 
   text-align: left;
 }
 
@@ -92,8 +93,8 @@
    SECCIÓN 2: CÓMO IMPRIMIMOS (Fondo Degradado)
    ========================================= */
 .seccion-como {
-  /* Degradado suave de morado/celeste claro hacia azul pálido */
-  background: linear-gradient(180deg, #f5f0fa 0%, #c4e4f9 100%);
+  /* Blanco -> Celeste Vibrante Riso -> Blanco */
+  background: linear-gradient(180deg, #ffffff 0%, #c4e9f7 15%, #c4e9f7 85%, #ffffff 100%);
   padding: 80px 0 100px 0;
 }
 
@@ -115,18 +116,18 @@
 .como-item h3 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  font-size: 18px;
-  color: #121212;
-  margin: 0 0 15px 0;
+  font-size: 16px;
+  color: #000000; /* Negro absoluto */
+  margin: 0 0 12px 0;
   text-transform: uppercase;
 }
 
 .como-item p {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
+  font-weight: 500; /* Le damos más "cuerpo" a la letra para que no se vea gris */
   font-size: 14px;
   line-height: 1.6;
-  color: #121212;
+  color: #000000; /* Negro absoluto */
   margin: 0;
 }
 
