@@ -36,7 +36,7 @@ export default function Nosotros() {
           track.scrollBy({ left: imageWidth + 15, behavior: 'smooth' }); // +15px del gap
         }
       }
-    }, 3000);
+    }, 1500);
 
     return () => clearInterval(interval);
   }, []);
