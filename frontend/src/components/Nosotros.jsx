@@ -16,7 +16,7 @@ export default function Nosotros() {
 
         {/* Columna de texto derecha */}
         <div className="nosotros-texto">
-          <p className="nosotros-parrafo">
+          <p className="nosotros-home-parrafo">
             Somos una microeditorial y estudio de risografía de Rancagua, Chile. Actualmente imprimiendo desde Santiago.
           </p>
           <button className="nosotros-boton">Saber más</button>
