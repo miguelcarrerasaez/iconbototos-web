@@ -92,5 +92,6 @@
 }
 
 .dropdown-link:hover {
-  background-color: #e5e5e5;
+  background-color: #F15060; /* El color rojo/rosado de Iconbototos */
+  color: #FFFFFF !important; /* Cambia el texto a blanco */
 }
