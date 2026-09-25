@@ -59,7 +59,7 @@
   width: 40px;
   height: 40px;
   background-color: #ffffff; /* Fondo blanco */
-  border: 1px solid #121212; /* Borde oscuro como en Figma */
+  border: none;
   border-radius: 50%; /* Círculo perfecto */
   cursor: pointer;
   padding: 0;
