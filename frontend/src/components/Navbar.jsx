@@ -10,11 +10,8 @@ export default function Navbar({ carrito, setIsCartOpen }) {
   const links = [
     { path: '/', label: 'Home' },
     { path: '/tienda', label: 'Tienda' },
-    { path: '/portafolio', label: 'Portafolio' },
     { path: '/imprimir', label: '¡Quiero Imprimir!' },
-    { path: '/talleres', label: 'Talleres' },
     { path: '/nosotros', label: 'Nosotros' },
-    { path: '/eventos', label: 'Eventos' },
     { path: '/contacto', label: 'Contáctanos' }
   ];
 
