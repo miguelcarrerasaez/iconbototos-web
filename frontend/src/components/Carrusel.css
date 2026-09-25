@@ -100,7 +100,8 @@
   background-color: #f0f0f0;
 }
 
-.carrusel-carrito svg {
+/* .carrusel-carrito img */
+.carrusel-carrito img {
   width: 20px;
   height: auto;
 }

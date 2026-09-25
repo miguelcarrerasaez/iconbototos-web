@@ -74,8 +74,9 @@
   background-color: #f0f0f0;
 }
 
-/* Reducimos un poco el SVG original para que encaje perfecto en el círculo de 40px */
-.tarjeta-carrito svg {
+/* .tarjeta-carrito img */
+.tarjeta-carrito img {
   width: 20px;
   height: auto;
+  /* Si la imagen SVG original es muy pequeña o grande, ajusta los 20px */
 }
