@@ -13,7 +13,7 @@
 .tarjeta-imagen-wrapper {
   width: 270px;
   height: 300px;
-  overflow: hidden;
+  position: relative; /* ¡Clave! Convierte a este div en el ancla del botón */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,24 +51,31 @@
   text-overflow: ellipsis;
 }
 
+/* El nuevo diseño del botón flotante */
 .tarjeta-carrito {
+  position: absolute; /* Permite mover el botón libremente */
+  bottom: -10px; /* Lo baja hacia la esquina inferior */
+  right: -5px; /* Lo mueve hacia la esquina derecha */
   width: 40px;
   height: 40px;
-  background: none;
-  border: none;
+  background-color: #ffffff; /* Fondo blanco */
+  border: 1px solid #121212; /* Borde oscuro como en Figma */
+  border-radius: 50%; /* Círculo perfecto */
   cursor: pointer;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  z-index: 2; /* Se asegura de flotar por encima de la foto */
+  transition: background-color 0.2s ease;
 }
 
 .tarjeta-carrito:hover {
-  opacity: 0.7;
+  background-color: #f0f0f0;
 }
 
+/* Reducimos un poco el SVG original para que encaje perfecto en el círculo de 40px */
 .tarjeta-carrito svg {
-  width: 26px;
-  height: 23px;
+  width: 20px;
+  height: auto;
 }

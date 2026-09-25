@@ -4,15 +4,15 @@ import './TarjetaProducto.css';
 export default function TarjetaProducto({ imagen, titulo, precio, onClick }) {
   return (
     <div className="tarjeta-producto">
+      
+      {/* Contenedor de la imagen y el carrito flotante */}
       <div className="tarjeta-imagen-wrapper">
         <img 
           src={imagen} 
           alt={titulo} 
           className="tarjeta-imagen"
         />
-      </div>
-      <div className="tarjeta-info">
-        <h3 className="tarjeta-titulo">{titulo}</h3>
+        {/* El botón del carrito ahora está aquí adentro */}
         <button className="tarjeta-carrito" onClick={onClick} aria-label="Agregar al carrito">
           <svg width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M25.2973 14.29H22.5352V4.56671C22.5352 2.04501 20.4901 0 18.0 0C15.5099 0 13.4648 2.04501 13.4648 4.56671V14.29H10.7027C8.21166 14.29 6.1665 16.335 6.1665 18.8567C6.1665 21.3784 8.21166 23.4234 10.7027 23.4234H25.2973C27.7883 23.4234 29.8335 21.3784 29.8335 18.8567C29.8335 16.335 27.7883 14.29 25.2973 14.29Z" fill="black"/>
@@ -21,6 +21,12 @@ export default function TarjetaProducto({ imagen, titulo, precio, onClick }) {
           </svg>
         </button>
       </div>
+      
+      {/* Contenedor del título */}
+      <div className="tarjeta-info">
+        <h3 className="tarjeta-titulo">{titulo}</h3>
+      </div>
+      
     </div>
   );
 }
