@@ -61,6 +61,7 @@
   background-color: #ffffff; /* Fondo blanco */
   border: none;
   border-radius: 50%; /* Círculo perfecto */
+  overflow: hidden;
   cursor: pointer;
   padding: 0;
   display: flex;

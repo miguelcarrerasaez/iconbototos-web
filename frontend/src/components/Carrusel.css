@@ -88,6 +88,7 @@
   border-radius: 50%;
   background-color: #ffffff;
   border: none;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
