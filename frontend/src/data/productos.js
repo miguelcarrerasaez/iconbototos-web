@@ -157,18 +157,18 @@ export const productos = [
   }
 
   ,
-  {
-    id: "999",
-    titulo: "Producto de Prueba MP",
-    categoria: "Test",
-    autor: "Admin",
-    precio: 100, 
-    stock: 10,
-    imagenes: ["/img/logo.svg"], 
-    descripcion: {
-      sinopsis: "Producto temporal para probar la pasarela de pago en producción.",
-      bio: "Admin",
-      fichaTecnica: "Test"
-    }
-  }
+  //{
+  //  id: "999",
+  //  titulo: "Producto de Prueba MP",
+  //  categoria: "Test",
+  //  autor: "Admin",
+  //  precio: 100, 
+  //  stock: 10,
+  //  imagenes: ["/img/logo.svg"], 
+  //  descripcion: {
+  //    sinopsis: "Producto temporal para probar la pasarela de pago en producción.",
+  //    bio: "Admin",
+  //    fichaTecnica: "Test"
+  //  }
+  //}
 ];
