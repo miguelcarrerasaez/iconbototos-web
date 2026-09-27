@@ -1,7 +1,7 @@
 export const productos = [
   {
     id: "1",
-    titulo: "DDOMINGO",
+    titulo: "DOMINGO",
     categoria: "Fanzine",
     autor: "Monserrat Mella González",
     precio: 12000,

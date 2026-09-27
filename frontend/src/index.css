@@ -1,3 +1,7 @@
+/* Elimina el recuadro azul nativo al tocar CUALQUIER elemento en la versión móvil */
+* {
+  -webkit-tap-highlight-color: transparent !important;
+}
 /* =========================================
    1. PALETA DE COLORES
    ========================================= */

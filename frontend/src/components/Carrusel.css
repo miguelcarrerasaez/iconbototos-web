@@ -22,6 +22,7 @@
   text-decoration: none;
   margin-bottom: 15px;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent; /* <-- Elimina el cuadro azul al hacer tap en móviles */
 }
 
 /* 3. Contenedor del carrusel: flex row, centrado, gap 4px, ancho 879px */
@@ -95,6 +96,7 @@
   cursor: pointer;
   padding: 0;
   z-index: 2;
+  -webkit-tap-highlight-color: transparent; /* <-- Agrega esto aquí también */
 }
 
 .carrusel-carrito:hover {

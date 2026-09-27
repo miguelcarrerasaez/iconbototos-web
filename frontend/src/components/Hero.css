@@ -66,6 +66,7 @@
   justify-content: center;
   cursor: pointer;
   width: fit-content;
+  -webkit-tap-highlight-color: transparent; /* <-- Elimina el cuadro azul en móviles */
 }
 
 /* 7. Imagen a la derecha */
