@@ -95,11 +95,24 @@ with app.app_context():
 @app.route('/api/login', methods=['POST'])
 def login():
     datos = request.json or {}
-    usuario = str(datos.get('usuario') or '')
+    
+    # Parche: Buscamos 'usuario' o 'username' por si el frontend lo manda en inglés
+    usuario = str(datos.get('usuario') or datos.get('username') or '')
     password = str(datos.get('password') or '')
 
-    # Comparación segura contra las credenciales del entorno (backend/.env).
-    # Si ADMIN_USERNAME o ADMIN_PASSWORD no están definidas, se deniega siempre.
+    # Volvemos a leer las variables directamente de Render por si acaso
+    ADMIN_USERNAME = os.getenv('ADMIN_USERNAME')
+    ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD')
+
+    # --- INICIO DEL CHISMOSO (Veremos esto en los Logs de Render) ---
+    print("===== DEBUG LOGIN =====", flush=True)
+    print(f"1. React envió el usuario: '{usuario}'", flush=True)
+    print(f"2. React envió una clave de {len(password)} caracteres", flush=True)
+    print(f"3. Render dice que ADMIN_USERNAME es: '{ADMIN_USERNAME}'", flush=True)
+    print("=======================", flush=True)
+    # --- FIN DEL CHISMOSO ---
+
+    # Comparación segura contra las credenciales del entorno
     if (
         ADMIN_USERNAME and ADMIN_PASSWORD
         and hmac.compare_digest(usuario, ADMIN_USERNAME)
@@ -109,7 +122,6 @@ def login():
         return jsonify({"token": token_vip}), 200
 
     return jsonify({"error": "Credenciales incorrectas"}), 401
-
 
 
 # ==========================================
