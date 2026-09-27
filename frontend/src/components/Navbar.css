@@ -91,7 +91,9 @@
   border-bottom: none;
 }
 
+/* Efecto hover interactivo en el menú */
 .dropdown-link:hover {
-  background-color: #F15060; /* El color rojo/rosado de Iconbototos */
-  color: #FFFFFF !important; /* Cambia el texto a blanco */
+  background-color: #f2f2f2; /* Mantiene el fondo gris */
+  color: #FF3366; /* Cambia el texto a un rosado/rojo vibrante. Puedes ajustar este código hexadecimal */
+  font-weight: 500; /* Opcional: hace la letra un poco más gruesa al pasar el mouse */
 }
