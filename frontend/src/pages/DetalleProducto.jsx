@@ -98,7 +98,7 @@ export default function DetalleProducto() {
           {producto.stock > 0 ? (
             <div className="detalle-stock">
               <img 
-                src="/img/ícono_carita.stock_2.svg" 
+                src="/img/ícono_carita.stock.svg" 
                 alt="Ícono en stock" 
                 style={{ width: '24px', height: '24px', objectFit: 'contain' }} 
               />
