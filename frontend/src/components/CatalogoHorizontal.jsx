@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ShoppingCart } from 'lucide-react';
+import { formatearPrecio } from '../utils/formatearPrecio';
 
 const BACKEND_URL = "https://iconbototos-api.onrender.com"; 
 
@@ -50,7 +51,7 @@ export default function CatalogoHorizontal({ agregarAlCarrito }) {
               </div>
               <div className="info-galeria">
                 <h4 style={{ margin: 0 }}>{producto.titulo}</h4>
-                <p style={{ margin: 0 }}>${producto.precio}</p>
+                <p style={{ margin: 0 }}>{formatearPrecio(producto.precio)}</p>
                 <button onClick={() => agregarAlCarrito(producto)} className="btn-add">
                    <ShoppingCart size={16} />
                 </button>

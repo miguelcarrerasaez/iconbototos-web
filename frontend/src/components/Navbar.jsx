@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useCarrito } from '../context/CarritoContext';
 import './Navbar.css';
 
-export default function Navbar({ carrito, setIsCartOpen }) {
+export default function Navbar() {
+  const { totalItems, setIsCartOpen } = useCarrito();
   const [menuOpen, setMenuOpen] = useState(false);
   
-  const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+
   
   const links = [
     { path: '/', label: 'Home' },

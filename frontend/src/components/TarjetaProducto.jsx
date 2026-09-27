@@ -1,8 +1,10 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import { useCarrito } from '../context/CarritoContext';
+import { formatearPrecio } from '../utils/formatearPrecio';
 import './TarjetaProducto.css';
 
 export default function TarjetaProducto({ producto }) {
+  const { agregarAlCarrito } = useCarrito();
   // Aseguramos que use la primera imagen del array si existe, o una por defecto
   const imagenPortada = producto.imagenes && producto.imagenes.length > 0 
     ? producto.imagenes[0] 
@@ -22,7 +24,13 @@ export default function TarjetaProducto({ producto }) {
         </Link>
         
         {/* El carrito queda fuera del Link para que el botón siga agregando al carro */}
-        <button className="tarjeta-carrito" aria-label="Agregar al carrito">
+        <button 
+          className="tarjeta-carrito" 
+          aria-label="Agregar al carrito"
+          onClick={() => agregarAlCarrito(producto)}
+          disabled={producto.stock === 0}
+          title={producto.stock === 0 ? 'Producto agotado' : 'Agregar al carrito'}
+        >
           <img src="/img/MenúCarrito.svg" alt="Carrito" />
         </button>
       </div>
@@ -32,6 +40,7 @@ export default function TarjetaProducto({ producto }) {
         <Link to={`/tienda/${producto.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
           <h3 className="tarjeta-titulo">{producto.titulo}</h3>
         </Link>
+          <p className="tarjeta-precio">{formatearPrecio(producto.precio)}</p>
       </div>
 
     </div>

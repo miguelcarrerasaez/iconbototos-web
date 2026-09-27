@@ -1,14 +1,17 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import { useCarrito } from '../context/CarritoContext';
+import { productos as productosData } from '../data/productos';
 import './Carrusel.css';
 
 export default function Carrusel() {
-  // IDs actualizados según tu base de datos (productos.js)
-  const productos = [
-    { id: "6", titulo: 'Lento', imagen: '/img/lento.png' },
-    { id: "3", titulo: 'Sábanas', imagen: '/img/sabanas.png' },
-    { id: "1", titulo: 'Domingo', imagen: '/img/domingo.png' },
-  ];
+  const { agregarAlCarrito } = useCarrito();
+
+  // Usamos productos COMPLETOS (con precio/stock) para que funcionen en el carrito.
+  const idsCarrusel = ["6", "3", "1"];
+  const productos = idsCarrusel
+    .map(id => productosData.find(p => p.id === id))
+    .filter(Boolean)
+    .map(p => ({ ...p, imagen: p.imagenes[0] }));
 
   return (
     <section className="carrusel-seccion">
@@ -27,7 +30,13 @@ export default function Carrusel() {
                 />
               </Link>
               
-              <button className="carrusel-carrito" aria-label="Agregar al carrito">
+              <button 
+              className="carrusel-carrito" 
+              aria-label="Agregar al carrito"
+              onClick={() => agregarAlCarrito(producto)}
+              disabled={producto.stock === 0}
+              title={producto.stock === 0 ? 'Producto agotado' : 'Agregar al carrito'}
+            >
                 <img src="/img/MenúCarrito.svg" alt="Carrito" />
               </button>
             </div>

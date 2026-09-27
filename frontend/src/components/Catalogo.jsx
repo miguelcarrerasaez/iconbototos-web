@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ShoppingCart } from 'lucide-react';
+import { formatearPrecio } from '../utils/formatearPrecio';
 
 const BACKEND_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
     ? "http://127.0.0.1:5000"                
@@ -53,7 +54,7 @@ export default function Catalogo({ agregarAlCarrito }) {
               <div className="producto-info">
                 <h3>{producto.titulo}</h3>
                 <div className="producto-precio-stock">
-                  <p className="precio">${producto.precio}</p>
+                  <p className="precio">{formatearPrecio(producto.precio)}</p>
                   {producto.stock > 0 && producto.stock <= 3 && (
                     <span className="stock-bajo">¡Solo quedan {producto.stock}!</span>
                   )}

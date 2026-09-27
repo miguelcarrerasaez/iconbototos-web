@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { X, Plus, Minus, Trash2, ShoppingCart } from 'lucide-react';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+import { useCarrito } from '../context/CarritoContext';
+import { formatearPrecio } from '../utils/formatearPrecio';
 
 // Recuerda mantener tu Public Key real aquí
 initMercadoPago('APP_USR-7ed5aea3-fb5c-413b-94a4-342cc1ce033c', { locale: 'es-CL' });
 
-export default function Carrito({ carrito, isCartOpen, setIsCartOpen, agregarAlCarrito, quitarDelCarrito }) {
+export default function Carrito() {
+  const { carrito, isCartOpen, setIsCartOpen, agregarAlCarrito, quitarDelCarrito, total, totalItems } = useCarrito();
   const [preferenceId, setPreferenceId] = useState(null);
   const [cargando, setCargando] = useState(false);
 
   if (!isCartOpen) return null;
 
-  const total = carrito.reduce((suma, producto) => suma + (producto.precio * producto.cantidad), 0);
-  const totalArticulos = carrito.reduce((suma, producto) => suma + producto.cantidad, 0);
 
   const manejarPago = async () => {
     setCargando(true);
@@ -49,7 +50,7 @@ export default function Carrito({ carrito, isCartOpen, setIsCartOpen, agregarAlC
       <div style={{ position: 'fixed', top: 0, right: 0, width: '380px', height: '100vh', backgroundColor: 'white', zIndex: 1000, padding: '20px', boxShadow: '-2px 0 5px rgba(0,0,0,0.1)', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
         
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #111', paddingBottom: '15px', marginBottom: '20px' }}>
-          <h2 style={{ margin: 0, fontSize: '1.5rem', fontWeight: '900', textTransform: 'uppercase' }}>Tu Carrito ({totalArticulos})</h2>
+          <h2 style={{ margin: 0, fontSize: '1.5rem', fontWeight: '900', textTransform: 'uppercase' }}>Tu Carrito ({totalItems})</h2>
           <button onClick={() => setIsCartOpen(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '5px', color: '#111' }}>
             <X size={24} strokeWidth={2.5} />
           </button>
@@ -73,7 +74,7 @@ export default function Carrito({ carrito, isCartOpen, setIsCartOpen, agregarAlC
                   <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <span style={{ fontWeight: 'bold', fontSize: '1rem' }}>{producto.titulo}</span>
-                      <span style={{ fontWeight: 'bold' }}>${producto.precio * producto.cantidad}</span>
+                      <span style={{ fontWeight: 'bold' }}>{formatearPrecio(producto.precio * producto.cantidad)}</span>
                     </div>
                     
                     {/* Controles de Cantidad */}
@@ -109,7 +110,7 @@ export default function Carrito({ carrito, isCartOpen, setIsCartOpen, agregarAlC
 
                       </div>
                       
-                      <span style={{ fontSize: '0.85rem', color: '#666', fontWeight: 'bold' }}>${producto.precio} c/u</span>
+                      <span style={{ fontSize: '0.85rem', color: '#666', fontWeight: 'bold' }}>{formatearPrecio(producto.precio)} c/u</span>
                     </div>
                   </div>
 
@@ -121,7 +122,7 @@ export default function Carrito({ carrito, isCartOpen, setIsCartOpen, agregarAlC
             <div style={{ borderTop: '2px solid #111', paddingTop: '20px', backgroundColor: 'white' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.3rem', fontWeight: '900', marginBottom: '20px', textTransform: 'uppercase' }}>
                 <span>Total:</span>
-                <span>${total}</span>
+                <span>{formatearPrecio(total)}</span>
               </div>
               
               {!preferenceId ? (

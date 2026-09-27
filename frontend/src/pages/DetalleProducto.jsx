@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { productos } from '../data/productos';
+import { useCarrito } from '../context/CarritoContext';
+import { formatearPrecio } from '../utils/formatearPrecio';
 import '../components/DetalleProducto.css';
 
 export default function DetalleProducto() {
   const { id } = useParams();
+  const { agregarAlCarrito } = useCarrito();
   
   // Estados para controlar el componente
   const [cantidad, setCantidad] = useState(1);
@@ -72,7 +75,7 @@ export default function DetalleProducto() {
             <span className="badge-gris">{producto.autor}</span>
           </div>
 
-          <div className="detalle-precio">{producto.precio}</div>
+          <div className="detalle-precio">{formatearPrecio(producto.precio)}</div>
 
           <div className="detalle-controles">
             <div className="selector-cantidad">
@@ -80,8 +83,14 @@ export default function DetalleProducto() {
               <span>{cantidad}</span>
               <span style={{cursor: 'pointer'}} onClick={() => setCantidad(cantidad + 1)}>+</span>
             </div>
-            {/* Pronto conectaremos este botón al carrito */}
-            <button className="btn-agregar-negro">Agregar al carrito</button>
+            {/* Botón conectado al carrito global (Context) */}
+            <button 
+              className="btn-agregar-negro" 
+              onClick={() => agregarAlCarrito(producto, cantidad)}
+              disabled={producto.stock === 0}
+            >
+              {producto.stock === 0 ? 'Agotado' : 'Agregar al carrito'}
+            </button>
           </div>
 
           {producto.stock && (

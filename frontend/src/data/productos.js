@@ -4,8 +4,8 @@ export const productos = [
     titulo: "DDOMINGO",
     categoria: "Fanzine",
     autor: "Monserrat Mella González",
-    precio: "$12.000",
-    stock: true,
+    precio: 12000,
+    stock: 30,
     imagenes: [
       "/img/domingo.png", 
       "/img/domingo_2.jpg", 
@@ -22,8 +22,8 @@ export const productos = [
     titulo: "HAY FLORES QUE CRECEN SOBRE BICICLETAS FANTASMA",
     categoria: "Fanzine",
     autor: "Carolina Benalcázar",
-    precio: "$12.000",
-    stock: true,
+    precio: 12000,
+    stock: 50,
     imagenes: [
       "/img/hay_flores.png", // Recuerda guardar tu foto exportada con este nombre en public/img/
       "/img/hay_flores2.png", 
@@ -40,8 +40,8 @@ export const productos = [
     titulo: "SÁBANAS",
     categoria: "Fanzine",
     autor: "Violeta Capasso", 
-    precio: "$12.000", 
-    stock: true,
+    precio: 12000, 
+    stock: 100,
     imagenes: ["/img/sabanas.png", "/img/sabanas_2.png"],
     descripcion: {
       sinopsis: "Risografía impresa a 2 tintas / Fotografía de Violeta Capasso / 100 ejemplares / 29,7 x 42 cm"
@@ -66,8 +66,8 @@ export const productos = [
     titulo: "QUIZÁS LAS FOTOS SON UNA MALDICIÓN Y NO DEBERÍA FOTOGRAFIAR EN NOMBRE DEL AMOR",
     categoria: "Fanzine",
     autor: "Nombre Autor/a",
-    precio: "$12.000",
-    stock: true,
+    precio: 12000,
+    stock: 150,
     imagenes: ["/img/quizas.png", "/img/quizas_2.png", "/img/quizas_3.png", "/img/quizas_4.png"],
     descripcion: {
       sinopsis: "Libro de fotografía en torno a las relaciones afectivas. Años de registros compulsivos.",
@@ -80,8 +80,8 @@ export const productos = [
     titulo: "LENTO",
     categoria: "Stickers",
     autor: "Monserrat Mella",
-    precio: "$3.000",
-    stock: true,
+    precio: 3000,
+    stock: 50,
     imagenes: ["/img/lento.png", "/img/lento_2.png", "/img/lento_3.png", "/img/lento_4.png", "/img/lento_5.png", "/img/lento_6.png"],
     descripcion: {
       sinopsis: "Lámina de stickers que no tiene apuro / Fefa Lunares / 50 ejemplares / Impreso en láser."
@@ -92,8 +92,8 @@ export const productos = [
     titulo: "OBJETOS QUE QUITAN EL FRÍO",
     categoria: "Stickers",
     autor: "Monserrat Mella",
-    precio: "$3.000",
-    stock: true,
+    precio: 3000,
+    stock: 50,
     imagenes: ["/img/objetos.png", "/img/objetos_2.png"],
     descripcion: {
       sinopsis: "Lámina de stickers para dar abrigo. / Monserrat Mella. / 50 ejemplares /Impreso en láser."
@@ -104,8 +104,8 @@ export const productos = [
     titulo: "PRINT FLORES AZULES",
     categoria: "Print",
     autor: "Nombre Autor/a",
-    precio: "$15.000",
-    stock: true,
+    precio: 15000,
+    stock: 50,
     imagenes: ["/img/print_flo.png", "/img/print_flo2.png"],
     descripcion: {
       sinopsis: "Risografía impresa a dos tintas / Ilustración de Desuka / 50 ejemplares / 29,7 x 42 cm"
@@ -140,8 +140,8 @@ export const productos = [
     titulo: "PRINT TRONCO",
     categoria: "Print",
     autor: "Nombre Autor/a",
-    precio: "$15.000",
-    stock: true,
+    precio: 15000,
+    stock: 100,
     imagenes: ["/img/print_tronco.png"],
     descripcion: {
       sinopsis: "Risografía impresa a dos tintas / Fotografía de Violeta Capasso / 100 ejemplares / 29,7 x 42 cm"

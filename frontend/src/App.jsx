@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { Toaster, toast } from 'sonner';
+import { Toaster } from 'sonner';
 
 // --- COMPONENTES COMPARTIDOS ---
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Carrito from './components/Carrito';
+import { CarritoProvider } from './context/CarritoContext';
 
 // --- SECCIONES DE LA PÁGINA ---
 import Hero from './components/Hero';
@@ -14,7 +14,7 @@ import Animacion from './components/Animacion';
 import Nosotros from './components/Nosotros';
 import Categorias from './components/Categorias';
 import Tienda from './pages/Tienda';
-import DetalleProducto from './pages/DetalleProducto'; // <-- NUEVO IMPORT AGREGADO
+import DetalleProducto from './pages/DetalleProducto';
 import Imprimir from './pages/Imprimir';
 import PaginaNosotros from './pages/Nosotros';
 import PaginaContacto from './pages/Contacto';
@@ -36,48 +36,16 @@ function LayoutPrincipal() {
   const location = useLocation();
   const esRutaAdmin = location.pathname.startsWith('/admin');
 
-  // 🛒 EL ESTADO DEL CARRITO AHORA VIVE AQUÍ (Memoria global)
-  const [carrito, setCarrito] = useState([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-
-  const agregarAlCarrito = (producto) => {
-    const productoExistente = carrito.find(item => item.id === producto.id);
-    const cantidadActual = productoExistente ? productoExistente.cantidad : 0;
-
-    if (cantidadActual >= producto.stock) {
-      toast.error(`¡Ups! Solo quedan ${producto.stock} unidades de ${producto.titulo}`);
-      return; 
-    }
-
-    if (productoExistente) {
-      setCarrito(carrito.map(item => item.id === producto.id ? { ...item, cantidad: item.cantidad + 1 } : item));
-      toast.success(`Se agregó otra unidad de ${producto.titulo}`);
-    } else {
-      setCarrito([...carrito, { ...producto, cantidad: 1 }]);
-      toast.success(`${producto.titulo} agregado al carrito 🛒`);
-    }
-  };
-
-  const quitarDelCarrito = (productoId) => {
-    const productoExistente = carrito.find(item => item.id === productoId);
-    if (productoExistente.cantidad === 1) {
-      setCarrito(carrito.filter(item => item.id !== productoId));
-      toast.info('Producto eliminado del carrito');
-    } else {
-      setCarrito(carrito.map(item => item.id === productoId ? { ...item, cantidad: item.cantidad - 1 } : item));
-    }
-  };
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
       <Toaster richColors position="bottom-right" />
-      
+
       {/* Ocultamos la Navbar pública si estamos en el Panel de Admin */}
-      {!esRutaAdmin && <Navbar carrito={carrito} setIsCartOpen={setIsCartOpen} />}
+      {!esRutaAdmin && <Navbar />}
 
       <main style={{ flexGrow: 1 }}>
         <Routes>
-          {/* 1. HOME: Hero, Carrusel, Animación, Nosotros, Categorías y Footer */}
+          {/* 1. HOME: Hero, Carrusel, Animación, Nosotros y Categorías */}
           <Route path="/" element={
             <>
               <Hero />
@@ -90,7 +58,7 @@ function LayoutPrincipal() {
 
           {/* 2. TIENDA: Vista del catálogo */}
           <Route path="/tienda" element={<Tienda />} />
-          
+
           {/* 3. TIENDA DETALLE: Vista individual del producto */}
           <Route path="/tienda/:id" element={<DetalleProducto />} />
 
@@ -111,24 +79,20 @@ function LayoutPrincipal() {
       {!esRutaAdmin && (
         <>
           <Footer />
-          <Carrito 
-            carrito={carrito} 
-            isCartOpen={isCartOpen} 
-            setIsCartOpen={setIsCartOpen} 
-            agregarAlCarrito={agregarAlCarrito} 
-            quitarDelCarrito={quitarDelCarrito} 
-          />
+          <Carrito />
         </>
       )}
     </div>
   );
 }
 
-// Envolvemos todo en el Router para que la magia funcione
+// Envolvemos todo en el Router y el provider de carrito para que la magia funcione
 export default function App() {
   return (
     <Router>
-      <LayoutPrincipal />
+      <CarritoProvider>
+        <LayoutPrincipal />
+      </CarritoProvider>
     </Router>
   );
 }

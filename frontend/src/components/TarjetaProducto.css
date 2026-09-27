@@ -87,3 +87,14 @@
   height: auto;
   /* Si la imagen SVG original es muy pequeña o grande, ajusta los 20px */
 }
+
+/* Precio de la tarjeta de producto (formato CLP) */
+.tarjeta-precio {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #121212;
+  margin: 0;
+  flex-shrink: 0;
+  padding-left: 10px;
+}
