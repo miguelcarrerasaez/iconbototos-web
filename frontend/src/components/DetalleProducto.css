@@ -317,3 +317,7 @@
     gap: 20px;
   }
 }
+/* Estilo para cuando no hay unidades disponibles */
+.detalle-stock.sin-stock {
+  color: #888888;
+}

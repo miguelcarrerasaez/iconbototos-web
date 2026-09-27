@@ -93,14 +93,23 @@ export default function DetalleProducto() {
             </button>
           </div>
 
-          {producto.stock && (
+          {/* INDICADOR DE STOCK DINÁMICO */}
+          {producto.stock > 0 ? (
             <div className="detalle-stock">
-              <img 
-                src="/img/ícono_carita.stock.svg" 
-                alt="Ícono stock" 
-                style={{ width: '32px', height: '32px' }} 
-              />
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <circle cx="16" cy="16" r="11" stroke="#407060" strokeWidth="1.5"/>
+                 <path d="M12 14v1M20 14v1M12 19c1.5 2.5 6.5 2.5 8 0" stroke="#407060" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
               En stock
+            </div>
+          ) : (
+            <div className="detalle-stock sin-stock">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <circle cx="16" cy="16" r="11" stroke="#888888" strokeWidth="1.5"/>
+                 <path d="M10 13c0.5 2 2.5 2 3 0M19 13c0.5 2 2.5 2 3 0" stroke="#888888" strokeWidth="1.5" strokeLinecap="round"/>
+                 <path d="M11 21c2-3 8-3 10 0" stroke="#888888" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+              Sin stock
             </div>
           )}
         </div>
