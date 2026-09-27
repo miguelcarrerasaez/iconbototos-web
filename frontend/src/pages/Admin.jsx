@@ -46,8 +46,11 @@ function Admin() {
 
       if (respuesta.ok) {
         const datos = await respuesta.json();
-        localStorage.setItem('token', datos.access_token);
-        setToken(datos.access_token);
+        
+        // AQUÍ ESTABA EL ERROR: Cambiamos datos.access_token por datos.token
+        localStorage.setItem('token', datos.token);
+        setToken(datos.token);
+        
       } else {
         alert("🚨 Credenciales incorrectas. Revisa tu usuario y contraseña.");
       }
