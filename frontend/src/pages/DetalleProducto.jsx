@@ -19,6 +19,7 @@ export default function DetalleProducto() {
   if (!producto) {
     return <div style={{ textAlign: "center", padding: "100px" }}><h2>Producto no encontrado</h2></div>;
   }
+  
   // Lógica del Carrusel
   const irImagenAnterior = () => {
     setIndiceImagen(prev => (prev === 0 ? producto.imagenes.length - 1 : prev - 1));
@@ -39,7 +40,7 @@ export default function DetalleProducto() {
         {/* Izquierda: Carrusel */}
         <div className="detalle-carrusel">
           <div className="carrusel-imagen-contenedor">
-            {/* Flecha Izquierda (ahora con onClick) */}
+            {/* Flecha Izquierda */}
             <button className="carrusel-flecha izquierda" onClick={irImagenAnterior}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#121212" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
             </button>
@@ -47,7 +48,7 @@ export default function DetalleProducto() {
             {/* Imagen Dinámica (lee el índice actual) */}
             <img src={producto.imagenes[indiceImagen]} alt={producto.titulo} className="carrusel-imagen-principal" />
             
-            {/* Flecha Derecha (ahora con onClick) */}
+            {/* Flecha Derecha */}
             <button className="carrusel-flecha derecha" onClick={irImagenSiguiente}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#121212" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
@@ -93,22 +94,23 @@ export default function DetalleProducto() {
             </button>
           </div>
 
-          {/* INDICADOR DE STOCK DINÁMICO */}
+          {/* INDICADOR DE STOCK DINÁMICO CON ÍCONOS PERSONALIZADOS */}
           {producto.stock > 0 ? (
             <div className="detalle-stock">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                 <circle cx="16" cy="16" r="11" stroke="#407060" strokeWidth="1.5"/>
-                 <path d="M12 14v1M20 14v1M12 19c1.5 2.5 6.5 2.5 8 0" stroke="#407060" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
+              <img 
+                src="/img/ícono_carita.stock_2.svg" 
+                alt="Ícono en stock" 
+                style={{ width: '24px', height: '24px', objectFit: 'contain' }} 
+              />
               En stock
             </div>
           ) : (
             <div className="detalle-stock sin-stock">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                 <circle cx="16" cy="16" r="11" stroke="#888888" strokeWidth="1.5"/>
-                 <path d="M10 13c0.5 2 2.5 2 3 0M19 13c0.5 2 2.5 2 3 0" stroke="#888888" strokeWidth="1.5" strokeLinecap="round"/>
-                 <path d="M11 21c2-3 8-3 10 0" stroke="#888888" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
+              <img 
+                src="/img/ícono_carita.Nostock.svg" 
+                alt="Ícono sin stock" 
+                style={{ width: '24px', height: '24px', objectFit: 'contain' }} 
+              />
               Sin stock
             </div>
           )}
@@ -132,13 +134,12 @@ export default function DetalleProducto() {
         )}
       </div>
 
-{/* SECCIÓN 3: TE PODRÍA INTERESAR */}
+      {/* SECCIÓN 3: TE PODRÍA INTERESAR */}
       <div className="te-podria-interesar">
         <h2 className="te-podria-titulo">Te podría interesar</h2>
         <div className="te-podria-grilla">
           
           <div className="tarjeta-interes">
-            {/* Contenedor blanco añadido aquí */}
             <div className="tarjeta-interes-img-container">
               <img src="/img/objetos.jpg" alt="Objetos que quitan el frío" className="tarjeta-interes-img" />
             </div>
@@ -149,7 +150,6 @@ export default function DetalleProducto() {
           </div>
           
           <div className="tarjeta-interes">
-            {/* Contenedor blanco añadido aquí */}
             <div className="tarjeta-interes-img-container">
               <img src="/img/sabanas.jpg" alt="Sábanas" className="tarjeta-interes-img" />
             </div>
@@ -160,7 +160,6 @@ export default function DetalleProducto() {
           </div>
           
           <div className="tarjeta-interes">
-            {/* Contenedor blanco añadido aquí */}
             <div className="tarjeta-interes-img-container">
               <img src="/img/domingo.fanzine.jpg" alt="Domingo" className="tarjeta-interes-img" />
             </div>
