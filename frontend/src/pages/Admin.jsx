@@ -1,27 +1,73 @@
 import { useState, useEffect } from 'react';
 import { BACKEND_URL } from '../config';
 
-
 function Admin() {
+  // --- ESTADOS DE AUTENTICACIÓN ---
+  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [cargandoLogin, setCargandoLogin] = useState(false);
+
+  // --- ESTADOS DEL PANEL ---
   const [vistaActiva, setVistaActiva] = useState('catalogo');
-  
   const [productos, setProductos] = useState([]);
   const [titulo, setTitulo] = useState('');
   const [precio, setPrecio] = useState('');
   const [stock, setStock] = useState('');
   const [imagen, setImagen] = useState('');
   
-  // 📸 NUEVOS ESTADOS PARA LA SEGUNDA IMAGEN (HOVER)
+  // Estados para la segunda imagen (Hover)
   const [imagenHover, setImagenHover] = useState('');
   const [subiendoHover, setSubiendoHover] = useState(false);
   
   const [idEdicion, setIdEdicion] = useState(null);
   const [subiendo, setSubiendo] = useState(false);
 
+  // Cargar productos solo si hay token
   useEffect(() => {
-    cargarProductos();
-  }, []);
+    if (token) {
+      cargarProductos();
+    }
+  }, [token]);
 
+  // ==========================================
+  // LÓGICA DE LOGIN REAL (CONECTADO AL BACKEND)
+  // ==========================================
+  const manejarLogin = async (e) => {
+    e.preventDefault();
+    setCargandoLogin(true);
+
+    try {
+      const respuesta = await fetch(`${BACKEND_URL}/api/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+
+      if (respuesta.ok) {
+        const datos = await respuesta.json();
+        localStorage.setItem('token', datos.access_token);
+        setToken(datos.access_token);
+      } else {
+        alert("🚨 Credenciales incorrectas. Revisa tu usuario y contraseña.");
+      }
+    } catch (error) {
+      alert("Error conectando al servidor. Revisa que Render esté activo.");
+    } finally {
+      setCargandoLogin(false);
+    }
+  };
+
+  const cerrarSesion = () => {
+    localStorage.removeItem('token');
+    setToken(null);
+    setUsername('');
+    setPassword('');
+  };
+
+  // ==========================================
+  // LÓGICA DEL CATÁLOGO
+  // ==========================================
   const cargarProductos = async () => {
     try {
       const respuesta = await fetch(`${BACKEND_URL}/api/productos`);
@@ -34,7 +80,6 @@ function Admin() {
     }
   };
 
-  // Función para subir la imagen PRINCIPAL
   const manejarSubidaImagen = async (e) => {
     const archivo = e.target.files[0];
     if (!archivo) return;
@@ -57,7 +102,6 @@ function Admin() {
     }
   };
 
-  // 📸 NUEVA FUNCIÓN: Subir la imagen SECUNDARIA (HOVER)
   const manejarSubidaImagenHover = async (e) => {
     const archivo = e.target.files[0];
     if (!archivo) return;
@@ -82,13 +126,6 @@ function Admin() {
 
   const guardarProducto = async (e) => {
     e.preventDefault();
-    
-    const token = localStorage.getItem('token');
-    if (!token) {
-        alert("🚨 Tu navegador no tiene ningún token guardado. Ve a /login e inicia sesión.");
-        return; 
-    }
-
     if (!imagen) {
         alert("Por favor, espera a que la imagen principal se suba.");
         return;
@@ -104,7 +141,7 @@ function Admin() {
       precio: parseFloat(precio),
       stock: parseInt(stock) || 0,
       imagen: imagen,
-      imagen_hover: imagenHover // 📸 Enviamos la segunda foto a Python
+      imagen_hover: imagenHover 
     };
 
     try {
@@ -117,17 +154,23 @@ function Admin() {
         body: JSON.stringify(nuevoProducto)
       });
 
+      if (respuesta.status === 401) {
+        alert("Tu sesión ha expirado. Por favor, inicia sesión de nuevo.");
+        cerrarSesion();
+        return;
+      }
+
       if (respuesta.ok) {
         setTitulo('');
         setPrecio('');
         setStock('');
         setImagen('');
-        setImagenHover(''); // Limpiamos la segunda foto
+        setImagenHover(''); 
         setIdEdicion(null);
         cargarProductos();
         alert(idEdicion ? "Lámina actualizada" : "Lámina creada");
       } else {
-        alert("Error del servidor");
+        alert("Error del servidor al guardar.");
       }
     } catch (error) {
       alert("Hubo un error de conexión");
@@ -139,37 +182,86 @@ function Admin() {
     setPrecio(producto.precio);
     setStock(producto.stock || 0);
     setImagen(producto.imagen);
-    setImagenHover(producto.imagen_hover || ''); // Cargamos la segunda foto si existe
+    setImagenHover(producto.imagen_hover || ''); 
     setIdEdicion(producto.id);
     setVistaActiva('catalogo');
   };
 
   const eliminarProducto = async (id) => {
     if (!window.confirm("¿Seguro que quieres eliminar esta lámina?")) return;
-    const token = localStorage.getItem('token');
 
     try {
       const respuesta = await fetch(`${BACKEND_URL}/api/productos/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
+
+      if (respuesta.status === 401) {
+        alert("Tu sesión ha expirado. Por favor, inicia sesión de nuevo.");
+        cerrarSesion();
+        return;
+      }
+
       if (respuesta.ok) cargarProductos();
     } catch (error) {
       console.error("Error al eliminar:", error);
     }
   };
 
+
+  // ==========================================
+  // RENDER: PANTALLA DE LOGIN (Si no hay token)
+  // ==========================================
+  if (!token) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', backgroundColor: '#f0f0f0' }}>
+        <div style={{ backgroundColor: '#fff', border: '4px solid #111', padding: '40px', textAlign: 'center', maxWidth: '400px', width: '100%', boxShadow: '8px 8px 0px #111' }}>
+          <h2 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 900, marginBottom: '20px', fontSize: '24px' }}>ACCESO PANEL RISO</h2>
+          <form onSubmit={manejarLogin} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+            <input 
+              type="text" 
+              placeholder="Usuario" 
+              value={username} 
+              onChange={e => setUsername(e.target.value)} 
+              style={{ padding: '12px', border: '2px solid #111', fontSize: '16px', fontFamily: 'Montserrat, sans-serif' }} 
+              required 
+            />
+            <input 
+              type="password" 
+              placeholder="Contraseña" 
+              value={password} 
+              onChange={e => setPassword(e.target.value)} 
+              style={{ padding: '12px', border: '2px solid #111', fontSize: '16px', fontFamily: 'Montserrat, sans-serif' }} 
+              required 
+            />
+            <button 
+              type="submit" 
+              disabled={cargandoLogin} 
+              style={{ padding: '15px', backgroundColor: '#ff48b0', color: '#fff', border: '3px solid #111', fontWeight: 'bold', fontSize: '16px', cursor: 'pointer', fontFamily: 'Montserrat, sans-serif' }}
+            >
+              {cargandoLogin ? 'Verificando...' : 'ENTRAR'}
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  // ==========================================
+  // RENDER: PANEL DE ADMINISTRACIÓN
+  // ==========================================
   return (
     <div className="admin-container">
-      
       <aside className="admin-sidebar">
         <h2>Panel Riso</h2>
         <button className={`btn-menu ${vistaActiva === 'dashboard' ? 'activo' : ''}`} onClick={() => setVistaActiva('dashboard')}>📊 Dashboard</button>
         <button className={`btn-menu ${vistaActiva === 'catalogo' ? 'activo' : ''}`} onClick={() => setVistaActiva('catalogo')}>📦 Catálogo</button>
         <button className={`btn-menu ${vistaActiva === 'ventas' ? 'activo' : ''}`} onClick={() => setVistaActiva('ventas')}>📈 Ventas</button>
         <button className={`btn-menu ${vistaActiva === 'diseno' ? 'activo' : ''}`} onClick={() => setVistaActiva('diseno')}>🎨 Diseño Web</button>
+        
         <div style={{ marginTop: 'auto', paddingTop: '20px', borderTop: '3px solid #111' }}>
-          <button className="btn-menu" onClick={() => window.open('/', '_blank')} style={{ width: '100%', backgroundColor: '#fff000', color: '#111', marginTop: '10px' }}>👁️ Ver Tienda</button>
+          <button className="btn-menu" onClick={() => window.open('/', '_blank')} style={{ width: '100%', backgroundColor: '#fff000', color: '#111', marginTop: '10px', fontWeight: 'bold', border: '2px solid #111', padding: '10px' }}>👁️ Ver Tienda</button>
+          <button className="btn-menu" onClick={cerrarSesion} style={{ width: '100%', backgroundColor: '#111', color: '#fff', marginTop: '10px', fontWeight: 'bold', border: '2px solid #111', padding: '10px' }}>🚪 Cerrar Sesión</button>
         </div>
       </aside>
 
@@ -202,7 +294,6 @@ function Admin() {
                         <input type="number" placeholder="Stock" value={stock} onChange={(e) => setStock(e.target.value)} required style={{ padding: '8px', border: '2px solid #111', width: '100px' }} />
                     </div>
 
-                    {/* --- ZONA DE IMAGEN PRINCIPAL --- */}
                     <div style={{ padding: '10px', border: '2px solid #ccc', backgroundColor: '#f9f9f9' }}>
                         <label style={{ fontWeight: 'bold', fontSize: '14px', display: 'block', marginBottom: '5px' }}>🖼️ Imagen Principal:</label>
                         <input type="file" accept="image/*" onChange={manejarSubidaImagen} style={{ width: '100%', marginBottom: '5px' }} />
@@ -210,7 +301,6 @@ function Admin() {
                         {imagen && !subiendo && <img src={imagen} alt="Principal" style={{ width: '100px', height: '100px', objectFit: 'cover', border: '2px solid #111', marginTop: '5px' }} />}
                     </div>
 
-                    {/* --- ZONA DE IMAGEN HOVER --- */}
                     <div style={{ padding: '10px', border: '2px dashed #ccc', backgroundColor: '#f9f9f9' }}>
                         <label style={{ fontWeight: 'bold', fontSize: '14px', display: 'block', marginBottom: '5px' }}>✨ Imagen al pasar el cursor (Opcional):</label>
                         <input type="file" accept="image/*" onChange={manejarSubidaImagenHover} style={{ width: '100%', marginBottom: '5px' }} />
@@ -219,11 +309,11 @@ function Admin() {
                     </div>
 
                     <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
-                        <button type="submit" className="btn-comprar" style={{ flex: 1, backgroundColor: '#fff000', border: '3px solid #111', padding: '10px' }}>
+                        <button type="submit" className="btn-comprar" style={{ flex: 1, backgroundColor: '#fff000', border: '3px solid #111', padding: '10px', cursor: 'pointer', fontWeight: 'bold' }}>
                           {idEdicion ? 'Actualizar' : 'Guardar'}
                         </button>
                         {idEdicion && (
-                          <button type="button" onClick={() => {setIdEdicion(null); setTitulo(''); setPrecio(''); setStock(''); setImagen(''); setImagenHover('');}} style={{ padding: '10px', backgroundColor: '#ccc', border: '3px solid #111' }}>
+                          <button type="button" onClick={() => {setIdEdicion(null); setTitulo(''); setPrecio(''); setStock(''); setImagen(''); setImagenHover('');}} style={{ padding: '10px', backgroundColor: '#ccc', border: '3px solid #111', cursor: 'pointer', fontWeight: 'bold' }}>
                               Cancelar
                           </button>
                         )}
@@ -232,9 +322,9 @@ function Admin() {
             </div>
 
             {/* TABLA DE PRODUCTOS */}
-            <div style={{ backgroundColor: '#fff', border: '3px solid #111', padding: '20px' }}>
+            <div style={{ backgroundColor: '#fff', border: '3px solid #111', padding: '20px', overflowX: 'auto' }}>
                 <h3>Láminas Actuales</h3>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '600px' }}>
                 <thead>
                     <tr style={{ borderBottom: '3px solid #111' }}>
                     <th style={{ padding: '10px' }}>Foto</th>
@@ -247,9 +337,8 @@ function Admin() {
                 <tbody>
                     {productos.map(producto => (
                     <tr key={producto.id} style={{ borderBottom: '1px solid #ccc' }}>
-                        <td style={{ padding: '10px' }}>
-                          <img src={producto.imagen} alt="P" style={{ width: '40px', height: '40px', objectFit: 'cover', border: '2px solid #111', marginRight: '5px' }} title="Principal" />
-                          {/* Mostramos una miniatura de la segunda foto si existe */}
+                        <td style={{ padding: '10px', display: 'flex', gap: '5px' }}>
+                          <img src={producto.imagen} alt="P" style={{ width: '40px', height: '40px', objectFit: 'cover', border: '2px solid #111' }} title="Principal" />
                           {producto.imagen_hover && <img src={producto.imagen_hover} alt="H" style={{ width: '40px', height: '40px', objectFit: 'cover', border: '2px dashed #ff48b0' }} title="Hover" />}
                         </td>
                         <td style={{ padding: '10px', fontWeight: 'bold' }}>{producto.titulo}</td>
@@ -258,13 +347,13 @@ function Admin() {
                             <span style={{ color: producto.stock > 0 ? '#111' : 'red', fontWeight: 'bold' }}>{producto.stock || 0} uds.</span>
                         </td>
                         <td style={{ padding: '10px' }}>
-                        <button onClick={() => editarProducto(producto)} style={{ marginRight: '10px', padding: '5px 10px', border: '2px solid #111', backgroundColor: '#00e5ff', fontWeight: 'bold' }}>Editar</button>
-                        <button onClick={() => eliminarProducto(producto.id)} style={{ padding: '5px 10px', border: '2px solid #111', backgroundColor: '#ff48b0', color: 'white', fontWeight: 'bold' }}>Borrar</button>
+                        <button onClick={() => editarProducto(producto)} style={{ marginRight: '10px', padding: '5px 10px', border: '2px solid #111', backgroundColor: '#00e5ff', fontWeight: 'bold', cursor: 'pointer' }}>Editar</button>
+                        <button onClick={() => eliminarProducto(producto.id)} style={{ padding: '5px 10px', border: '2px solid #111', backgroundColor: '#ff48b0', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}>Borrar</button>
                         </td>
                     </tr>
                     ))}
                     {productos.length === 0 && (
-                        <tr><td colSpan="5" style={{ padding: '20px', textAlign: 'center' }}>No hay láminas.</td></tr>
+                        <tr><td colSpan="5" style={{ padding: '20px', textAlign: 'center' }}>No hay láminas creadas todavía.</td></tr>
                     )}
                 </tbody>
                 </table>
