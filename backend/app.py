@@ -1,4 +1,5 @@
 import os
+import hmac
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import mercadopago
@@ -16,9 +17,29 @@ CORS(app)
 # SEGURIDAD, TOKENS Y CREDENCIALES
 # ==========================================
 
-# Configuración del Token JWT
-app.config["JWT_SECRET_KEY"] = "clave-super-secreta-de-iconbototos-2026" 
+# ---- JWT_SECRET_KEY (firma de los tokens VIP del panel) ----
+# Se lee ESTRICTAMENTE desde las variables de entorno (backend/.env).
+# En producción el servidor se NEGARÁ a arrancar sin esta variable.
+JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY")
+if not JWT_SECRET_KEY:
+    es_produccion = bool(os.environ.get("RENDER")) or os.environ.get("FLASK_ENV") == "production"
+    if es_produccion:
+        raise ValueError(
+            "¡ERROR CRÍTICO! Falta JWT_SECRET_KEY en las variables de entorno. "
+            "Agrega una clave segura en backend/.env antes de desplegar."
+        )
+    JWT_SECRET_KEY = "dev-only-clave-insegura-no-usar-en-produccion"
+    print("⚠️ AVISO: JWT_SECRET_KEY no definida. Usando clave de desarrollo (SOLO local).")
+
+app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY
 jwt = JWTManager(app)
+
+# ---- Credenciales del panel de administración (/admin) ----
+ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "")
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "")
+if not ADMIN_USERNAME or not ADMIN_PASSWORD:
+    print("⚠️ AVISO: ADMIN_USERNAME o ADMIN_PASSWORD no definidas en backend/.env. "
+          "El login del panel denegará el acceso hasta configurarlas.")
 
 # Configuración de Mercado Pago
 access_token = os.getenv("MP_ACCESS_TOKEN")
@@ -73,16 +94,22 @@ with app.app_context():
 # ==========================================
 @app.route('/api/login', methods=['POST'])
 def login():
-    datos = request.json
-    usuario = datos.get('usuario')
-    password = datos.get('password')
-    
-    # Validación (Puedes cambiar esta clave luego)
-    if usuario == 'monse' and password == 'admin123':
+    datos = request.json or {}
+    usuario = str(datos.get('usuario') or '')
+    password = str(datos.get('password') or '')
+
+    # Comparación segura contra las credenciales del entorno (backend/.env).
+    # Si ADMIN_USERNAME o ADMIN_PASSWORD no están definidas, se deniega siempre.
+    if (
+        ADMIN_USERNAME and ADMIN_PASSWORD
+        and hmac.compare_digest(usuario, ADMIN_USERNAME)
+        and hmac.compare_digest(password, ADMIN_PASSWORD)
+    ):
         token_vip = create_access_token(identity=usuario)
         return jsonify({"token": token_vip}), 200
-    else:
-        return jsonify({"error": "Credenciales incorrectas"}), 401
+
+    return jsonify({"error": "Credenciales incorrectas"}), 401
+
 
 
 # ==========================================
