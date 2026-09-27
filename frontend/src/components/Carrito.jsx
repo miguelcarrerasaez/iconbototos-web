@@ -3,9 +3,15 @@ import { X, Plus, Minus, Trash2, ShoppingCart } from 'lucide-react';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import { useCarrito } from '../context/CarritoContext';
 import { formatearPrecio } from '../utils/formatearPrecio';
+import { BACKEND_URL, MP_PUBLIC_KEY } from '../config';
 
-// Recuerda mantener tu Public Key real aquí
-initMercadoPago('APP_USR-7ed5aea3-fb5c-413b-94a4-342cc1ce033c', { locale: 'es-CL' });
+// Inicializamos el SDK con la llave pública centralizada en src/config.js
+// (lee VITE_MP_PUBLIC_KEY del archivo .env del frontend).
+if (MP_PUBLIC_KEY) {
+  initMercadoPago(MP_PUBLIC_KEY, { locale: 'es-CL' });
+} else {
+  console.warn('⚠️ Falta VITE_MP_PUBLIC_KEY: revisa frontend/.env');
+}
 
 export default function Carrito() {
   const { carrito, isCartOpen, setIsCartOpen, agregarAlCarrito, quitarDelCarrito, total, totalItems } = useCarrito();
@@ -18,7 +24,7 @@ export default function Carrito() {
   const manejarPago = async () => {
     setCargando(true);
     try {
-      const respuesta = await fetch("https://iconbototos-web.onrender.com/crear_preferencia", {
+      const respuesta = await fetch(`${BACKEND_URL}/crear_preferencia`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ carrito: carrito }),

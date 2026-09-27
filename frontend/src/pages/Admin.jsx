@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { BACKEND_URL } from '../config';
 
-// Detectamos si estamos en local o en producción de forma automática
-const BACKEND_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
-    ? "http://127.0.0.1:5000"                
-    : "https://iconbototos-api.onrender.com"; 
 
 function Admin() {
   const [vistaActiva, setVistaActiva] = useState('catalogo');

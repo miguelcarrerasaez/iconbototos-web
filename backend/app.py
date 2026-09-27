@@ -151,34 +151,79 @@ def eliminar_producto(id):
 @app.route("/crear_preferencia", methods=["POST"])
 def crear_preferencia():
     try:
-        datos = request.json
+        datos = request.json or {}
         carrito = datos.get("carrito", [])
-        
+
+        if not isinstance(carrito, list):
+            return jsonify({"error": "El campo 'carrito' debe ser una lista de productos."}), 400
+
+        if not carrito:
+            return jsonify({"error": "El carrito está vacío. Agrega productos antes de pagar."}), 400
+
+        # 🔒 VALIDACIÓN DE SEGURIDAD
+        # El frontend envía precio y cantidad como enteros (CLP). Aquí los exigimos:
+        # cualquier ítem inválido corta el pago con HTTP 400 y un mensaje claro.
         items_mp = []
         for producto in carrito:
+            titulo = producto.get("titulo", "Producto sin nombre")
+            cantidad = producto.get("cantidad")
+            precio = producto.get("precio")
+
+            try:
+                cantidad = int(cantidad)
+                precio = int(precio)
+            except (TypeError, ValueError):
+                return jsonify({
+                    "error": f"El producto '{titulo}' tiene cantidad o precio inválidos. "
+                             "El carrito debe enviar números enteros (precio en CLP y cantidad)."
+                }), 400
+
+            if cantidad < 1:
+                return jsonify({"error": f"La cantidad del producto '{titulo}' debe ser al menos 1."}), 400
+
+            if precio <= 0:
+                return jsonify({"error": f"El precio del producto '{titulo}' debe ser mayor que 0."}), 400
+
             items_mp.append({
-                "title": producto.get("titulo", "Producto sin nombre"),
-                "quantity": int(producto.get("cantidad", 1)),
-                "unit_price": float(producto.get("precio", 0)),
+                "title": titulo,
+                "quantity": cantidad,
+                "unit_price": precio,
                 "currency_id": "CLP"
             })
 
-        URL_SERVIDOR_RENDER = "https://iconbototos-web.onrender.com"
+        # ------------------------------------------------------------------
+        # notification_url (WEBHOOK): a qué URL avisa Mercado Pago del pago
+        # ------------------------------------------------------------------
+        # - PRODUCCIÓN: define en backend/.env ->
+        #       WEBHOOK_URL=https://iconbototos-api.onrender.com
+        # - DESARROLLO LOCAL: tu PC no es accesible desde internet, así que
+        #   http://localhost:5000 NO sirve. Levanta un túnel con ngrok:
+        #
+        #       ngrok http 5000
+        #       -> Forwarding https://abcd-123-45.ngrok-free.app -> http://localhost:5000
+        #
+        #   y luego pon en backend/.env:
+        #       WEBHOOK_URL=https://abcd-123-45.ngrok-free.app
+        # ------------------------------------------------------------------
+        WEBHOOK_URL = os.getenv("WEBHOOK_URL", "https://iconbototos-api.onrender.com")
+
+        # URL del frontend a la que volverá la persona al terminar el pago.
+        FRONTEND_URL = os.getenv("FRONTEND_URL", "https://iconbototos-web.vercel.app")
 
         preference_data = {
             "items": items_mp,
             "back_urls": {
-                "success": "https://iconbototos-web.vercel.app/",
-                "failure": "https://iconbototos-web.vercel.app/",
-                "pending": "https://iconbototos-web.vercel.app/"
+                "success": f"{FRONTEND_URL}/",
+                "failure": f"{FRONTEND_URL}/",
+                "pending": f"{FRONTEND_URL}/"
             },
             "auto_return": "approved",
-            "notification_url": f"{URL_SERVIDOR_RENDER}/webhook" 
+            "notification_url": f"{WEBHOOK_URL}/webhook"
         }
 
         preference_response = sdk.preference().create(preference_data)
         preference = preference_response["response"]
-        
+
         return jsonify({"id": preference["id"]})
 
     except Exception as e:

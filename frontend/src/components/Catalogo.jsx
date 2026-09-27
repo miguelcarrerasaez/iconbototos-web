@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { formatearPrecio } from '../utils/formatearPrecio';
+import { BACKEND_URL } from '../config';
 
-const BACKEND_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
-    ? "http://127.0.0.1:5000"                
-    : "https://iconbototos-api.onrender.com"; 
 
 export default function Catalogo({ agregarAlCarrito }) {
   const [productos, setProductos] = useState([]);

@@ -5,3 +5,7 @@ __pycache__/
 .env
 credenciales.json
 .vscode/
+# Base de datos local SQLite (¡no versionar!)
+instance/
+instance/*.db
+*.db

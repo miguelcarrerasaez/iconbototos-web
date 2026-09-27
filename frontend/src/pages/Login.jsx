@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { BACKEND_URL } from '../config';
 import { useNavigate } from 'react-router-dom';
 import { Toaster, toast } from 'sonner';
 
-// Detectamos si estamos en local o en producción de forma automática
-const BACKEND_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
-    ? "http://127.0.0.1:5000"                
-    : "https://iconbototos-api.onrender.com"; 
 
 export default function Login() {
   const [usuario, setUsuario] = useState('');

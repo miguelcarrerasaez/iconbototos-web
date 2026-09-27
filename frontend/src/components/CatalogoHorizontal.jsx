@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { formatearPrecio } from '../utils/formatearPrecio';
+import { BACKEND_URL } from '../config';
 
-const BACKEND_URL = "https://iconbototos-api.onrender.com"; 
 
 export default function CatalogoHorizontal({ agregarAlCarrito }) {
   const [productos, setProductos] = useState([]);
