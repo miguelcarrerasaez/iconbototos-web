@@ -1,7 +1,10 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Hero.css';
 
 export default function Hero() {
+  // Inicializamos la navegación
+  const navigate = useNavigate();
+
   return (
     <section className="hero-seccion">
       {/* Contenedor padre: flex horizontal, centrado, gap 59px */}
@@ -13,7 +16,10 @@ export default function Hero() {
           <p className="hero-parrafo">
             Libros, prints y publicaciones en edición limitada realizados en risografía, en colaboración con artistas emergentes de todo el mundo.
           </p>
-          <button className="hero-boton">Comprar ahora</button>
+          {/* Botón conectado a la ruta /tienda */}
+          <button className="hero-boton" onClick={() => navigate('/tienda')}>
+            Comprar ahora
+          </button>
         </div>
 
         {/* Imagen a la derecha */}

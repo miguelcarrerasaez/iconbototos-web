@@ -1,7 +1,8 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Nosotros.css';
 
 export default function Nosotros() {
+  const navigate = useNavigate();
   return (
     <section className="nosotros-seccion">
       {/* Contenedor padre: flex row, centrado, gap 60px, ancho 871px */}
@@ -19,7 +20,9 @@ export default function Nosotros() {
           <p className="nosotros-home-parrafo">
             Somos una microeditorial y estudio de risografía de Rancagua, Chile. Actualmente imprimiendo desde Santiago.
           </p>
-          <button className="nosotros-boton">Saber más</button>
+          <button className="nosotros-boton" onClick={() => navigate('/nosotros')}>
+            Saber más
+          </button>
         </div>
 
       </div>
