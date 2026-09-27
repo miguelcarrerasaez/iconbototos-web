@@ -1,13 +1,14 @@
 .tarjeta-producto {
   width: 300px;
-  height: 400px;
+  min-height: 400px; /* Cambiado a min-height para que la tarjeta se adapte si el título ocupa 2 líneas */
   background-color: #FFFFFF;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start; /* Alineación desde arriba */
   padding: 15px 0;
   box-sizing: border-box;
+  gap: 15px; /* Separación limpia entre la imagen y el título */
 }
 
 .tarjeta-imagen-wrapper {
@@ -29,9 +30,9 @@
 
 .tarjeta-info {
   width: 263px;
-  height: 39px;
+  /* Eliminamos el height fijo de 39px */
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   padding: 0;
   margin: 0;
@@ -40,15 +41,20 @@
 .tarjeta-titulo {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  font-size: 24px;
-  line-height: 29.256px;
+  font-size: 20px; /* Reducido sutilmente de 24 a 20 para acomodar títulos largos */
+  line-height: 1.2;
   color: #121212;
   margin: 0;
   text-align: left;
   flex: 1;
-  white-space: nowrap;
+  
+  /* Sistema de truncado inteligente a 2 líneas: */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Máximo 2 líneas */
+  -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: normal; /* Permite que el texto baje de línea */
 }
 
 /* El nuevo diseño del botón flotante */

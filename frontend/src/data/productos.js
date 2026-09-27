@@ -99,42 +99,42 @@ export const productos = [
       sinopsis: "Lámina de stickers para dar abrigo. / Monserrat Mella. / 50 ejemplares /Impreso en láser."
     }
   },
+  {
+    id: "8",
+    titulo: "PRINT FLORES AZULES",
+    categoria: "Print",
+    autor: "Nombre Autor/a",
+    precio: "$15.000",
+    stock: true,
+    imagenes: ["/img/print_flo.png", "/img/print_flo2.png"],
+    descripcion: {
+      sinopsis: "Risografía impresa a dos tintas / Ilustración de Desuka / 50 ejemplares / 29,7 x 42 cm"
+    }
+  },
   //{
-  //  id: "8",
-  //  titulo: "PRINT FLORES AZULES",
+  //  id: "9",
+  //  titulo: "PRINT NIÑA DE LAS FLORES",
   //  categoria: "Print",
   //  autor: "Nombre Autor/a",
   //  precio: "$15.000",
   //  stock: true,
-  //  imagenes: ["/img/print_flo.png", "/img/print_flo2.png"],
+  //  imagenes: ["/img/print_sara.jpg"],
   //  descripcion: {
-  //    sinopsis: "Risografía impresa a dos tintas / Ilustración de Desuka / 50 ejemplares / 29,7 x 42 cm"
+  //    sinopsis: "Risografía impresa a una tinta / Ilustración de Sara / 50 ejemplares /29,7 x 42 cm"
   //  }
   //},
-  {
-    id: "9",
-    titulo: "PRINT NIÑA DE LAS FLORES",
-    categoria: "Print",
-    autor: "Nombre Autor/a",
-    precio: "$15.000",
-    stock: true,
-    imagenes: ["/img/print_sara.jpg"],
-    descripcion: {
-      sinopsis: "Risografía impresa a una tinta / Ilustración de Sara / 50 ejemplares /29,7 x 42 cm"
-    }
-  },
-  {
-    id: "10",
-    titulo: "PRINT NIÑA DE LAS FLORES",
-    categoria: "Print",
-    autor: "Nombre Autor/a",
-    precio: "$15.000",
-    stock: true,
-    imagenes: ["/img/print_simon.jpg"],
-    descripcion: {
-      sinopsis: "Risografía impresa a una tinta / Ilustración de Simón Noctem / 50 ejemplares /29,7 x 42 cm"
-    }
-  },
+  //{
+  //  id: "10",
+  //  titulo: "PRINT NIÑA DE LAS FLORES",
+  //  categoria: "Print",
+  //  autor: "Nombre Autor/a",
+  //  precio: "$15.000",
+  //  stock: true,
+  //  imagenes: ["/img/print_simon.jpg"],
+  //  descripcion: {
+  //    sinopsis: "Risografía impresa a una tinta / Ilustración de Simón Noctem / 50 ejemplares /29,7 x 42 cm"
+  //  }
+  //},
   {
     id: "11",
     titulo: "PRINT TRONCO",

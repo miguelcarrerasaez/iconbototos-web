@@ -23,7 +23,7 @@ export default function TarjetaProducto({ producto }) {
         
         {/* El carrito queda fuera del Link para que el botón siga agregando al carro */}
         <button className="tarjeta-carrito" aria-label="Agregar al carrito">
-          <img src="/img/menu-carrito.svg" alt="Carrito" />
+          <img src="/img/MenúCarrito.svg" alt="Carrito" />
         </button>
       </div>
       
