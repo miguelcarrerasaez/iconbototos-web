@@ -47,20 +47,20 @@ export const productos = [
       sinopsis: "Risografía impresa a 2 tintas / Fotografía de Violeta Capasso / 100 ejemplares / 29,7 x 42 cm"
     }
   },
-  {
-    id: "4",
-    titulo: "AL CAJÓN DE LOS JUGUETES",
-    categoria: "Fanzine",
-    autor: "Nombre Autor/a",
-    precio: "$12.000",
-    stock: true,
-    imagenes: ["/img/al_cajon_1.jpg"],
-    descripcion: {
-      sinopsis: "Libro objeto compuesto por 5 fanzines -cuentos y poemas-, juguetes, stickers y tarjetas.",
-      bio: "En torno a la infancia y la construcción de una identidad.",
-      fichaTecnica: "Impreso en Risografía /30 copias"
-    }
-  },
+  //{
+  //  id: "4",
+  //  titulo: "AL CAJÓN DE LOS JUGUETES",
+  //  categoria: "Fanzine",
+  //  autor: "Nombre Autor/a",
+  //  precio: "$12.000",
+  //  stock: true,
+  //  imagenes: ["/img/al_cajon_1.jpg"],
+  //  descripcion: {
+  //    sinopsis: "Libro objeto compuesto por 5 fanzines -cuentos y poemas-, juguetes, stickers y tarjetas.",
+  //    bio: "En torno a la infancia y la construcción de una identidad.",
+  //    fichaTecnica: "Impreso en Risografía /30 copias"
+  //  }
+  //},
   {
     id: "5",
     titulo: "QUIZÁS LAS FOTOS SON UNA MALDICIÓN Y NO DEBERÍA FOTOGRAFIAR EN NOMBRE DEL AMOR",
@@ -99,18 +99,18 @@ export const productos = [
       sinopsis: "Lámina de stickers para dar abrigo. / Monserrat Mella. / 50 ejemplares /Impreso en láser."
     }
   },
-  {
-    id: "8",
-    titulo: "PRINT FLORES AZULES",
-    categoria: "Print",
-    autor: "Nombre Autor/a",
-    precio: "$15.000",
-    stock: true,
-    imagenes: ["/img/print_flo.png", "/img/print_flo2.png"],
-    descripcion: {
-      sinopsis: "Risografía impresa a dos tintas / Ilustración de Desuka / 50 ejemplares / 29,7 x 42 cm"
-    }
-  },
+  //{
+  //  id: "8",
+  //  titulo: "PRINT FLORES AZULES",
+  //  categoria: "Print",
+  //  autor: "Nombre Autor/a",
+  //  precio: "$15.000",
+  //  stock: true,
+  //  imagenes: ["/img/print_flo.png", "/img/print_flo2.png"],
+  //  descripcion: {
+  //    sinopsis: "Risografía impresa a dos tintas / Ilustración de Desuka / 50 ejemplares / 29,7 x 42 cm"
+  //  }
+  //},
   {
     id: "9",
     titulo: "PRINT NIÑA DE LAS FLORES",

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Carrusel.css';
 
 export default function Carrusel() {
@@ -10,8 +11,8 @@ export default function Carrusel() {
 
   return (
     <section className="carrusel-seccion">
-      {/* Enlace "Ver más" alineado a la derecha */}
-      <a href="/tienda" className="carrusel-ver-mas">Ver más</a>
+      {/* Enlace "Ver más" mejorado con React Router */}
+      <Link to="/tienda" className="carrusel-ver-mas">Ver más</Link>
 
       {/* Contenedor del carrusel */}
       <div className="carrusel-contenedor">
@@ -20,20 +21,27 @@ export default function Carrusel() {
             
             {/* 1. Nuevo contenedor relativo para la imagen y el carrito */}
             <div className="carrusel-imagen-wrapper">
-              <img 
-                className="carrusel-imagen" 
-                src={producto.imagen} 
-                alt={producto.titulo} 
-              />
-              {/* 2. El botón del carrito ahora vive aquí adentro */}
+              {/* ENVOLVEMOS LA IMAGEN CON UN LINK */}
+              <Link to={`/tienda/${producto.id}`}>
+                <img 
+                  className="carrusel-imagen" 
+                  src={producto.imagen} 
+                  alt={producto.titulo} 
+                />
+              </Link>
+              
+              {/* El botón del carrito sigue flotando por encima sin interrumpir el clic de la foto */}
               <button className="carrusel-carrito" aria-label="Agregar al carrito">
                 <img src="/img/MenúCarrito.svg" alt="Carrito" />
               </button>
             </div>
             
-            {/* Información de la tarjeta (solo el título ahora) */}
+            {/* Información de la tarjeta */}
             <div className="carrusel-info">
-              <h3 className="carrusel-titulo">{producto.titulo}</h3>
+              {/* ENVOLVEMOS EL TÍTULO CON UN LINK */}
+              <Link to={`/tienda/${producto.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <h3 className="carrusel-titulo">{producto.titulo}</h3>
+              </Link>
             </div>
 
           </div>
