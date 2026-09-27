@@ -6,6 +6,7 @@ export const productos = [
     autor: "Monserrat Mella González",
     precio: 12000,
     stock: 30,
+    imagen: "/img/domingo.png",
     imagenes: [
       "/img/domingo.png", 
       "/img/domingo_2.jpg", 
@@ -24,6 +25,7 @@ export const productos = [
     autor: "Carolina Benalcázar",
     precio: 12000,
     stock: 50,
+    imagen: "/img/hay_flores.png",
     imagenes: [
       "/img/hay_flores.png", // Recuerda guardar tu foto exportada con este nombre en public/img/
       "/img/hay_flores2.png", 
@@ -42,6 +44,7 @@ export const productos = [
     autor: "Violeta Capasso", 
     precio: 12000, 
     stock: 100,
+    imagen: "/img/sabanas.png",
     imagenes: ["/img/sabanas.png", "/img/sabanas_2.png"],
     descripcion: {
       sinopsis: "Risografía impresa a 2 tintas / Fotografía de Violeta Capasso / 100 ejemplares / 29,7 x 42 cm"
@@ -68,6 +71,7 @@ export const productos = [
     autor: "Nombre Autor/a",
     precio: 12000,
     stock: 150,
+    imagen: "/img/quizas.png",
     imagenes: ["/img/quizas.png", "/img/quizas_2.png", "/img/quizas_3.png", "/img/quizas_4.png"],
     descripcion: {
       sinopsis: "Libro de fotografía en torno a las relaciones afectivas. Años de registros compulsivos.",
@@ -82,6 +86,7 @@ export const productos = [
     autor: "Monserrat Mella",
     precio: 3000,
     stock: 50,
+    imagen: "/img/lento.png",
     imagenes: ["/img/lento.png", "/img/lento_2.png", "/img/lento_3.png", "/img/lento_4.png", "/img/lento_5.png", "/img/lento_6.png"],
     descripcion: {
       sinopsis: "Lámina de stickers que no tiene apuro / Fefa Lunares / 50 ejemplares / Impreso en láser."
@@ -94,6 +99,7 @@ export const productos = [
     autor: "Monserrat Mella",
     precio: 3000,
     stock: 50,
+    imagen: "/img/objetos.png",
     imagenes: ["/img/objetos.png", "/img/objetos_2.png"],
     descripcion: {
       sinopsis: "Lámina de stickers para dar abrigo. / Monserrat Mella. / 50 ejemplares /Impreso en láser."
@@ -106,6 +112,7 @@ export const productos = [
     autor: "Nombre Autor/a",
     precio: 15000,
     stock: 50,
+    imagen: "/img/print_flo.png",
     imagenes: ["/img/print_flo.png", "/img/print_flo2.png"],
     descripcion: {
       sinopsis: "Risografía impresa a dos tintas / Ilustración de Desuka / 50 ejemplares / 29,7 x 42 cm"
@@ -142,6 +149,7 @@ export const productos = [
     autor: "Nombre Autor/a",
     precio: 15000,
     stock: 100,
+    imagen: "/img/print_tronco.png",
     imagenes: ["/img/print_tronco.png"],
     descripcion: {
       sinopsis: "Risografía impresa a dos tintas / Fotografía de Violeta Capasso / 100 ejemplares / 29,7 x 42 cm"

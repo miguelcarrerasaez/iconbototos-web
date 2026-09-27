@@ -75,7 +75,7 @@ export default function Carrito() {
               {carrito.map((producto) => (
                 <div key={producto.id} style={{ display: 'flex', gap: '15px', paddingBottom: '15px', borderBottom: '1px solid #eaeaea' }}>
                   
-                  <img src={producto.imagen} alt={producto.titulo} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '4px' }} />
+                  <img src={producto.imagen || (producto.imagenes && producto.imagenes[0])} alt={producto.titulo} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '4px' }} />
                   
                   <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
