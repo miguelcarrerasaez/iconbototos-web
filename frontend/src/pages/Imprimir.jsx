@@ -1,5 +1,6 @@
 import React from 'react';
-import './Imprimir.css';
+import { Link } from 'react-router-dom';
+import './Imprimir.css'; // (o el css que tenga)
 
 export default function Imprimir() {
   return (
