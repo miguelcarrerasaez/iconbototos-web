@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { BACKEND_URL } from '../config';
 import './Admin.css'; // Asegúrate de que esta línea exista para cargar los estilos
 
@@ -28,6 +28,8 @@ function Admin() {
   
   const [idEdicion, setIdEdicion] = useState(null);
   const [subiendo, setSubiendo] = useState(false);
+  const [archivosGaleria, setArchivosGaleria] = useState([]);
+  const galeriaRef = useRef(null);
 
   // Cargar productos solo si hay token
   useEffect(() => {
@@ -130,6 +132,10 @@ function Admin() {
     }
   };
 
+  const manejarSeleccionGaleria = (e) => {
+    setArchivosGaleria(Array.from(e.target.files || []));
+  };
+
   const guardarProducto = async (e) => {
     e.preventDefault();
     if (!imagen) {
@@ -142,25 +148,23 @@ function Admin() {
         : `${BACKEND_URL}/api/productos`;
     const metodo = idEdicion ? 'PUT' : 'POST';
 
-    const nuevoProducto = {
-      titulo: titulo,
-      precio: parseFloat(precio),
-      stock: parseInt(stock) || 0,
-      imagen: imagen,
-      imagen_hover: imagenHover,
-      categoria: categoria,
-      autor: autor,
-      descripcion: descripcion 
-    };
+    const formData = new FormData();
+    formData.append('titulo', titulo || '');
+    formData.append('precio', String(precio || 0));
+    formData.append('stock', String(stock || 0));
+    formData.append('imagen', imagen || '');
+    formData.append('imagen_hover', imagenHover || '');
+    formData.append('categoria', categoria || '');
+    formData.append('autor', autor || '');
+    formData.append('descripcion', descripcion || '');
+    // 📸 Galería de imágenes extra (archivos múltiples)
+    archivosGaleria.forEach((archivo) => formData.append('galeria', archivo));
 
     try {
       const respuesta = await fetch(url, {
         method: metodo,
-        headers: { 
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` 
-        },
-        body: JSON.stringify(nuevoProducto)
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: formData
       });
 
       if (respuesta.status === 401) {
@@ -177,7 +181,9 @@ function Admin() {
         setImagenHover('');
         setCategoria('');
         setAutor('');
-        setDescripcion(''); 
+        setDescripcion('');
+        setArchivosGaleria([]);
+        if (galeriaRef.current) galeriaRef.current.value = ''; 
         setIdEdicion(null);
         cargarProductos();
         alert(idEdicion ? "Lámina actualizada" : "Lámina creada");
@@ -323,13 +329,19 @@ function Admin() {
 
                   </div>
 
+                  <div style={{ padding: '15px', border: '2px dashed #ff48b0', backgroundColor: '#f9f9f9', marginBottom: '20px' }}>
+                    <label style={{ fontWeight: 'bold', fontSize: '14px', display: 'block', marginBottom: '10px' }}>📸 Galería de imágenes extra (Puedes seleccionar varias):</label>
+                    <input type="file" multiple accept="image/*" ref={galeriaRef} onChange={manejarSeleccionGaleria} style={{ width: '100%' }} />
+                    {archivosGaleria.length > 0 && <p style={{ margin: '10px 0 0', fontSize: '12px', color: '#666', fontWeight: 'bold' }}>✅ {archivosGaleria.length} archivo(s) listo(s) para subir</p>}
+                  </div>
+
                   {/* BOTONES DE ACCIÓN ABAJO */}
                   <div className="admin-form-acciones">
                     <button type="submit" style={{ flex: 1, backgroundColor: '#fff000', border: '3px solid #111', padding: '12px', cursor: 'pointer', fontWeight: 'bold', fontSize: '16px' }}>
                       {idEdicion ? 'Actualizar Producto' : 'Guardar Nuevo Producto'}
                     </button>
                     {idEdicion && (
-                      <button type="button" onClick={() => {setIdEdicion(null); setTitulo(''); setPrecio(''); setStock(''); setImagen(''); setImagenHover(''); setCategoria(''); setAutor(''); setDescripcion('');}} style={{ padding: '12px 20px', backgroundColor: '#ccc', border: '3px solid #111', cursor: 'pointer', fontWeight: 'bold', fontSize: '16px' }}>
+                      <button type="button" onClick={() => {setIdEdicion(null); setTitulo(''); setPrecio(''); setStock(''); setImagen(''); setImagenHover(''); setCategoria(''); setAutor(''); setDescripcion(''); setArchivosGaleria([]); if (galeriaRef.current) galeriaRef.current.value = '';}} style={{ padding: '12px 20px', backgroundColor: '#ccc', border: '3px solid #111', cursor: 'pointer', fontWeight: 'bold', fontSize: '16px' }}>
                           Cancelar Edición
                       </button>
                     )}
@@ -356,7 +368,7 @@ function Admin() {
                     <tr key={producto.id} style={{ borderBottom: '1px solid #ccc' }}>
                         <td style={{ padding: '10px', display: 'flex', gap: '5px' }}>
                           <img src={producto.imagen} alt="P" style={{ width: '40px', height: '40px', objectFit: 'cover', border: '2px solid #111' }} title="Principal" />
-                          {producto.imagen_hover && <img src={producto.imagen_hover} alt="H" style={{ width: '40px', height: '40px', objectFit: 'cover', border: '2px dashed #ff48b0' }} title="Hover" />[cite: 11]}
+                          {producto.imagen_hover && <img src={producto.imagen_hover} alt="H" style={{ width: '40px', height: '40px', objectFit: 'cover', border: '2px dashed #ff48b0' }} title="Hover" />}
                         </td>
                         <td style={{ padding: '10px', fontWeight: 'bold' }}>{producto.titulo}</td>
                         <td style={{ padding: '10px' }}>${producto.precio}</td>

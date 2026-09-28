@@ -9,3 +9,4 @@ credenciales.json
 instance/
 instance/*.db
 *.db
+uploads/

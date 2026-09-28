@@ -1,6 +1,9 @@
 import os
 import hmac
-from flask import Flask, request, jsonify
+import json
+import secrets
+from datetime import datetime
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import mercadopago
 from dotenv import load_dotenv
@@ -77,6 +80,7 @@ class Producto(db.Model):
     categoria = db.Column(db.String(100), nullable=True)
     autor = db.Column(db.String(100), nullable=True)
     descripcion = db.Column(db.Text, nullable=True)
+    galeria = db.Column(db.Text, nullable=True) # 📸 JSON con URLs extra para el carrusel
 
     def to_dict(self):
         return {
@@ -88,8 +92,58 @@ class Producto(db.Model):
             "stock": self.stock,
             "categoria": self.categoria,
             "autor": self.autor,
-            "descripcion": self.descripcion
+            "descripcion": self.descripcion,
+            "galeria": _parsear_galeria(self.galeria)
         }
+
+# ==========================================
+# GALERÍA DE IMÁGENES (archivos múltiples)
+# ==========================================
+UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "uploads")
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+def _parsear_galeria(valor):
+    """Convierte la columna galeria (JSON) en una lista de URLs; [] si es nula."""
+    if not valor:
+        return []
+    try:
+        lista = json.loads(valor)
+        return lista if isinstance(lista, list) else []
+    except (TypeError, ValueError):
+        return []
+
+def guardar_imagen_galeria(archivo):
+    """Guarda un archivo subido y devuelve su URL pública absoluta (/media/...)."""
+    if not archivo or not archivo.filename:
+        return ""
+    nombre = os.path.basename(archivo.filename)  # evita rutas maliciosas
+    extension = os.path.splitext(nombre)[1].lower() or ".jpg"
+    nombre_unico = "galeria_%s_%s%s" % (
+        datetime.now().strftime("%Y%m%d_%H%M%S"),
+        secrets.token_hex(4),
+        extension,
+    )
+    archivo.save(os.path.join(UPLOAD_FOLDER, nombre_unico))
+    return "%smedia/%s" % (request.host_url, nombre_unico)
+
+@app.route("/media/<path:nombre>")
+def _servir_media(nombre):
+    return send_from_directory(UPLOAD_FOLDER, nombre)
+
+def _leer_campos():
+    """Lee el body: soporta JSON (clásico) o FormData/multipart con archivos."""
+    if request.is_json:
+        return (request.get_json(silent=True) or {}, [])
+    return (dict(request.form), request.files.getlist('galeria'))
+
+def _subir_galeria(archivos):
+    """Sube varios archivos y devuelve el JSON con sus URLs (o None si no hay)."""
+    urls = []
+    for archivo in archivos:
+        url = guardar_imagen_galeria(archivo)
+        if url:
+            urls.append(url)
+    return json.dumps(urls) if urls else None
 
 # ==========================================
 # MIGRACIÓN LIGERA: agrega columnas nuevas sin perder datos
@@ -115,6 +169,7 @@ def _migrar_columnas_producto():
         ("categoria", "VARCHAR(100)"),
         ("autor", "VARCHAR(100)"),
         ("descripcion", "TEXT"),
+        ("galeria", "TEXT"),
     ]:
         if columna in columnas:
             continue
@@ -181,8 +236,8 @@ def obtener_productos():
 @jwt_required()
 def agregar_producto():
     try:
-        datos = request.json
-        print("📥 Datos recibidos para crear producto:", datos, flush=True)
+        datos, archivos_galeria = _leer_campos()
+        print("📥 Datos recibidos para crear producto:", datos, "| archivos galeria:", len(archivos_galeria), flush=True)
 
         # Convertir a entero de forma segura, usando 0 si falla
         try:
@@ -204,7 +259,9 @@ def agregar_producto():
             # 🔎 Nuevos campos de detalle (opcionales)
             categoria=datos.get('categoria'),
             autor=datos.get('autor'),
-            descripcion=datos.get('descripcion')
+            descripcion=datos.get('descripcion'),
+            # 📸 Galería extra: subimos los archivos y guardamos sus URLs (JSON)
+            galeria=_subir_galeria(archivos_galeria)
         )
         db.session.add(nuevo_producto)
         db.session.commit()
@@ -221,16 +278,27 @@ def actualizar_producto(id):
     if not producto:
         return jsonify({"error": "Producto no encontrado"}), 404
     
-    datos = request.json
+    datos, archivos_galeria = _leer_campos()
     producto.titulo = datos.get('titulo', producto.titulo)
-    producto.precio = datos.get('precio', producto.precio)
+    try:
+        precio_put = int(datos.get('precio'))
+    except (TypeError, ValueError):
+        precio_put = producto.precio
+    producto.precio = precio_put
     producto.imagen = datos.get('imagen', producto.imagen)
     producto.imagen_hover = datos.get('imagen_hover', producto.imagen_hover) # 📸 Permite actualizar la 2da foto
-    producto.stock = datos.get('stock', producto.stock)
+    try:
+        stock_put = int(datos.get('stock'))
+    except (TypeError, ValueError):
+        stock_put = producto.stock
+    producto.stock = stock_put
     # 🔎 Nuevos campos de detalle (opcionales)
     producto.categoria = datos.get('categoria', producto.categoria)
     producto.autor = datos.get('autor', producto.autor)
     producto.descripcion = datos.get('descripcion', producto.descripcion)
+    # 📸 Galería: si vienen archivos nuevos, reemplazamos la galería existente
+    if archivos_galeria:
+        producto.galeria = _subir_galeria(archivos_galeria)
     
     db.session.commit()
     return jsonify({"mensaje": "Producto actualizado", "producto": producto.to_dict()})

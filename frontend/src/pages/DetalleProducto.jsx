@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useCarrito } from '../context/CarritoContext';
 import { formatearPrecio } from '../utils/formatearPrecio';
+import { BACKEND_URL } from '../config';
 import '../components/DetalleProducto.css';
 
 export default function DetalleProducto() {
@@ -17,7 +18,7 @@ export default function DetalleProducto() {
   
   useEffect(() => {
     // 1. Buscamos los productos en tu base de datos real
-    fetch('https://iconbototos-api.onrender.com/api/productos')
+    fetch(`${BACKEND_URL}/api/productos`)
       .then(res => res.json())
       .then(datos => {
         // 2. Filtramos el producto exacto que estamos viendo (el ID de la URL es texto, el de la BD es número)
@@ -46,6 +47,11 @@ export default function DetalleProducto() {
   if (producto.imagen) imagenesArray.push(producto.imagen);
   if (producto.imagen_hover) imagenesArray.push(producto.imagen_hover);
   
+  // Carrusel: imágenes de portada + galería extra (si existe en el producto)
+  if (producto.galeria && Array.isArray(producto.galeria)) {
+    imagenesArray.push(...producto.galeria);
+  }
+
   // Lógica del Carrusel
   const irImagenAnterior = () => {
     setIndiceImagen(prev => (prev === 0 ? imagenesArray.length - 1 : prev - 1));
