@@ -19,6 +19,11 @@ function Admin() {
   // Estados para la segunda imagen (Hover)
   const [imagenHover, setImagenHover] = useState('');
   const [subiendoHover, setSubiendoHover] = useState(false);
+
+  // Nuevos campos para la vista de detalle (opcionales)
+  const [categoria, setCategoria] = useState('');
+  const [autor, setAutor] = useState('');
+  const [descripcion, setDescripcion] = useState('');
   
   const [idEdicion, setIdEdicion] = useState(null);
   const [subiendo, setSubiendo] = useState(false);
@@ -144,7 +149,10 @@ function Admin() {
       precio: parseFloat(precio),
       stock: parseInt(stock) || 0,
       imagen: imagen,
-      imagen_hover: imagenHover 
+      imagen_hover: imagenHover,
+      categoria: categoria,
+      autor: autor,
+      descripcion: descripcion 
     };
 
     try {
@@ -168,7 +176,10 @@ function Admin() {
         setPrecio('');
         setStock('');
         setImagen('');
-        setImagenHover(''); 
+        setImagenHover('');
+        setCategoria('');
+        setAutor('');
+        setDescripcion(''); 
         setIdEdicion(null);
         cargarProductos();
         alert(idEdicion ? "Lámina actualizada" : "Lámina creada");
@@ -185,7 +196,10 @@ function Admin() {
     setPrecio(producto.precio);
     setStock(producto.stock || 0);
     setImagen(producto.imagen);
-    setImagenHover(producto.imagen_hover || ''); 
+    setImagenHover(producto.imagen_hover || '');
+    setCategoria(producto.categoria || '');
+    setAutor(producto.autor || '');
+    setDescripcion(producto.descripcion || ''); 
     setIdEdicion(producto.id);
     setVistaActiva('catalogo');
   };
@@ -297,6 +311,13 @@ function Admin() {
                         <input type="number" placeholder="Stock" value={stock} onChange={(e) => setStock(e.target.value)} required style={{ padding: '8px', border: '2px solid #111', width: '100px' }} />
                     </div>
 
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                        <input type="text" placeholder="Categoría (Ej: Fanzine, Print...)" value={categoria} onChange={(e) => setCategoria(e.target.value)} style={{ padding: '8px', border: '2px solid #111', flex: 1 }} />
+                        <input type="text" placeholder="Autor" value={autor} onChange={(e) => setAutor(e.target.value)} style={{ padding: '8px', border: '2px solid #111', flex: 1 }} />
+                    </div>
+
+                    <textarea placeholder="Descripción larga (sinopsis del producto)" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} rows="4" style={{ padding: '8px', border: '2px solid #111', resize: 'vertical', fontFamily: 'inherit' }}></textarea>
+
                     <div style={{ padding: '10px', border: '2px solid #ccc', backgroundColor: '#f9f9f9' }}>
                         <label style={{ fontWeight: 'bold', fontSize: '14px', display: 'block', marginBottom: '5px' }}>🖼️ Imagen Principal:</label>
                         <input type="file" accept="image/*" onChange={manejarSubidaImagen} style={{ width: '100%', marginBottom: '5px' }} />
@@ -316,7 +337,7 @@ function Admin() {
                           {idEdicion ? 'Actualizar' : 'Guardar'}
                         </button>
                         {idEdicion && (
-                          <button type="button" onClick={() => {setIdEdicion(null); setTitulo(''); setPrecio(''); setStock(''); setImagen(''); setImagenHover('');}} style={{ padding: '10px', backgroundColor: '#ccc', border: '3px solid #111', cursor: 'pointer', fontWeight: 'bold' }}>
+                          <button type="button" onClick={() => {setIdEdicion(null); setTitulo(''); setPrecio(''); setStock(''); setImagen(''); setImagenHover(''); setCategoria(''); setAutor(''); setDescripcion('');}} style={{ padding: '10px', backgroundColor: '#ccc', border: '3px solid #111', cursor: 'pointer', fontWeight: 'bold' }}>
                               Cancelar
                           </button>
                         )}

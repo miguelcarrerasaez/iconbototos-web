@@ -73,6 +73,10 @@ class Producto(db.Model):
     imagen = db.Column(db.String(200), nullable=False)
     imagen_hover = db.Column(db.String(200), nullable=True) # 📸 Segunda foto
     stock = db.Column(db.Integer, default=10)
+    # 🔎 Detalles del producto (opcionales para no romper datos existentes)
+    categoria = db.Column(db.String(100), nullable=True)
+    autor = db.Column(db.String(100), nullable=True)
+    descripcion = db.Column(db.Text, nullable=True)
 
     def to_dict(self):
         return {
@@ -81,12 +85,50 @@ class Producto(db.Model):
             "precio": self.precio,
             "imagen": self.imagen,
             "imagen_hover": self.imagen_hover, 
-            "stock": self.stock
+            "stock": self.stock,
+            "categoria": self.categoria,
+            "autor": self.autor,
+            "descripcion": self.descripcion
         }
+
+# ==========================================
+# MIGRACIÓN LIGERA: agrega columnas nuevas sin perder datos
+# ==========================================
+def _seleccionar_columnas(tabla):
+    """Devuelve las columnas existentes (SQLite vía PRAGMA, Postgres vía information_schema)."""
+    try:
+        if str(DATABASE_URL).startswith("postgresql://"):
+            filas = db.session.execute(db.text(
+                "SELECT column_name FROM information_schema.columns WHERE table_name = :t"
+            ), {"t": tabla}).fetchall()
+            return [f[0] for f in filas]
+        filas = db.session.execute(db.text("PRAGMA table_info(" + tabla + ")")).fetchall()
+        return [f[1] for f in filas]
+    except Exception as e:
+        print("⚠️ No se pudo inspeccionar la tabla '%s': %s" % (tabla, e), flush=True)
+        return []
+
+def _migrar_columnas_producto():
+    """ALTER TABLE idempotente: agrega categoria/autor/descripcion si faltan."""
+    columnas = _seleccionar_columnas("producto")
+    for columna, tipo in [
+        ("categoria", "VARCHAR(100)"),
+        ("autor", "VARCHAR(100)"),
+        ("descripcion", "TEXT"),
+    ]:
+        if columna in columnas:
+            continue
+        try:
+            db.session.execute(db.text("ALTER TABLE producto ADD COLUMN %s %s" % (columna, tipo)))
+            db.session.commit()
+            print("📦 Migración: columna '%s' agregada a 'producto'." % columna, flush=True)
+        except Exception as e:
+            print("⚠️ Migración '%s' omitida: %s" % (columna, e), flush=True)
 
 # Inicializar Base de Datos al arrancar
 with app.app_context():
     db.create_all()
+    _migrar_columnas_producto()
 
 
 # ==========================================
@@ -158,7 +200,11 @@ def agregar_producto():
             precio=precio_int,
             imagen=datos.get('imagen', ''),
             imagen_hover=datos.get('imagen_hover', ''),
-            stock=stock_int
+            stock=stock_int,
+            # 🔎 Nuevos campos de detalle (opcionales)
+            categoria=datos.get('categoria'),
+            autor=datos.get('autor'),
+            descripcion=datos.get('descripcion')
         )
         db.session.add(nuevo_producto)
         db.session.commit()
@@ -181,6 +227,10 @@ def actualizar_producto(id):
     producto.imagen = datos.get('imagen', producto.imagen)
     producto.imagen_hover = datos.get('imagen_hover', producto.imagen_hover) # 📸 Permite actualizar la 2da foto
     producto.stock = datos.get('stock', producto.stock)
+    # 🔎 Nuevos campos de detalle (opcionales)
+    producto.categoria = datos.get('categoria', producto.categoria)
+    producto.autor = datos.get('autor', producto.autor)
+    producto.descripcion = datos.get('descripcion', producto.descripcion)
     
     db.session.commit()
     return jsonify({"mensaje": "Producto actualizado", "producto": producto.to_dict()})
