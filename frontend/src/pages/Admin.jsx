@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BACKEND_URL } from '../config';
+import './Admin.css'; // Asegúrate de que esta línea exista para cargar los estilos
 
 function Admin() {
   // --- ESTADOS DE AUTENTICACIÓN ---
@@ -20,7 +21,7 @@ function Admin() {
   const [imagenHover, setImagenHover] = useState('');
   const [subiendoHover, setSubiendoHover] = useState(false);
 
-  // Nuevos campos para la vista de detalle (opcionales)
+  // Campos para la vista de detalle
   const [categoria, setCategoria] = useState('');
   const [autor, setAutor] = useState('');
   const [descripcion, setDescripcion] = useState('');
@@ -36,7 +37,7 @@ function Admin() {
   }, [token]);
 
   // ==========================================
-  // LÓGICA DE LOGIN REAL (CONECTADO AL BACKEND)
+  // LÓGICA DE LOGIN
   // ==========================================
   const manejarLogin = async (e) => {
     e.preventDefault();
@@ -51,11 +52,8 @@ function Admin() {
 
       if (respuesta.ok) {
         const datos = await respuesta.json();
-        
-        // AQUÍ ESTABA EL ERROR: Cambiamos datos.access_token por datos.token
         localStorage.setItem('token', datos.token);
         setToken(datos.token);
-        
       } else {
         alert("🚨 Credenciales incorrectas. Revisa tu usuario y contraseña.");
       }
@@ -227,7 +225,7 @@ function Admin() {
 
 
   // ==========================================
-  // RENDER: PANTALLA DE LOGIN (Si no hay token)
+  // RENDER: PANTALLA DE LOGIN
   // ==========================================
   if (!token) {
     return (
@@ -235,27 +233,9 @@ function Admin() {
         <div style={{ backgroundColor: '#fff', border: '4px solid #111', padding: '40px', textAlign: 'center', maxWidth: '400px', width: '100%', boxShadow: '8px 8px 0px #111' }}>
           <h2 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 900, marginBottom: '20px', fontSize: '24px' }}>ACCESO PANEL RISO</h2>
           <form onSubmit={manejarLogin} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-            <input 
-              type="text" 
-              placeholder="Usuario" 
-              value={username} 
-              onChange={e => setUsername(e.target.value)} 
-              style={{ padding: '12px', border: '2px solid #111', fontSize: '16px', fontFamily: 'Montserrat, sans-serif' }} 
-              required 
-            />
-            <input 
-              type="password" 
-              placeholder="Contraseña" 
-              value={password} 
-              onChange={e => setPassword(e.target.value)} 
-              style={{ padding: '12px', border: '2px solid #111', fontSize: '16px', fontFamily: 'Montserrat, sans-serif' }} 
-              required 
-            />
-            <button 
-              type="submit" 
-              disabled={cargandoLogin} 
-              style={{ padding: '15px', backgroundColor: '#ff48b0', color: '#fff', border: '3px solid #111', fontWeight: 'bold', fontSize: '16px', cursor: 'pointer', fontFamily: 'Montserrat, sans-serif' }}
-            >
+            <input type="text" placeholder="Usuario" value={username} onChange={e => setUsername(e.target.value)} style={{ padding: '12px', border: '2px solid #111', fontSize: '16px', fontFamily: 'Montserrat, sans-serif' }} required />
+            <input type="password" placeholder="Contraseña" value={password} onChange={e => setPassword(e.target.value)} style={{ padding: '12px', border: '2px solid #111', fontSize: '16px', fontFamily: 'Montserrat, sans-serif' }} required />
+            <button type="submit" disabled={cargandoLogin} style={{ padding: '15px', backgroundColor: '#ff48b0', color: '#fff', border: '3px solid #111', fontWeight: 'bold', fontSize: '16px', cursor: 'pointer', fontFamily: 'Montserrat, sans-serif' }}>
               {cargandoLogin ? 'Verificando...' : 'ENTRAR'}
             </button>
           </form>
@@ -300,55 +280,68 @@ function Admin() {
             <h1>Gestión de Catálogo</h1>
             
             <div style={{ backgroundColor: '#fff', border: '3px solid #111', padding: '20px', marginBottom: '30px' }}>
-                <h3>{idEdicion ? '✏️ Editar Lámina' : '➕ Nueva Lámina'}</h3>
+                <h3 style={{ marginBottom: '20px' }}>{idEdicion ? '✏️ Editar Lámina' : '➕ Nueva Lámina'}</h3>
                 
-                <form onSubmit={guardarProducto} style={{ display: 'flex', flexDirection: 'column', gap: '15px', maxWidth: '400px' }}>
+                {/* NUEVO FORMULARIO A DOS COLUMNAS */}
+                <form className="admin-formulario" onSubmit={guardarProducto}>
+                  
+                  <div className="admin-form-grid">
                     
-                    <input type="text" placeholder="Título" value={titulo} onChange={(e) => setTitulo(e.target.value)} required style={{ padding: '8px', border: '2px solid #111' }} />
-                    
-                    <div style={{ display: 'flex', gap: '10px' }}>
-                        <input type="number" placeholder="Precio" value={precio} onChange={(e) => setPrecio(e.target.value)} required style={{ padding: '8px', border: '2px solid #111', flex: 1 }} />
-                        <input type="number" placeholder="Stock" value={stock} onChange={(e) => setStock(e.target.value)} required style={{ padding: '8px', border: '2px solid #111', width: '100px' }} />
+                    {/* COLUMNA IZQUIERDA: TEXTOS */}
+                    <div className="admin-col-texto">
+                      <input type="text" placeholder="Título" value={titulo} onChange={(e) => setTitulo(e.target.value)} required style={{ padding: '10px', border: '2px solid #111', width: '100%', boxSizing: 'border-box' }} />
+                      
+                      <div className="admin-row-inputs">
+                        <input type="number" placeholder="Precio" value={precio} onChange={(e) => setPrecio(e.target.value)} required style={{ padding: '10px', border: '2px solid #111', width: '100%', boxSizing: 'border-box' }} />
+                        <input type="number" placeholder="Stock" value={stock} onChange={(e) => setStock(e.target.value)} required style={{ padding: '10px', border: '2px solid #111', width: '100%', boxSizing: 'border-box' }} />
+                      </div>
+
+                      <div className="admin-row-inputs">
+                        <input type="text" placeholder="Categoría (Ej: Fanzine, Print...)" value={categoria} onChange={(e) => setCategoria(e.target.value)} style={{ padding: '10px', border: '2px solid #111', width: '100%', boxSizing: 'border-box' }} />
+                        <input type="text" placeholder="Autor" value={autor} onChange={(e) => setAutor(e.target.value)} style={{ padding: '10px', border: '2px solid #111', width: '100%', boxSizing: 'border-box' }} />
+                      </div>
+
+                      <textarea placeholder="Descripción larga (sinopsis del producto)" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} rows="7" style={{ padding: '10px', border: '2px solid #111', width: '100%', boxSizing: 'border-box', resize: 'vertical', fontFamily: 'inherit' }}></textarea>
                     </div>
 
-                    <div style={{ display: 'flex', gap: '10px' }}>
-                        <input type="text" placeholder="Categoría (Ej: Fanzine, Print...)" value={categoria} onChange={(e) => setCategoria(e.target.value)} style={{ padding: '8px', border: '2px solid #111', flex: 1 }} />
-                        <input type="text" placeholder="Autor" value={autor} onChange={(e) => setAutor(e.target.value)} style={{ padding: '8px', border: '2px solid #111', flex: 1 }} />
+                    {/* COLUMNA DERECHA: IMÁGENES */}
+                    <div className="admin-col-imagenes">
+                      <div style={{ padding: '15px', border: '2px solid #ccc', backgroundColor: '#f9f9f9', marginBottom: '15px' }}>
+                        <label style={{ fontWeight: 'bold', fontSize: '14px', display: 'block', marginBottom: '10px' }}>🖼️ Imagen Principal (Portada):</label>
+                        <input type="file" accept="image/*" onChange={manejarSubidaImagen} style={{ width: '100%' }} />
+                        {subiendo && <p style={{ margin: '10px 0 0', color: '#ff48b0', fontSize: '12px', fontWeight: 'bold' }}>⏳ Subiendo...</p>}
+                        {imagen && !subiendo && <img src={imagen} alt="Principal" style={{ width: '120px', height: '120px', objectFit: 'cover', border: '2px solid #111', marginTop: '10px' }} />}
+                      </div>
+
+                      <div style={{ padding: '15px', border: '2px dashed #ccc', backgroundColor: '#f9f9f9' }}>
+                        <label style={{ fontWeight: 'bold', fontSize: '14px', display: 'block', marginBottom: '10px' }}>✨ Imagen al pasar el cursor (Opcional):</label>
+                        <input type="file" accept="image/*" onChange={manejarSubidaImagenHover} style={{ width: '100%' }} />
+                        {subiendoHover && <p style={{ margin: '10px 0 0', color: '#ff48b0', fontSize: '12px', fontWeight: 'bold' }}>⏳ Subiendo secundaria...</p>}
+                        {imagenHover && !subiendoHover && <img src={imagenHover} alt="Hover" style={{ width: '120px', height: '120px', objectFit: 'cover', border: '2px solid #111', marginTop: '10px' }} />}
+                      </div>
                     </div>
 
-                    <textarea placeholder="Descripción larga (sinopsis del producto)" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} rows="4" style={{ padding: '8px', border: '2px solid #111', resize: 'vertical', fontFamily: 'inherit' }}></textarea>
+                  </div>
 
-                    <div style={{ padding: '10px', border: '2px solid #ccc', backgroundColor: '#f9f9f9' }}>
-                        <label style={{ fontWeight: 'bold', fontSize: '14px', display: 'block', marginBottom: '5px' }}>🖼️ Imagen Principal:</label>
-                        <input type="file" accept="image/*" onChange={manejarSubidaImagen} style={{ width: '100%', marginBottom: '5px' }} />
-                        {subiendo && <p style={{ margin: 0, color: '#ff48b0', fontSize: '12px' }}>⏳ Subiendo...</p>}
-                        {imagen && !subiendo && <img src={imagen} alt="Principal" style={{ width: '100px', height: '100px', objectFit: 'cover', border: '2px solid #111', marginTop: '5px' }} />}
-                    </div>
+                  {/* BOTONES DE ACCIÓN ABAJO */}
+                  <div className="admin-form-acciones">
+                    <button type="submit" style={{ flex: 1, backgroundColor: '#fff000', border: '3px solid #111', padding: '12px', cursor: 'pointer', fontWeight: 'bold', fontSize: '16px' }}>
+                      {idEdicion ? 'Actualizar Producto' : 'Guardar Nuevo Producto'}
+                    </button>
+                    {idEdicion && (
+                      <button type="button" onClick={() => {setIdEdicion(null); setTitulo(''); setPrecio(''); setStock(''); setImagen(''); setImagenHover(''); setCategoria(''); setAutor(''); setDescripcion('');}} style={{ padding: '12px 20px', backgroundColor: '#ccc', border: '3px solid #111', cursor: 'pointer', fontWeight: 'bold', fontSize: '16px' }}>
+                          Cancelar Edición
+                      </button>
+                    )}
+                  </div>
 
-                    <div style={{ padding: '10px', border: '2px dashed #ccc', backgroundColor: '#f9f9f9' }}>
-                        <label style={{ fontWeight: 'bold', fontSize: '14px', display: 'block', marginBottom: '5px' }}>✨ Imagen al pasar el cursor (Opcional):</label>
-                        <input type="file" accept="image/*" onChange={manejarSubidaImagenHover} style={{ width: '100%', marginBottom: '5px' }} />
-                        {subiendoHover && <p style={{ margin: 0, color: '#ff48b0', fontSize: '12px' }}>⏳ Subiendo secundaria...</p>}
-                        {imagenHover && !subiendoHover && <img src={imagenHover} alt="Hover" style={{ width: '100px', height: '100px', objectFit: 'cover', border: '2px solid #111', marginTop: '5px' }} />}
-                    </div>
-
-                    <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
-                        <button type="submit" className="btn-comprar" style={{ flex: 1, backgroundColor: '#fff000', border: '3px solid #111', padding: '10px', cursor: 'pointer', fontWeight: 'bold' }}>
-                          {idEdicion ? 'Actualizar' : 'Guardar'}
-                        </button>
-                        {idEdicion && (
-                          <button type="button" onClick={() => {setIdEdicion(null); setTitulo(''); setPrecio(''); setStock(''); setImagen(''); setImagenHover(''); setCategoria(''); setAutor(''); setDescripcion('');}} style={{ padding: '10px', backgroundColor: '#ccc', border: '3px solid #111', cursor: 'pointer', fontWeight: 'bold' }}>
-                              Cancelar
-                          </button>
-                        )}
-                    </div>
                 </form>
             </div>
 
             {/* TABLA DE PRODUCTOS */}
             <div style={{ backgroundColor: '#fff', border: '3px solid #111', padding: '20px', overflowX: 'auto' }}>
                 <h3>Láminas Actuales</h3>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '600px' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '600px', marginTop: '15px' }}>
                 <thead>
                     <tr style={{ borderBottom: '3px solid #111' }}>
                     <th style={{ padding: '10px' }}>Foto</th>
@@ -363,7 +356,7 @@ function Admin() {
                     <tr key={producto.id} style={{ borderBottom: '1px solid #ccc' }}>
                         <td style={{ padding: '10px', display: 'flex', gap: '5px' }}>
                           <img src={producto.imagen} alt="P" style={{ width: '40px', height: '40px', objectFit: 'cover', border: '2px solid #111' }} title="Principal" />
-                          {producto.imagen_hover && <img src={producto.imagen_hover} alt="H" style={{ width: '40px', height: '40px', objectFit: 'cover', border: '2px dashed #ff48b0' }} title="Hover" />}
+                          {producto.imagen_hover && <img src={producto.imagen_hover} alt="H" style={{ width: '40px', height: '40px', objectFit: 'cover', border: '2px dashed #ff48b0' }} title="Hover" />[cite: 11]}
                         </td>
                         <td style={{ padding: '10px', fontWeight: 'bold' }}>{producto.titulo}</td>
                         <td style={{ padding: '10px' }}>${producto.precio}</td>
@@ -384,25 +377,6 @@ function Admin() {
             </div>
           </div>
         )}
-
-        {vistaActiva === 'ventas' && (
-          <div>
-            <h1>Historial de Ventas</h1>
-            <div style={{ backgroundColor: '#fff', border: '3px solid #111', padding: '40px', textAlign: 'center' }}>
-                <h2 style={{ color: '#ff48b0' }}>Próximamente 🚧</h2>
-            </div>
-          </div>
-        )}
-
-        {vistaActiva === 'diseno' && (
-          <div>
-            <h1>Apariencia de la Tienda</h1>
-            <div style={{ backgroundColor: '#fff', border: '3px solid #111', padding: '40px', textAlign: 'center' }}>
-                <h2 style={{ color: '#00e5ff' }}>Próximamente 🚧</h2>
-            </div>
-          </div>
-        )}
-
       </main>
     </div>
   );
