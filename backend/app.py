@@ -116,7 +116,7 @@ def _migrar_columnas_producto():
         ("autor", "VARCHAR(100)"),
         ("descripcion", "TEXT"),
         ("galeria", "TEXT"),
-        ("destacado", "BOOLEAN DEFAULT 0"),
+        ("destacado", "BOOLEAN DEFAULT FALSE"),
     ]:
         if columna in columnas:
             continue
