@@ -52,7 +52,7 @@ function LayoutPrincipal() {
               <Carrusel />
               <Animacion />
               <Nosotros />
-              <Categorias />
+              {/*<Categorias />*/}
             </>
           } />
 
