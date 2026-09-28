@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useCarrito } from '../context/CarritoContext';
 import { formatearPrecio } from '../utils/formatearPrecio';
 import { BACKEND_URL } from '../config';
@@ -15,6 +15,7 @@ export default function DetalleProducto() {
   
   const [cantidad, setCantidad] = useState(1);
   const [indiceImagen, setIndiceImagen] = useState(0); 
+  const [sugerencias, setSugerencias] = useState([]); // ⭐️ "Te podría interesar" 
   
   useEffect(() => {
     // 1. Buscamos los productos en tu base de datos real
@@ -24,6 +25,9 @@ export default function DetalleProducto() {
         // 2. Filtramos el producto exacto que estamos viendo (el ID de la URL es texto, el de la BD es número)
         const prod = datos.find((p) => p.id.toString() === id);
         setProducto(prod);
+        // 2b. "Te podría interesar": excluimos el producto actual y tomamos los primeros 3
+        const datosFiltrados = datos.filter((p) => p.id.toString() !== id);
+        setSugerencias(datosFiltrados.slice(0, 3));
         setCargando(false);
       })
       .catch(error => {
@@ -152,37 +156,23 @@ export default function DetalleProducto() {
       <div className="te-podria-interesar">
         <h2 className="te-podria-titulo">Te podría interesar</h2>
         <div className="te-podria-grilla">
-          
-          <div className="tarjeta-interes">
-            <div className="tarjeta-interes-img-container">
-              <img src="/img/objetos.jpg" alt="Objetos que quitan el frío" className="tarjeta-interes-img" />
+          {sugerencias.map((item) => (
+            <div className="tarjeta-interes" key={item.id}>
+              <Link
+                to={`/tienda/${item.id}`}
+                onClick={() => window.scrollTo(0, 0)}
+                className="tarjeta-interes-link"
+              >
+                <div className="tarjeta-interes-img-container">
+                  <img src={item.imagen} alt={item.titulo} className="tarjeta-interes-img" />
+                </div>
+                <div className="tarjeta-interes-info">
+                  <h3 className="tarjeta-interes-titulo">{item.titulo}</h3>
+                  {item.autor && <p className="tarjeta-interes-autor">{item.autor}</p>}
+                </div>
+              </Link>
             </div>
-            <div className="tarjeta-interes-info">
-              <h3 className="tarjeta-interes-titulo">Objetos que quitan el frío</h3>
-              <p className="tarjeta-interes-autor">Monserrat Mella</p>
-            </div>
-          </div>
-          
-          <div className="tarjeta-interes">
-            <div className="tarjeta-interes-img-container">
-              <img src="/img/sabanas.jpg" alt="Sábanas" className="tarjeta-interes-img" />
-            </div>
-            <div className="tarjeta-interes-info">
-              <h3 className="tarjeta-interes-titulo">Sábanas</h3>
-              <p className="tarjeta-interes-autor">Violeta Capasso</p>
-            </div>
-          </div>
-          
-          <div className="tarjeta-interes">
-            <div className="tarjeta-interes-img-container">
-              <img src="/img/domingo.fanzine.jpg" alt="Domingo" className="tarjeta-interes-img" />
-            </div>
-            <div className="tarjeta-interes-info">
-              <h3 className="tarjeta-interes-titulo">Domingo</h3>
-              <p className="tarjeta-interes-autor">Monserrat Mella</p>
-            </div>
-          </div>
-
+          ))}
         </div>
       </div>
 
