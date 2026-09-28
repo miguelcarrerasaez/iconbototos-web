@@ -140,17 +140,31 @@ def obtener_productos():
 def agregar_producto():
     try:
         datos = request.json
+        print("📥 Datos recibidos para crear producto:", datos, flush=True)
+
+        # Convertir a entero de forma segura, usando 0 si falla
+        try:
+            precio_int = int(datos.get('precio', 0))
+        except ValueError:
+            precio_int = 0
+            
+        try:
+            stock_int = int(datos.get('stock', 0))
+        except ValueError:
+            stock_int = 0
+
         nuevo_producto = Producto(
-            titulo=datos['titulo'],
-            precio=datos['precio'],
-            imagen=datos['imagen'],
+            titulo=datos.get('titulo', 'Sin título'),
+            precio=precio_int,
+            imagen=datos.get('imagen', ''),
             imagen_hover=datos.get('imagen_hover', ''),
-            stock=datos.get('stock', 0)
+            stock=stock_int
         )
         db.session.add(nuevo_producto)
         db.session.commit()
         return jsonify({"mensaje": "Producto agregado", "producto": nuevo_producto.to_dict()}), 201
     except Exception as e:
+        print(f"❌ Error al crear producto: {e}", flush=True)
         return jsonify({"error": str(e)}), 400
 
 # ACTUALIZAR PRODUCTO (Privado - Requiere Token)
