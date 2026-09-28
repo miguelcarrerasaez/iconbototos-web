@@ -44,14 +44,13 @@ export default function DetalleProducto() {
   
   // 3. Adaptamos las fotos reales al Carrusel
   const imagenesArray = [];
-  if (producto.imagen) imagenesArray.push(producto.imagen);
-  if (producto.imagen_hover) imagenesArray.push(producto.imagen_hover);
+  if (producto.imagen) imagenesArray.push(producto.imagen); // 1. Agrega la portada
+  if (producto.imagen_hover) imagenesArray.push(producto.imagen_hover); // 2. Agrega el hover (solo si existe)
   
-  // Carrusel: imágenes de portada + galería extra (si existe en el producto)
   if (producto.galeria && Array.isArray(producto.galeria)) {
-    imagenesArray.push(...producto.galeria);
+    imagenesArray.push(...producto.galeria); // 3. Agrega todas las de la galería extra
   }
-
+  
   // Lógica del Carrusel
   const irImagenAnterior = () => {
     setIndiceImagen(prev => (prev === 0 ? imagenesArray.length - 1 : prev - 1));
