@@ -77,6 +77,7 @@ class Producto(db.Model):
     autor = db.Column(db.String(100), nullable=True)
     descripcion = db.Column(db.Text, nullable=True)
     galeria = db.Column(db.Text, nullable=True) # JSON con URLs de ImgBB
+    destacado = db.Column(db.Boolean, default=False) # ⭐️ Producto destacado (carrusel del Home)
 
     def to_dict(self):
         return {
@@ -89,7 +90,8 @@ class Producto(db.Model):
             "categoria": self.categoria,
             "autor": self.autor,
             "descripcion": self.descripcion,
-            "galeria": _parsear_galeria(self.galeria)
+            "galeria": _parsear_galeria(self.galeria),
+            "destacado": self.destacado
         }
 
 # ==========================================
@@ -114,6 +116,7 @@ def _migrar_columnas_producto():
         ("autor", "VARCHAR(100)"),
         ("descripcion", "TEXT"),
         ("galeria", "TEXT"),
+        ("destacado", "BOOLEAN DEFAULT 0"),
     ]:
         if columna in columnas:
             continue
@@ -181,7 +184,8 @@ def agregar_producto():
             categoria=datos.get('categoria'),
             autor=datos.get('autor'),
             descripcion=datos.get('descripcion'),
-            galeria=galeria_json
+            galeria=galeria_json,
+            destacado=bool(datos.get('destacado', False)) # ⭐️ Carrusel del Home
         )
         db.session.add(nuevo_producto)
         db.session.commit()
@@ -211,6 +215,10 @@ def actualizar_producto(id):
     producto.autor = datos.get('autor', producto.autor)
     producto.descripcion = datos.get('descripcion', producto.descripcion)
     
+    # ⭐️ Producto destacado (carrusel del Home)
+    if 'destacado' in datos:
+        producto.destacado = bool(datos.get('destacado', False))
+
     # Si viene galería nueva, la guardamos
     if 'galeria' in datos:
         galeria_urls = datos.get('galeria')

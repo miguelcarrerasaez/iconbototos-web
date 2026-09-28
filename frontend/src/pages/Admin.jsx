@@ -31,6 +31,7 @@ function Admin() {
   const [categoria, setCategoria] = useState('');
   const [autor, setAutor] = useState('');
   const [descripcion, setDescripcion] = useState('');
+  const [destacado, setDestacado] = useState(false); // ⭐️ Producto destacado (carrusel del Home)
   
   const [idEdicion, setIdEdicion] = useState(null);
 
@@ -168,7 +169,8 @@ function Admin() {
       categoria,
       autor,
       descripcion,
-      galeria // Enviamos el arreglo de URLs directamente
+      galeria, // Enviamos el arreglo de URLs directamente
+      destacado // ⭐️ El admin decide si va al carrusel del Home
     };
 
     try {
@@ -186,7 +188,7 @@ function Admin() {
       if (respuesta.ok) {
         setTitulo(''); setPrecio(''); setStock(''); setImagen(''); 
         setImagenHover(''); setGaleria([]); setCategoria(''); 
-        setAutor(''); setDescripcion(''); setIdEdicion(null);
+        setAutor(''); setDescripcion(''); setDestacado(false); setIdEdicion(null);
         cargarProductos();
         alert(idEdicion ? "Lámina actualizada" : "Lámina creada");
       } else {
@@ -206,6 +208,7 @@ function Admin() {
     setCategoria(producto.categoria || '');
     setAutor(producto.autor || '');
     setDescripcion(producto.descripcion || ''); 
+    setDestacado(producto.destacado || false); // ⭐️ Cargamos si estaba destacado
     // Aseguramos que la galería sea un arreglo visualizable
     setGaleria(Array.isArray(producto.galeria) ? producto.galeria : (typeof producto.galeria === 'string' ? JSON.parse(producto.galeria || '[]') : []));
     setIdEdicion(producto.id);
@@ -276,6 +279,17 @@ function Admin() {
                         <input type="number" placeholder="Stock" value={stock} onChange={(e) => setStock(e.target.value)} required style={{ padding: '10px', border: '2px solid #111', width: '100%', boxSizing: 'border-box' }} />
                       </div>
 
+                      {/* ⭐️ Producto Destacado: el admin elige si aparece en el carrusel del Home */}
+                      <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 'bold', cursor: 'pointer', fontSize: '14px', marginTop: '10px', padding: '10px 12px', border: '2px solid #ff48b0', backgroundColor: '#fff0f8', width: '100%', boxSizing: 'border-box' }}>
+                        <input
+                          type="checkbox"
+                          checked={destacado}
+                          onChange={(e) => setDestacado(e.target.checked)}
+                          style={{ width: '18px', height: '18px', accentColor: '#ff48b0', cursor: 'pointer' }}
+                        />
+                        ⭐️ Mostrar este producto en el Carrusel de Inicio
+                      </label>
+
                       <div className="admin-row-inputs">
                         <input type="text" placeholder="Categoría (Ej: Fanzine, Print...)" value={categoria} onChange={(e) => setCategoria(e.target.value)} style={{ padding: '10px', border: '2px solid #111', width: '100%', boxSizing: 'border-box' }} />
                         <input type="text" placeholder="Autor" value={autor} onChange={(e) => setAutor(e.target.value)} style={{ padding: '10px', border: '2px solid #111', width: '100%', boxSizing: 'border-box' }} />
@@ -327,7 +341,7 @@ function Admin() {
                       {idEdicion ? 'Actualizar Producto' : 'Guardar Nuevo Producto'}
                     </button>
                     {idEdicion && (
-                      <button type="button" onClick={() => {setIdEdicion(null); setTitulo(''); setPrecio(''); setStock(''); setImagen(''); setImagenHover(''); setGaleria([]); setCategoria(''); setAutor(''); setDescripcion('');}} style={{ padding: '12px 20px', backgroundColor: '#ccc', border: '3px solid #111', cursor: 'pointer', fontWeight: 'bold' }}>
+                      <button type="button" onClick={() => {setIdEdicion(null); setTitulo(''); setPrecio(''); setStock(''); setImagen(''); setImagenHover(''); setGaleria([]); setCategoria(''); setAutor(''); setDescripcion(''); setDestacado(false);}} style={{ padding: '12px 20px', backgroundColor: '#ccc', border: '3px solid #111', cursor: 'pointer', fontWeight: 'bold' }}>
                           Cancelar Edición
                       </button>
                     )}

@@ -1,24 +1,34 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useCarrito } from '../context/CarritoContext';
-import { productos as productosData } from '../data/productos';
+import { BACKEND_URL } from '../config';
 import './Carrusel.css';
 
 export default function Carrusel() {
   const { agregarAlCarrito } = useCarrito();
 
-  // Usamos productos COMPLETOS (con precio/stock) para que funcionen en el carrito.
-  const idsCarrusel = ["6", "3", "1"];
-  const productos = idsCarrusel
-    .map(id => productosData.find(p => p.id === id))
-    .filter(Boolean)
-    .map(p => ({ ...p, imagen: p.imagenes[0] }));
+  // ⭐️ Productos DESTACADOS: los elige el admin con el checkbox del panel.
+  // En lugar de tomar los últimos 3, filtramos los que tienen destacado === true.
+  const [destacados, setDestacados] = useState([]);
+
+  useEffect(() => {
+    fetch(`${BACKEND_URL}/api/productos`)
+      .then((respuesta) => respuesta.json())
+      .then((datos) => {
+        const lista = Array.isArray(datos) ? datos : [];
+        const soloDestacados = lista.filter((p) => p.destacado === true);
+        // Si el admin aún no marcó ninguno, mostramos todos para no dejar la sección vacía
+        setDestacados(soloDestacados.length > 0 ? soloDestacados : lista);
+      })
+      .catch((error) => console.error('Error cargando destacados:', error));
+  }, []);
 
   return (
     <section className="carrusel-seccion">
       <Link to="/tienda" className="carrusel-ver-mas">Ver más</Link>
 
       <div className="carrusel-contenedor">
-        {productos.map(producto => (
+        {destacados.map(producto => (
           <div key={producto.id} className="carrusel-card">
             
             <div className="carrusel-imagen-wrapper">
