@@ -157,21 +157,22 @@ export default function DetalleProducto() {
         <h2 className="te-podria-titulo">Te podría interesar</h2>
         <div className="te-podria-grilla">
           {sugerencias.map((item) => (
-            <div className="tarjeta-interes" key={item.id}>
-              <Link
-                to={`/tienda/${item.id}`}
-                onClick={() => window.scrollTo(0, 0)}
-                className="tarjeta-interes-link"
-              >
-                <div className="tarjeta-interes-img-container">
-                  <img src={item.imagen} alt={item.titulo} className="tarjeta-interes-img" />
-                </div>
-                <div className="tarjeta-interes-info">
-                  <h3 className="tarjeta-interes-titulo">{item.titulo}</h3>
-                  {item.autor && <p className="tarjeta-interes-autor">{item.autor}</p>}
-                </div>
-              </Link>
-            </div>
+            /* Convertimos toda la tarjeta en un Link y forzamos display block */
+            <Link 
+              key={item.id}
+              to={`/tienda/${item.id}`} 
+              className="tarjeta-interes" 
+              onClick={() => window.scrollTo(0, 0)}
+              style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+            >
+              <div className="tarjeta-interes-img-container">
+                <img src={item.imagen} alt={item.titulo} className="tarjeta-interes-img" />
+              </div>
+              <div className="tarjeta-interes-info">
+                <h3 className="tarjeta-interes-titulo">{item.titulo}</h3>
+                <p className="tarjeta-interes-autor">{item.autor || 'Iconbototos'}</p>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
