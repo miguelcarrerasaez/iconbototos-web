@@ -92,7 +92,9 @@ export default function Imprimir() {
       <section className="seccion-cta">
         <div className="imprimir-container cta-container">
           <h2>¿Tienes algún proyecto en mente?<br/>¡Imprimamos juntos!</h2>
-          <button className="btn-magenta">Contáctanos</button>
+          <Link to="/contacto" className="btn-magenta" onClick={() => window.scrollTo(0, 0)}>
+            Contáctanos
+          </Link>
         </div>
       </section>
 
