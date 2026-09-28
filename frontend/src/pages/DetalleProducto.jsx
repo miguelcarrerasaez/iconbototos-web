@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { productos } from '../data/productos';
 import { useCarrito } from '../context/CarritoContext';
 import { formatearPrecio } from '../utils/formatearPrecio';
 import '../components/DetalleProducto.css';
@@ -9,28 +8,52 @@ export default function DetalleProducto() {
   const { id } = useParams();
   const { agregarAlCarrito } = useCarrito();
   
-  // Estados para controlar el componente
-  const [cantidad, setCantidad] = useState(1);
-  const [indiceImagen, setIndiceImagen] = useState(0); // Controla qué foto del carrusel se ve
+  // Estados para controlar los datos desde Render
+  const [producto, setProducto] = useState(null);
+  const [cargando, setCargando] = useState(true);
   
-  const producto = productos.find((p) => p.id === id);
+  const [cantidad, setCantidad] = useState(1);
+  const [indiceImagen, setIndiceImagen] = useState(0); 
+  
+  useEffect(() => {
+    // 1. Buscamos los productos en tu base de datos real
+    fetch('https://iconbototos-api.onrender.com/api/productos')
+      .then(res => res.json())
+      .then(datos => {
+        // 2. Filtramos el producto exacto que estamos viendo (el ID de la URL es texto, el de la BD es número)
+        const prod = datos.find((p) => p.id.toString() === id);
+        setProducto(prod);
+        setCargando(false);
+      })
+      .catch(error => {
+        console.error("Error cargando el producto:", error);
+        setCargando(false);
+      });
+  }, [id]);
 
-  // NUEVO: Si el producto no se encuentra, mostramos un mensaje en vez de romper la web
+  // Pantalla de carga
+  if (cargando) {
+    return <div style={{ textAlign: "center", padding: "100px" }}><h2>Cargando lámina...</h2></div>;
+  }
+
+  // Si alguien pone una URL inventada
   if (!producto) {
     return <div style={{ textAlign: "center", padding: "100px" }}><h2>Producto no encontrado</h2></div>;
   }
   
+  // 3. Adaptamos las fotos reales al Carrusel
+  const imagenesArray = [];
+  if (producto.imagen) imagenesArray.push(producto.imagen);
+  if (producto.imagen_hover) imagenesArray.push(producto.imagen_hover);
+  
   // Lógica del Carrusel
   const irImagenAnterior = () => {
-    setIndiceImagen(prev => (prev === 0 ? producto.imagenes.length - 1 : prev - 1));
+    setIndiceImagen(prev => (prev === 0 ? imagenesArray.length - 1 : prev - 1));
   };
 
   const irImagenSiguiente = () => {
-    setIndiceImagen(prev => (prev === producto.imagenes.length - 1 ? 0 : prev + 1));
+    setIndiceImagen(prev => (prev === imagenesArray.length - 1 ? 0 : prev + 1));
   };
-
-  // Convertimos el texto "Dato / Dato / Dato" en una lista hacia abajo
-  const lineasFichaTecnica = producto.descripcion.fichaTecnica ? producto.descripcion.fichaTecnica.split(' / ') : [];
 
   return (
     <div className="detalle-layout">
@@ -40,31 +63,36 @@ export default function DetalleProducto() {
         {/* Izquierda: Carrusel */}
         <div className="detalle-carrusel">
           <div className="carrusel-imagen-contenedor">
-            {/* Flecha Izquierda */}
-            <button className="carrusel-flecha izquierda" onClick={irImagenAnterior}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#121212" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-            </button>
+            {/* Solo mostramos flechas si hay más de 1 imagen */}
+            {imagenesArray.length > 1 && (
+              <button className="carrusel-flecha izquierda" onClick={irImagenAnterior}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#121212" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+            )}
             
             {/* Imagen Dinámica (lee el índice actual) */}
-            <img src={producto.imagenes[indiceImagen]} alt={producto.titulo} className="carrusel-imagen-principal" />
+            <img src={imagenesArray[indiceImagen]} alt={producto.titulo} className="carrusel-imagen-principal" />
             
-            {/* Flecha Derecha */}
-            <button className="carrusel-flecha derecha" onClick={irImagenSiguiente}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#121212" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
+            {imagenesArray.length > 1 && (
+              <button className="carrusel-flecha derecha" onClick={irImagenSiguiente}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#121212" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            )}
           </div>
           
           {/* Puntos de paginación dinámicos */}
-          <div className="carrusel-paginacion">
-            {producto.imagenes.map((_, index) => (
-              <span 
-                key={index} 
-                className={`punto ${index === indiceImagen ? 'activo' : ''}`}
-                onClick={() => setIndiceImagen(index)}
-                style={{ cursor: 'pointer' }}
-              ></span>
-            ))}
-          </div>
+          {imagenesArray.length > 1 && (
+            <div className="carrusel-paginacion">
+              {imagenesArray.map((_, index) => (
+                <span 
+                  key={index} 
+                  className={`punto ${index === indiceImagen ? 'activo' : ''}`}
+                  onClick={() => setIndiceImagen(index)}
+                  style={{ cursor: 'pointer' }}
+                ></span>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Derecha: Info */}
@@ -72,8 +100,8 @@ export default function DetalleProducto() {
           <h1 className="detalle-titulo">{producto.titulo}</h1>
           
           <div className="detalle-etiquetas">
-            <span className="badge-gris">{producto.categoria}</span>
-            <span className="badge-gris">{producto.autor}</span>
+            {producto.categoria && <span className="badge-gris">{producto.categoria}</span>}
+            {producto.autor && <span className="badge-gris">{producto.autor}</span>}
           </div>
 
           <div className="detalle-precio">{formatearPrecio(producto.precio)}</div>
@@ -84,7 +112,7 @@ export default function DetalleProducto() {
               <span>{cantidad}</span>
               <span style={{cursor: 'pointer'}} onClick={() => setCantidad(cantidad + 1)}>+</span>
             </div>
-            {/* Botón conectado al carrito global (Context) */}
+            {/* Botón conectado al carrito global */}
             <button 
               className="btn-agregar-negro" 
               onClick={() => agregarAlCarrito(producto, cantidad)}
@@ -94,23 +122,15 @@ export default function DetalleProducto() {
             </button>
           </div>
 
-          {/* INDICADOR DE STOCK DINÁMICO CON ÍCONOS PERSONALIZADOS */}
+          {/* INDICADOR DE STOCK DINÁMICO */}
           {producto.stock > 0 ? (
             <div className="detalle-stock">
-              <img 
-                src="/img/ícono_carita.stock.svg" 
-                alt="Ícono en stock" 
-                style={{ width: '24px', height: '24px', objectFit: 'contain' }} 
-              />
+              <img src="/img/ícono_carita.stock.svg" alt="Ícono en stock" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
               En stock
             </div>
           ) : (
             <div className="detalle-stock sin-stock">
-              <img 
-                src="/img/ícono_carita.Nostock.svg" 
-                alt="Ícono sin stock" 
-                style={{ width: '24px', height: '24px', objectFit: 'contain' }} 
-              />
+              <img src="/img/ícono_carita.Nostock.svg" alt="Ícono sin stock" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
               Sin stock
             </div>
           )}
@@ -118,20 +138,9 @@ export default function DetalleProducto() {
       </div>
 
       {/* SECCIÓN 2: DESCRIPCIÓN */}
-      <div className="detalle-descripcion">
-        <p>{producto.descripcion.sinopsis}</p>
-        
-        {producto.descripcion.bio && (
-          <p>{producto.descripcion.bio}</p>
-        )}
-        
-        {lineasFichaTecnica.length > 0 && (
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {lineasFichaTecnica.map((linea, index) => (
-              <span key={index}>{linea}</span>
-            ))}
-          </div>
-        )}
+      {/* Usamos white-space pre-wrap para que respete los "enters" del panel de administración */}
+      <div className="detalle-descripcion" style={{ whiteSpace: 'pre-wrap', lineHeight: '1.6' }}>
+        <p>{producto.descripcion || 'Sin descripción disponible.'}</p>
       </div>
 
       {/* SECCIÓN 3: TE PODRÍA INTERESAR */}
