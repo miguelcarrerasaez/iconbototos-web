@@ -156,7 +156,8 @@ def login():
 
 @app.route('/api/productos', methods=['GET'])
 def obtener_productos():
-    productos_db = Producto.query.all()
+    # El order_by(Producto.id.asc()) fuerza a la base de datos a ordenar siempre del 1 en adelante
+    productos_db = Producto.query.order_by(Producto.id.asc()).all()
     return jsonify([p.to_dict() for p in productos_db])
 
 @app.route('/api/productos', methods=['POST'])
